@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('language',['English','Sinhala','Tamil']);
             $table->enum('CreatorState',['Draft','Submitted','Approved']);
             $table->enum('ModeratorState',['Draft','Published']);
+            $table->unsignedBigInteger('CreatorID');
+            $table->unsignedBigInteger('ModeratorID');
             $table->foreign("CreatorID")->references('id')->on('users');
             $table->foreign("ModeratorID")->references('id')->on('users');
             $table->timestamps();

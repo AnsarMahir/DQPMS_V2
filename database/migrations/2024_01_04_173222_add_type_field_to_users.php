@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('answer', function (Blueprint $table) {
-            $table->id('A_id');
-            $table->string('description');
-            $table->unsignedBigInteger('question_id');
-            $table->unsignedBigInteger('reference');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('type',['ADMIN','STUDENT','CREATOR','MODERATOR']);
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('answer');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('type');
+        });
     }
 };

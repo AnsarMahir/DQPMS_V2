@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('question', function (Blueprint $table) {
-            $table->id("Q_id");
-            $table->string('description');
-            $table->enum('type',['MCQ','ShortAnswer']);
-            $table->enum('nature',['IQ','GK','MATH','OTHER']);
+        Schema::table('question', function (Blueprint $table) {
             $table->foreign('referenceid')->references('R_id')->on('reference');
             $table->foreign('correct_answer')->references('A_id')->on('answer');
             $table->foreign('pastpaper_reference')->references('P_id')->on('pastpaper');
-            $table->timestamps();
-
         });
     }
 
@@ -29,6 +23,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('question');
+        Schema::table('question', function (Blueprint $table) {
+            $table->dropForeign(['referenceid']);
+            $table->dropForeign(['correct_answer']);
+            $table->dropForeign(['pastpaper_reference']);
+            $table->dropColumn('referenceid');
+            $table->dropColumn('correct_answer');
+            $table->dropColumn('pastpaper_reference');
+            
+        });
     }
 };
