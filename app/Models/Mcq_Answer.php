@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Mcq_Answer extends Model
 {
     use HasFactory;
 
-    protected $table = 'question';
+    protected $table = 'mcq_answers';
 
     protected $fillable = [
+        'question_id',
+        'mcq_ans_id',
         'description',
-        'type',
-        'nature',
-        'referenceid',
-        'correct_answer',
-        'pastpaper_reference'
+        'reference'
     ];
 }
