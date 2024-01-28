@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Question>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sh_Question>
  */
-class QuestionFactory extends Factory
+class Sh_QuestionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,14 +16,13 @@ class QuestionFactory extends Factory
      */
     public function definition(): array
     {
-        $qtype=['MCQ','ShortAnswer'];
         $qnature=['IQ','GK','MATH','OTHER'];
         return [
             'description'=>fake()->paragraph(),
-            'type'=>fake()->randomElement($qtype),
             'nature'=>fake()->randomElement($qnature),
-            'referenceid'=>fake()->numberBetween(0,5),
+            'referenceid'=>fake()->randomNumber(),
             'correct_answer'=>fake()->numberBetween(0,5),
+            'pastpaper_reference'=>fake()->randomDigitNotZero()
         ];
     }
 }

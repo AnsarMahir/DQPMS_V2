@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reference>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sh_Answer>
  */
-class ReferencefactoryFactory extends Factory
+class Sh_AnswerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,10 @@ class ReferencefactoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'reference_HTML'=>fake()->randomHtml(),
+            'sh_ans_id'=>fake()->numberBetween(0,5),
+            'description'=>fake()->words(),
+            'reference'=>fake()->randomNumber(),
+            
         ];
     }
 }

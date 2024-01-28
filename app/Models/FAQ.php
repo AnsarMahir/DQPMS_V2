@@ -13,6 +13,6 @@ class FAQ extends Model
 
     protected $fillable = [
         'question',
-        'answer'
+        'answer',
     ];
 }

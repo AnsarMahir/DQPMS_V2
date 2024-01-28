@@ -14,6 +14,6 @@ class UpcomingExam extends Model
     protected $fillable = [
         'examination_name',
         'closing_date',
-        'exam_date'
+        'exam_date',
     ];
 }

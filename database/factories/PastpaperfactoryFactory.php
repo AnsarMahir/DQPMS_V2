@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\Pastpaper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PastpaperfactoryFactory extends Factory
 {
+    protected $model= Pastpaper::class;
     /**
      * Define the model's default state.
      *
