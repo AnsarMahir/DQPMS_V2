@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,12 +18,16 @@ class Sh_QuestionFactory extends Factory
     public function definition(): array
     {
         $qnature=['IQ','GK','MATH','OTHER'];
+        $reference = DB::table('reference')->pluck('R_id');
+        $pp_reference = DB::table('pastpaper')->pluck('P_id');
+
+        
         return [
             'description'=>fake()->paragraph(),
             'nature'=>fake()->randomElement($qnature),
-            'referenceid'=>fake()->randomNumber(),
+            'referenceid'=>fake()->randomElement($reference),
             'correct_answer'=>fake()->numberBetween(0,5),
-            'pastpaper_reference'=>fake()->randomDigitNotZero()
+            'pastpaper_reference'=>fake()->randomElement($pp_reference)
         ];
     }
 }

@@ -2,13 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Models\Mcq_Question;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Mcq_Question>
  */
-class Mcq_questionFactory extends Factory
+class Mcq_QuestionFactory extends Factory
 {
+    protected $model= Mcq_Question::class;
     /**
      * Define the model's default state.
      *
@@ -18,12 +21,15 @@ class Mcq_questionFactory extends Factory
     {
         
         $qnature=['IQ','GK','MATH','OTHER'];
+        $reference = DB::table('reference')->pluck('R_id');
+        $pp_reference = DB::table('pastpaper')->pluck('P_id');
+
         return [
             'description'=>fake()->paragraph(),
             'nature'=>fake()->randomElement($qnature),
-            'referenceid'=>fake()->randomNumber(),
-            'correct_answer'=>fake()->numberBetween(0,5),
-            'pastpaper_reference'=>fake()->randomDigitNotZero()
+            'referenceid'=>fake()->randomElement($reference),
+            'correct_answer'=>fake()->numberBetween(1,4),
+            'pastpaper_reference'=>fake()->randomElement($pp_reference)
         ];
     }
 }

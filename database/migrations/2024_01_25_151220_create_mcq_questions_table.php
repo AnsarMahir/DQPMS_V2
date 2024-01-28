@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mcq_questions', function (Blueprint $table) {
             $table->id('mcq_questions_id');
-            $table->string('description');
+            $table->text('description');
             $table->enum('nature',['IQ','GK','MATH','OTHER']);
             $table->unsignedBigInteger('referenceid');
             $table->unsignedBigInteger('correct_answer');

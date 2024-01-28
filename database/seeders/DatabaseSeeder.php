@@ -24,11 +24,12 @@ class DatabaseSeeder extends Seeder
         FAQ::factory(5)->create();
         UpcomingExam::factory(5)->create();
         Pastpaper::factory(10)->create();
+        Reference::factory(5)->create();
         Mcq_Question::factory(20)->create();
         Mcq_Answer::factory(20)->create();
-        Sh_Question::factory(20)->create();
+        Sh_Question::factory(22)->create();
         Sh_Answer::factory(20)->create();
-        Reference::factory(5)->create();
+        
 
 
 

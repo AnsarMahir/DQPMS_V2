@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UpcomingExam>
  */
-class UpcomingFactory extends Factory
+class UpcomingExamFactory extends Factory
 {
     protected $model = UpcomingExam::class;
     /**
@@ -22,7 +22,7 @@ class UpcomingFactory extends Factory
         return [
             'examination_name' => fake()->word(),
             'closing_date' => fake()->date(),
-            'exame_date' => fake()->date(),
+            'exam_date' => fake()->date(),
         ];
     }
 }

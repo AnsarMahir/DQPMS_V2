@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Sh_Answer;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class Sh_AnswerFactory extends Factory
 {
+    protected $model= Sh_Answer::class;
     /**
      * Define the model's default state.
      *
@@ -16,10 +19,14 @@ class Sh_AnswerFactory extends Factory
      */
     public function definition(): array
     {
+        $q_id = DB::table('mcq_questions')->pluck('mcq_questions_id');
+        $reference = DB::table('reference')->pluck('R_id');
+        
         return [
-            'sh_ans_id'=>fake()->numberBetween(0,5),
-            'description'=>fake()->words(),
-            'reference'=>fake()->randomNumber(),
+            'question_id'=>fake()->unique()->numberBetween(1,20),
+            'sh_ans_id'=>fake()->numberBetween(1,4),
+            'description'=>fake()->word(),
+            'reference'=>fake()->randomElement($reference),
             
         ];
     }

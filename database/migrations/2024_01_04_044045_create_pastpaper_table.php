@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pastpaper', function (Blueprint $table) {
             $table->id('P_id');
-            $table->string('name');
+            $table->string('name',100);
             $table->year("year");
             $table->enum('language',['English','Sinhala','Tamil']);
             $table->enum('CreatorState',['Draft','Submitted','Approved']);
