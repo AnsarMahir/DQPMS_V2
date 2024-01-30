@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sh_Question extends Model
 {
@@ -19,4 +20,9 @@ class Sh_Question extends Model
         'correct_answer',
         'pastpaper_reference'
     ];
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(Sh_Answer::class,'question_id','sh_questions_id');
+    }
 }
