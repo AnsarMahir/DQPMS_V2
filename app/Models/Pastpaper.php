@@ -12,6 +12,7 @@ class Pastpaper extends Model
     use HasFactory;
 
     protected $table = 'pastpaper';
+    protected $primaryKey = 'P_id';
 
     protected $fillable = [
         'name',
