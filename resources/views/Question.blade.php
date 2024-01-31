@@ -13,7 +13,7 @@
 
     <section class="p-5 mt-auto">
         <div class="container">
-
+            @foreach ($questions as $question)
             <div class="d-grid d-sm-block pb-3">
                 <button class="btn btn-primary ms-0 bgbody text-dark" type="button">00:00</button>
                 <button class="btn btn-primary ms-2 bgbody text-dark" type="button">Report this Question <i class="bi-flag mx-1"></i></button>
@@ -26,7 +26,7 @@
 
                         <div class="py-3 px-4">
                         <h4>Question 1 </h4>
-                        <p> One of the easiest question types is a multiple choice question, which has 1 correct answer and many wrong distractor answers.</p>
+                        <p> {{ $question }}</p>
                         </div>
 
                         <div class="px-4">
@@ -94,6 +94,7 @@
                 </div>
                 
             </div>
+            @endforeach
             
             <div class="row" style="margin-top: 2rem;">
                 <div class="col d-flex justify-content-center">

@@ -2,6 +2,7 @@
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\PastpaperController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,9 +42,8 @@ Route::get('/StudentHomepage',function(){
     return view('StudentHomepage');
 });
 
-Route::get('/Question',function(){
-    return view('Question');
-});
+Route::get('/Question',[QuestionController::class,'showit']);
+
 
 
 
