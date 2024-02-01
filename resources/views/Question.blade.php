@@ -10,10 +10,11 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-
+<?php $counter =0 ?>
     <section class="p-5 mt-auto">
         <div class="container">
             @foreach ($questions as $question)
+            <?php $counter++ ?>
             <div class="d-grid d-sm-block pb-3">
                 <button class="btn btn-primary ms-0 bgbody text-dark" type="button">00:00</button>
                 <button class="btn btn-primary ms-2 bgbody text-dark" type="button">Report this Question <i class="bi-flag mx-1"></i></button>
@@ -25,7 +26,7 @@
 
 
                         <div class="py-3 px-4">
-                        <h4>Question 1 </h4>
+                        <h4>Question {{$counter}} </h4>
                         <p> {{ $question }}</p>
                         </div>
 
