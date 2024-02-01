@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reference', function (Blueprint $table) {
             $table->id("R_id");
-            $table->string("reference_HTML");
+            $table->text("reference_HTML");
             $table->timestamps();
         });
     }
