@@ -10,11 +10,12 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-<?php $counter =0 ?>
+
     <section class="p-5 mt-auto">
         <div class="container">
+
             @foreach ($questions as $question)
-            <?php $counter++ ?>
+            
             <div class="d-grid d-sm-block pb-3">
                 <button class="btn btn-primary ms-0 bgbody text-dark" type="button">00:00</button>
                 <button class="btn btn-primary ms-2 bgbody text-dark" type="button">Report this Question <i class="bi-flag mx-1"></i></button>
@@ -26,8 +27,13 @@
 
 
                         <div class="py-3 px-4">
-                        <h4>Question {{$counter}} </h4>
-                        <p> {{ $question }}</p>
+                        <h4>Question @if (isset($_GET["page"]))
+                            {{$_GET["page"]}}  
+                        @else
+                            1
+                        @endif
+                      </h4>
+                        <p> {{ $question->description }}</p>
                         </div>
 
                         <div class="px-4">
@@ -99,13 +105,13 @@
             
             <div class="row" style="margin-top: 2rem;">
                 <div class="col d-flex justify-content-center">
-                    <ul class="pagination">
-                        <li class="page-item">
+                    {{-- <ul class="pagination"> --}}
+                        {{-- <li class="page-item">
                           <a class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                           </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        </li> --}}
+                        {{-- <li class="page-item"><a class="page-link" href="#">1</a></li>
                         <li class="page-item"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"><a class="page-link" href="#">4</a></li>
@@ -116,16 +122,19 @@
                         <li class="page-item"><a class="page-link" href="#">9</a></li>
                         <li class="page-item"><a class="page-link" href="#">10</a></li>
                         <li class="page-item">
+                            
                           <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                           </a>
                         </li>
-                    </ul>
+                    </ul> --}}
+                    
                 </div>
             </div>
             
             
         </div>
+        {{$questions->links()}}
     </section>
     
     
