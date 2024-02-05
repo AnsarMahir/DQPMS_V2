@@ -22,7 +22,6 @@ class PastpaperFactory extends Factory
         $moderatorState = ['Draft','Published'];
         $language = ['English','Sinhala','Tamil'];
         $questionType = ['MCQ','Short Answer'];
-        $time = ['00:15:00','00:30:00','00:10:00'];
         $creatorId = DB::table('users')->pluck('id');
         $moderatorId = DB::table('users')->pluck('id');
         

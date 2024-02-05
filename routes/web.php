@@ -51,6 +51,10 @@ Route::get('/StudentHomepage',function(){
 
 Route::get('/Question',[QuestionController::class,'showit']);
 
+Route::get('/PaperDetails',function(){
+    return view('PaperDetails');
+});
+
 
 
 

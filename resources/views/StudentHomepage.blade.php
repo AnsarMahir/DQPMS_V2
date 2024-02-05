@@ -84,7 +84,7 @@
                           </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <select class="form-select" id="language">
                                 <option selected disabled>Choose your Language</option>
@@ -93,6 +93,17 @@
                                 <option>Tamil</option>
                             </select>
                           </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select class="form-select" id="language">
+                                <option selected disabled>Choose number of Questions</option>
+                                <option>5</option>
+                                <option>10</option>
+                                <option>20</option>
+                            </select>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-lg btncolor col-xs mx-auto my-5 w-50">

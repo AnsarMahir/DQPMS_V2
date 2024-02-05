@@ -1,0 +1,31 @@
+body::before {
+    display: block;
+    content: '';
+    height: 60px;
+  }
+  
+  
+  @media(min-width: 768px){
+    .news-input{
+      width:50%;
+    }
+  }
+  
+  .pricolor{
+  color: #7041f5;
+  }
+  
+  .seccolor{
+    color:#0b036b;
+  }
+  
+  .btncolor{
+    background-color: #7041f5;
+  }
+  
+  .btn:hover{
+    background-color: #7041f5;
+  }
+    
+  
+  
