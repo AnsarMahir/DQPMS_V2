@@ -78,3 +78,8 @@ body::before{
   border-bottom: 1px solid #000000;
  }
 
+ .form-control::placeholder { 
+  color: black;
+  opacity: 1; 
+}
+

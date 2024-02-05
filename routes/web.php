@@ -34,13 +34,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/QuestionCreation/{pastpaper}',[PastpaperController::class,'show']);
+Route::get('/CreatorHomepage',function(){
+    return view('CreatorHomepage');
+});
 
-Route::post('/QuestionCreation' , [Pastpaper]);
+Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
+
+Route::post('/QuestionStore',[PastpaperController::class,'storeQuestions']);
+
+//Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 
 Route::get('/StudentHomepage',function(){
     return view('StudentHomepage');
 });
+
 
 Route::get('/Question',[QuestionController::class,'showit']);
 

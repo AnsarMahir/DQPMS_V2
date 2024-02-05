@@ -1,18 +1,17 @@
 <div class="row justify-content-center pb-4">
     <div class="col-lg-8 p-4 border shadow">
-            <form action="">
-
+            
                 <div class="d-flex justify-content-between align-items-center" style="column-gap: 1rem;">
                     <div class="d-flex flex-fill"> 
                         <input type="text" class="form-control rounded-0" placeholder="Enter the Question Here.." id="name">
                     </div>
                     <div class="d-flex align-items-center" style="column-gap: 1rem;">
-                        <div class="form-group" style="width: 6rem;">
+                        <div class="form-group" style="width:6rem;">
                             <select class="form-select" id="questionNature">
-                              <option>IQ</option>
-                              <option>GK</option>
-                              <option>Math</option>
-                              <option>Logic</option>
+                                <option>IQ</option>
+                                <option>GK</option>
+                                <option>Math</option>
+                                <option>Logic</option>
                             </select>
                           </div>
                           <button class="btn pb-3"><i class="bi-image fs-3"></i></button>
@@ -70,7 +69,7 @@
                 </div>
                 
 
-            </form>     
+       
                            
 
     </div>

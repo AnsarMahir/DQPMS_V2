@@ -32,7 +32,6 @@ class PastpaperFactory extends Factory
             'year'=>fake()->year(),
             'language'=>fake()->randomElement($language),
             'question_type'=>fake()->randomElement($questionType),
-            'time'=>fake()->randomElement($time),
             'no_of_questions'=>fake()->randomNumber(1),
             'CreatorState'=>fake()->randomElement($creatorState),
             'ModeratorState'=>fake()->randomElement($moderatorState),

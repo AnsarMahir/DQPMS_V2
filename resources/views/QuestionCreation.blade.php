@@ -1,11 +1,6 @@
 <?php
 
-$noOfQuestions = $pastpaper->no_of_questions;
-$questionArray = [];
-
-for($i=0; $i<$noOfQuestions; $i++){
-    $questionArray [$i] = $i + 1;
-};
+$i=0;
 
 
 ?>
@@ -51,27 +46,39 @@ for($i=0; $i<$noOfQuestions; $i++){
 
             <div class="row pb-4 justify-content-center">
                 <div class="col-lg-8 p-4 border shadow">
-                    <h3>{{$pastpaper->name}}</h3>
-                    <p> {{$pastpaper->year}} | {{$pastpaper->language}} | {{$pastpaper->question_type}} | {{$pastpaper->no_of_questions}} Questions | {{$pastpaper->time}} Mins</p>
+                    <h3>{{$pastpaper['examName']}}</h3>
+                    <p> {{$pastpaper['year']}} | {{$pastpaper['language']}} | {{$pastpaper['questionType']}} | {{$pastpaper['numberOfQuestions']}} Questions</p>
                 </div>
             </div>
 
-            @foreach ($questionArray as $Questions)
-                 <x-Create-MCQ-Question/>   
-                
-            @endforeach
-            
-            
+            <form action="/QuestionStore" method="POST">
+                @csrf
 
-            <div class="row justify-content-center">
-                <div class="col-lg-8 px-0">
-                    <div class="d-flex flex-row-reverse">
-                        <button class="btn btncolor ms-2  text-dark" type="button">Submit</button>
-                        <button class="btn  ms-0  text-dark" type="button">Save as Draft</button>                        
-                    </div>
+                @foreach ($pastpaper as $data)
+
+                <input type="hidden" value="{{$data}}" name="pastpaperData[]">
                     
+                @endforeach
+
+                @while ($i<$pastpaper['numberOfQuestions'])
+
+                <x-Create-MCQ-Question/>
+                <div class="d-none">{{$i++}}</div>
+                    
+                @endwhile           
+                
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 px-0">
+                        <div class="d-flex flex-row-reverse">
+                            <button class="btn btncolor ms-2  text-dark" type="submit">Submit</button>
+                            <button class="btn  ms-0  text-dark" type="button">Save as Draft</button>                        
+                        </div>
+                        
+                    </div>
                 </div>
-            </div>
+
+            </form>     
 
         </div>
     </section>

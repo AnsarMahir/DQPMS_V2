@@ -9,18 +9,27 @@ use Illuminate\Http\Request;
 class PastpaperController extends Controller
 {
     //
-    public function show(Pastpaper $pastpaper)
+    public function show()
     {
-        // $pastpaper =[
-        //     'name' => 'Sri Lanka Accounting Examination',
-        //     'year' => '2018',
-        //     'language' => 'English',
-        //     'paperType' => 'MCQ',
-        //     'no_of_questions' => '10',
-        //     'time' => '30'
-        // ];
-        return view('QuestionCreation',[
-            'pastpaper' => $pastpaper
-        ]);
+        return view('QuestionCreation');
     }
+
+    public function validateHomepageRequest(Request $request){
+        $formFields = $request->validate([
+            "examName"=>'required',
+            "questionType"=>"required",
+            "year"=>"required|integer|between:1990,2099",
+            "language"=>"required",
+            "numberOfQuestions"=>"required",
+
+        ]);
+
+        return view('QuestionCreation',[
+            'pastpaper' => $formFields]);
+
+    }
+
+    public function storeQuestions(Request $request){
+        dd($request['pastpaperData']);
+    }   
 }

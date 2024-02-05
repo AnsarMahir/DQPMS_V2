@@ -22,7 +22,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mb-4 shadow-lg rounded border border-3 bgbody">
-
+                        @if (@isset($record))            
+                        
+                            
+                        @else
+                            
+                        @endif
 
                         <div class="py-3 px-4">
                         <h4>Question 1 </h4>
