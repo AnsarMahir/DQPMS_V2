@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name',100);
             $table->year("year");
             $table->enum('language',['English','Sinhala','Tamil']);
+            $table->enum('question_type',['MCQ','Short Answer']);
+            $table->integer('no_of_questions');
             $table->enum('CreatorState',['Draft','Submitted','Approved']);
             $table->enum('ModeratorState',['Draft','Published']);
             $table->unsignedBigInteger('CreatorID');

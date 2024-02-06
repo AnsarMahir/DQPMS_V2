@@ -19,12 +19,17 @@
             <div class="d-grid d-sm-block pb-3">
                 <button class="btn btn-primary ms-0 bgbody text-dark" type="button">00:00</button>
                 <button class="btn btn-primary ms-2 bgbody text-dark" type="button">Report this Question <i class="bi-flag mx-1"></i></button>
-              </div>
+            </div>
             
             <div class="row">
                 <div class="col-12">
                     <div class="mb-4 shadow-lg rounded border border-3 bgbody">
-
+                        @if (@isset($record))            
+                        
+                            
+                        @else
+                            
+                        @endif
 
                         <div class="py-3 px-4">
                         <h4>Question @if (isset($_GET["page"]))

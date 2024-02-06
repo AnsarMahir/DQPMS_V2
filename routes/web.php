@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\PastpaperController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -33,15 +34,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/QuestionCreation',function(){
-    return view('QuestionCreation');
+Route::get('/CreatorHomepage',function(){
+    return view('CreatorHomepage');
 });
+
+Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
+
+Route::post('/QuestionStore',[PastpaperController::class,'storeQuestions']);
+
+//Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 
 Route::get('/StudentHomepage',function(){
     return view('StudentHomepage');
 });
 
+
 Route::get('/Question',[QuestionController::class,'showit']);
+
+Route::get('/PaperDetails',function(){
+    return view('PaperDetails');
+});
 
 
 

@@ -1,8 +1,5 @@
 <?php
 
-$i=0;
-
-
 ?>
 
 <!DOCTYPE html>
@@ -43,42 +40,35 @@ $i=0;
 
     <section class="p-5">
         <div class="container">
-
-            <div class="row pb-4 justify-content-center">
-                <div class="col-lg-8 p-4 border shadow">
-                    <h3>{{$pastpaper['examName']}}</h3>
-                    <p> {{$pastpaper['year']}} | {{$pastpaper['language']}} | {{$pastpaper['questionType']}} | {{$pastpaper['numberOfQuestions']}} Questions</p>
+                <div class="d-flex align-items-center justify-content-center p-5">
+                    <div class="border align-items-center justify-content-center shadow bg-white rounded w-50 p-3 h-50 rounded border-2 border-top-2"
+                      style="background-color: rgb(255, 255, 255);border-color: #7041f5 !important;">
+                      <div>
+                        <span class="h3 fw-bolder family seccolor" 
+                          >1.Introduction to Computer - 01<br /></span
+                        ><span class="h6 pricolor family" 
+                          >Classified Papers | English | MCQ<br /><br /><br /></span
+                        ><span
+                          class="fs-5 pricolor family "
+                          >No Attempt(s) |5 MCQ | 12 Mins<br /><br /><br /></span
+                        ><span class=" pb-4 seccolor fs-3 fw-bolder text-decoration-underline family"
+                          
+                          >Instructions<br /></span
+                        ><span class="seccolor fs-4 family fw-normal "
+                          ><br /></span
+                        ><span class="seccolor family fw-normal"
+                          style="
+                            font-size: 21px;
+                          "
+                          >Answer all questions.<br />In each of the questions, pick one of
+                          the alternatives from (1), (2), (3), (4), (5) which is correct or
+                          most appropriate.</span
+                        >
+                      </div>
+                      <div class="d-grid gap-2 col-lg-6 mx-auto p-4">
+                          <button class="btn btncolor text-light" type="button"><h5>Attempt Paper</h5></button>
+                          </div>
                 </div>
-            </div>
-
-            <form action="/QuestionStore" method="POST">
-                @csrf
-
-                @foreach ($pastpaper as $data)
-
-                <input type="hidden" value="{{$data}}" name="pastpaperData[]">
-                    
-                @endforeach
-
-                @while ($i<$pastpaper['numberOfQuestions'])
-
-                <x-Create-MCQ-Question/>
-                <div class="d-none">{{$i++}}</div>
-                    
-                @endwhile           
-                
-
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 px-0">
-                        <div class="d-flex flex-row-reverse">
-                            <button class="btn btncolor ms-2  text-dark" type="submit">Submit</button>
-                            <button class="btn  ms-0  text-dark" type="button">Save as Draft</button>                        
-                        </div>
-                        
-                    </div>
-                </div>
-
-            </form>     
 
         </div>
     </section>
