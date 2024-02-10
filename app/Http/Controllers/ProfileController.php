@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Pastpaper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +57,18 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    public function processForm(Request $request)
+    {
+        // Retrieve submitted data
+        $selectedValues = $request->only(['examname', 'questiontype', 'qnature', 'lang', 'noofq']);
+        $selectedValues['user_id'] = Auth::id();
+        //$selectedValues['examname'] = PastPaper::select('name')->where('P_id',$selectedValues['examid'])->pluck('name')->implode(' ');
+        // $selectedValues['papername'] = DB::table(Pastpaper)
+        // ->where('P_id',$selectedValues['nameofexam'])
+        // ->get();
+        // Redirect to paperdetails page with the submitted data
+
+        return view('PaperDetails')->with('selectedValues', $selectedValues);
     }
 }

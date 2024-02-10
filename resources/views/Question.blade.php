@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,7 +143,7 @@
             
             
         </div>
-        {{$questions->links()}}
+        {{$questions->links()}} 
     </section>
     
     

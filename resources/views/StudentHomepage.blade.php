@@ -50,14 +50,15 @@
             
             <div class="px-5 justify-content-center">
 
-                <form class="row g-3 col-lg-6 mx-auto mt-0"> 
-                    
+                <form action="/process-form" method="POST" class="row g-3 col-lg-6 mx-auto mt-0"> 
+                    @csrf
                     <div class="col-12 m-0">
                         <div class="form-group">
-                            <select class="form-select" id="questionType">
+                            <select class="form-select" id="questionType" name="examname">
                                 <option selected disabled>Examination Name</option>
-                                <option>Sri Lanka Administration Service</option>
-                                <option>Sri Lanka Ports and Authorities</option>
+                                @foreach($examname as $name)
+                                <option value="{{ $name }}">{{ $name }}</option>
+                                @endforeach
                             </select>
                           </div>                        
                     </div>
@@ -65,43 +66,42 @@
                 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select class="form-select" id="questionType">
+                            <select class="form-select" id="questionType" name="questiontype">
                                 <option selected disabled>Choose your question type</option>
-                                <option>MCQ</option>
-                                <option>Short Answers</option>
+                                <option value="MCQ">MCQ</option>
+                                <option value="ShortAnswer">Short Answers</option>
                             </select>
                           </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select class="form-select" id="questionNature">
+                            <select class="form-select" id="questionNature" name="qnature">
                                 <option selected disabled>Choose your question nature</option>
-                                <option>IQ</option>
-                                <option>GK</option>
-                                <option>Math</option>
-                                <option>Logic</option>
+                                @foreach($natures as $nature)
+                                <option value="{{ $nature }}">{{ $nature }}</option>
+                                @endforeach
                             </select>
                           </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select class="form-select" id="language">
+                            <select class="form-select" id="language" name="lang">
                                 <option selected disabled>Choose your Language</option>
-                                <option>English</option>
-                                <option>Sinhala</option>
-                                <option>Tamil</option>
+                                @foreach($languages as $language)
+                                <option value="{{ $language }}">{{ $language }}</option>
+                                @endforeach
                             </select>
                           </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select class="form-select" id="language">
+                            <select class="form-select" id="language" name="noofq">
                                 <option selected disabled>Choose number of Questions</option>
-                                <option>5</option>
-                                <option>10</option>
-                                <option>20</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
                             </select>
                         </div>
                     </div>

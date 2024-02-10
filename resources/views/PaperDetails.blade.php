@@ -45,12 +45,12 @@
                       style="background-color: rgb(255, 255, 255);border-color: #7041f5 !important;">
                       <div>
                         <span class="h3 fw-bolder family seccolor" 
-                          >1.Introduction to Computer - 01<br /></span
+                          > {{$selectedValues["examname"]}} <br /></span
                         ><span class="h6 pricolor family" 
-                          >Classified Papers | English | MCQ<br /><br /><br /></span
+                          > {{$selectedValues["lang"]}} | {{$selectedValues["questiontype"]}}<br /><br /><br /></span
                         ><span
                           class="fs-5 pricolor family "
-                          >No Attempt(s) |5 MCQ | 12 Mins<br /><br /><br /></span
+                          > |{{$selectedValues["noofq"]}} MCQ | 12 Mins<br /><br /><br /></span
                         ><span class=" pb-4 seccolor fs-3 fw-bolder text-decoration-underline family"
                           
                           >Instructions<br /></span
@@ -65,9 +65,15 @@
                           most appropriate.</span
                         >
                       </div>
+                      <form action="/Question" method="GET">
                       <div class="d-grid gap-2 col-lg-6 mx-auto p-4">
-                          <button class="btn btncolor text-light" type="button"><h5>Attempt Paper</h5></button>
+                        @csrf
+                        @foreach($selectedValues as $key => $value)
+                        <input type="hidden" name="selectedValues[{{ $key }}]" value="{{ $value }}">
+                        @endforeach
+                          <button class="btn btncolor text-light" type="submit"><h5>Attempt Paper</h5></button>
                           </div>
+                        </form>
                 </div>
 
         </div>

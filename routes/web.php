@@ -44,18 +44,21 @@ Route::post('/QuestionStore',[PastpaperController::class,'storeQuestions']);
 
 //Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 
-Route::get('/StudentHomepage',function(){
-    return view('StudentHomepage');
-});
+Route::get('/Student',[PastpaperController::class,'showForm']
+)
+->middleware(['auth','verified']);
 
 
-Route::get('/Question',[QuestionController::class,'showit']);
+Route::GET('/Question',[QuestionController::class,'fetchQuestions'])
+->middleware(['auth','verified']);
 
 Route::get('/PaperDetails',function(){
     return view('PaperDetails');
-});
+})
+->middleware(['auth','verified']);
 
-
+Route::post('/process-form', [ProfileController::class, 'processForm']);
+Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 
 
 require __DIR__.'/auth.php';
