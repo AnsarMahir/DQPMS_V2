@@ -40,7 +40,7 @@ Route::get('/CreatorHomepage',function(){
 
 Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
 
-Route::post('/QuestionStore',[PastpaperController::class,'storeQuestions']);
+Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuestions']);
 
 //Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 

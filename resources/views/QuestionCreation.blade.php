@@ -2,7 +2,6 @@
 
 $i=0;
 
-
 ?>
 
 <!DOCTYPE html>
@@ -54,15 +53,19 @@ $i=0;
             <form action="/QuestionStore" method="POST">
                 @csrf
 
+                {{-- Get Pastpaper Data into controller --}}
                 @foreach ($pastpaper as $data)
 
                 <input type="hidden" value="{{$data}}" name="pastpaperData[]">
                     
                 @endforeach
 
+                
+                {{-- Get Questions into Controller --}}
                 @while ($i<$pastpaper['numberOfQuestions'])
 
-                <x-Create-MCQ-Question/>
+                <x-Create-MCQ-Question :i="$i"/>
+
                 <div class="d-none">{{$i++}}</div>
                     
                 @endwhile           

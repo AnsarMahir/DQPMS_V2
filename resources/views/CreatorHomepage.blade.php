@@ -106,7 +106,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type='number' min="5" max="50" step="5" class="form-control" placeholder="Enter Number of Questions" name="numberOfQuestions">
+                            <input type='number' max="50" step="5" class="form-control" placeholder="Enter Number of Questions" name="numberOfQuestions">
                             @error('numberOfQuestions')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
                             @enderror
