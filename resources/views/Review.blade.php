@@ -20,27 +20,33 @@
     <section class="p-5 mt-auto">
         <div class="container">
             
-            <form action="/Review" method="GET">
+            
             @foreach ($questions as $question)
             
-            <div class="d-grid d-sm-block pb-3">
-                <button class="btn btn-primary ms-0 bgbody text-dark" type="button">00:00</button>
-                <button class="btn btn-primary ms-2 bgbody text-dark" type="button">Report this Question <i class="bi-flag mx-1"></i></button>
-            </div>
             
             <div class="row">
                 <div class="col-12">
                     <div class="mb-4 shadow-lg rounded border border-3 bgbody">
 
-
+                        
                         <div class="py-3 px-4">
-                        <h4>Quesion 
+                        <h4>Question 
                             {{-- @if (isset($_GET["page"]))
                             {{$_GET["page"]}}  
                         @else
                             1
                         @endif --}}
                       </h4>
+                      
+                      @foreach($useranswers as $key => $value)
+                      @if($question->mcq_questions_id == $key)
+                          @if($question->correct_answer == $value)
+                              <p> Correct Answer</p>
+                          @else
+                              <p> Wrong Answer</p>
+                          @endif
+                      @endif
+                  @endforeach
                         <p> {{ $question->description }}</p>
                         </div>
 
@@ -52,7 +58,7 @@
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1" {{ old("answers.$question->mcq_questions_id") == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                     {{ $answers[$answerIndex]->description }}
                                                 </label>
@@ -62,7 +68,7 @@
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="2">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="2" {{ old("answers.$question->mcq_questions_id") == '2' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                     {{ $answers[$answerIndex + 1]->description }}
                                                 </label>
@@ -75,7 +81,7 @@
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3" {{ old("answers.$question->mcq_questions_id") == '3' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                     {{ $answers[$answerIndex + 2]->description }}
                                                 </label>
@@ -85,7 +91,7 @@
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4" {{ old("answers.$question->mcq_questions_id") == '4' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                     {{ $answers[$answerIndex + 3]->description }}
                                                 </label>
@@ -94,11 +100,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                            
-                                @foreach ($finalid as $item)
-                                <input type="hidden" name="finalids[]" value="{{ $item }}">
-                                @endforeach
                                 
                                
                         </div>
@@ -108,10 +109,8 @@
                 @php $answerIndex += 4; @endphp
 
             @endforeach
-            <div class="d-flex flex-row-reverse pb-3">
-                <button class="btn btn-dark" type="submit">Submit</button>
-            </div>
-        </form>
+           
+        
             </div>
             
             

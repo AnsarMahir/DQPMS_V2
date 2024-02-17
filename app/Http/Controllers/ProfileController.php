@@ -63,11 +63,6 @@ class ProfileController extends Controller
         // Retrieve submitted data
         $selectedValues = $request->only(['examname', 'questiontype', 'qnature', 'lang', 'noofq']);
         $selectedValues['user_id'] = Auth::id();
-        //$selectedValues['examname'] = PastPaper::select('name')->where('P_id',$selectedValues['examid'])->pluck('name')->implode(' ');
-        // $selectedValues['papername'] = DB::table(Pastpaper)
-        // ->where('P_id',$selectedValues['nameofexam'])
-        // ->get();
-        // Redirect to paperdetails page with the submitted data
 
         return view('PaperDetails')->with('selectedValues', $selectedValues);
     }

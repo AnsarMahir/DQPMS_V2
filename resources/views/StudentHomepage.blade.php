@@ -105,11 +105,11 @@
                             </select>
                         </div>
                     </div>
-
+                    
                     <button type="submit" class="btn btn-lg btncolor col-xs mx-auto my-5 w-50">
                         <h4>Generate Paper</h4>
                     </button>
-                      
+                   
                 </form>
 
 
