@@ -1,0 +1,23 @@
+.questionStatus{
+
+        width: 100px;
+        height: 100px;
+}
+
+
+.paginationBox{
+    border-color: red;
+    width: 200px;
+    border: solid;
+    height: 100px;
+
+}     
+
+.form-check{
+    padding-bottom: 10px;
+}
+
+.bgbody{
+    background-color: #efe9ff;
+    border-color: #7748FF !important;
+  }
