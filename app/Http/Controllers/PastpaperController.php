@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pastpaper;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Mcq_Answer;
 use App\Models\Mcq_Question;
+use App\Models\Reference;
 use Illuminate\Support\Facades\Validator;
 //use Illuminate\Validation\Validator;
 
@@ -33,14 +35,15 @@ class PastpaperController extends Controller
 
     }
 
-    public function validateAndStoreQuestions(Request $request){  
+    public function validateAndStoreQuestions(Request $request){
+
         //dd($request);
+
         $i=0;
         $no_of_questions = $request['pastpaperData'][4];
         $errors = [];
-        //dd($request);
         $request->flash();
-        
+   
         while($i<(int)$no_of_questions){
             
             $validator = Validator::make($request->all(), [
@@ -51,6 +54,7 @@ class PastpaperController extends Controller
                 $i . 'answer3' => 'required',
                 $i . 'answer4' => 'required',
                 $i . 'answerRadio'=> 'required'
+                //Validate Reference
             ],
             [
                 $i.'answerRadio.required'=>'Please provide a correct answer.'
@@ -62,7 +66,6 @@ class PastpaperController extends Controller
                 $i.'answer2'=>'Answer',
                 $i.'answer3'=>'Answer',
                 $i.'answer4'=>'Answer',
-                $i.'answerRadio'=>'Correct Answer'
             ]);
             
             if ($validator->fails()) {
@@ -71,13 +74,12 @@ class PastpaperController extends Controller
         $i++;
         };
 
-        // dd($errors);
-
 
         if (!empty($errors)) {
             return redirect()->back()->withErrors($errors);
         }
 
+        //Store Pastpaper Details
         $pastpaper = Pastpaper::create([
             'name' => $request['pastpaperData'][0],
             'question_type' => $request['pastpaperData'][1],
@@ -93,10 +95,29 @@ class PastpaperController extends Controller
 
         $j=0;
         
-       
+       //Store Questions and Answers
         while($j<(int)$no_of_questions){
 
             $k=1;
+
+            
+            
+            if($request->hasFile($j.'Q_Reference')){
+                
+                $filename = time() . '-' . $j . 'QuestionReference.' . $request->file($j.'Q_Reference')->extension();
+                $request->file($j.'Q_Reference')->move(public_path('References'), $filename);
+
+                $questionReference = Reference::create([
+                    'reference_HTML'=>$filename
+                ]);
+                
+            
+            }else{
+                $questionReference = null;
+            }
+
+            
+            
 
             if($request['pastpaperData'][1]=='MCQ'){
                 $question = Mcq_Question::create([
@@ -104,7 +125,7 @@ class PastpaperController extends Controller
                     'nature'=>$request['questionNature' . $j],
                     'correct_answer'=>$request[$j . 'answerRadio'],
                     'pastpaper_reference'=>$pastpaper->P_id,
-                    'referenceid'=>1
+                    'referenceid'=> $questionReference ? $questionReference->R_id : null
                 ]);
 
             while($k<=4){

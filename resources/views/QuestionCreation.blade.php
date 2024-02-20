@@ -50,7 +50,7 @@ $i=0;
                 </div>
             </div>
 
-            <form action="/QuestionStore" method="POST">
+            <form action="/QuestionStore" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 {{-- Get Pastpaper Data into controller --}}
@@ -66,7 +66,9 @@ $i=0;
 
                 <x-Create-MCQ-Question :i="$i"/>
 
-                <div class="d-none">{{$i++}}</div>
+                @php
+                    $i++
+                @endphp
                     
                 @endwhile           
                 

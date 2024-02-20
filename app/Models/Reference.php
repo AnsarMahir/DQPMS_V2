@@ -10,6 +10,7 @@ class Reference extends Model
     use HasFactory;
 
     protected $table = 'reference';
+    protected $primaryKey = 'R_id';
 
     protected $fillable = [
         "reference_HTML"
