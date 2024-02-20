@@ -1,5 +1,5 @@
 
-@php $answerIndex = 0; 
+@php $answerindex = 0; 
             @endphp
 
 
@@ -60,7 +60,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1" {{ old("answers.$question->mcq_questions_id") == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    {{ $answers[$answerIndex]->description }}
+                                                    {{ $answers[$answerindex]->description }}
                                                 </label>
                                               </div>
     
@@ -70,7 +70,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="2" {{ old("answers.$question->mcq_questions_id") == '2' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    {{ $answers[$answerIndex + 1]->description }}
+                                                    {{ $answers[$answerindex + 1]->description }}
                                                 </label>
                                               </div>
     
@@ -83,7 +83,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3" {{ old("answers.$question->mcq_questions_id") == '3' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    {{ $answers[$answerIndex + 2]->description }}
+                                                    {{ $answers[$answerindex + 2]->description }}
                                                 </label>
                                               </div>
     
@@ -93,7 +93,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4" {{ old("answers.$question->mcq_questions_id") == '4' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    {{ $answers[$answerIndex + 3]->description }}
+                                                    {{ $answers[$answerindex + 3]->description }}
                                                 </label>
                                             </div>
     
@@ -106,7 +106,7 @@
 
                 </div>
                 </div>
-                @php $answerIndex += 4; @endphp
+                @php $answerindex += 4; @endphp
 
             @endforeach
            
