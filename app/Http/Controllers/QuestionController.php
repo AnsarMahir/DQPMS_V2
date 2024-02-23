@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Mcq_Attempt;
+use App\Models\Reference;
 use Illuminate\Support\Collection\paginate;
 
 class QuestionController extends Controller
@@ -65,15 +66,32 @@ class QuestionController extends Controller
 
         if ($questionType === 'MCQ') {
             $time=1;
+            if ($questionNature=='GK'){
+                $time=1*$numberOfQuestions;
+            }
+            elseif($questionNature=='IQ'){
+                $time=1.5*$numberOfQuestions;
+            }
+            elseif($questionNature=='MATH'){
+                $time=2.5*$numberOfQuestions;
+            }
+            else{
+                $time=1.2*$numberOfQuestions;
+            }
             $getpids = $this->getpid($examname, $examlang);
             $mcqid = $this->getmcqid($getpids, $questionNature);
             $finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions);
-            // if ($questionNature=='GK'){
-            //     $time=1*$numberOfQuestions;
-            // }
+             
             $questions = Mcq_Question::whereIn('mcq_questions_id', $finalid)
-                ->get();
+            ->get();
 
+            $qreferenceid=  Mcq_Question::whereIn('mcq_questions_id', $finalid)
+            ->get('referenceid');
+
+            $qreference= Reference::whereIn('R_id',$qreferenceid)
+            ->get()->toArray();
+
+            //dd($qreference);
 
             $answers = DB::table('mcq_answers')
                 ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
@@ -88,7 +106,7 @@ class QuestionController extends Controller
         }
 
 
-        return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time'));
+        return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference'));
     }
     public function reviewque(Request $request)
     {

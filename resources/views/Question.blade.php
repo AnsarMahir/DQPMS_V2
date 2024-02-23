@@ -71,6 +71,12 @@ $counter=1;
                            
                       </h4>
                         <p> {{ $question->description }}</p>
+                        @foreach($qreference as $q)
+                        @if($question->referenceid == $q['R_id'])
+                            {!!$q['reference_HTML']!!}
+                        
+                        @endif
+                        @endforeach
                         </div>
 
                         <div class="px-4">
