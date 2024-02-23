@@ -89,6 +89,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1">
                                                 <label class="form-check-label" for="flexRadioDefault2">
+                                                    @foreach($areference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                    {!!$a['reference_HTML']!!}
+                                                    @endif
+                                                    @endforeach
                                                     {{ $answers[$answerindex]->description }}
                                                 </label>
                                               </div>
@@ -99,6 +104,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="2">
                                                 <label class="form-check-label" for="flexRadioDefault1">
+                                                    @foreach($areference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                    {!!$a['reference_HTML']!!}
+                                                    @endif
+                                                    @endforeach
                                                     {{ $answers[$answerindex + 1]->description }}
                                                 </label>
                                               </div>
@@ -112,6 +122,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3">
                                                 <label class="form-check-label" for="flexRadioDefault1">
+                                                    @foreach($areference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                    {!!$a['reference_HTML']!!}
+                                                    @endif
+                                                    @endforeach
                                                     {{ $answers[$answerindex + 2]->description }}
                                                 </label>
                                               </div>
@@ -122,6 +137,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4">
                                                 <label class="form-check-label" for="flexRadioDefault2">
+                                                    @foreach($areference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                    {!!$a['reference_HTML']!!}
+                                                    @endif
+                                                    @endforeach
                                                     {{ $answers[$answerindex + 3]->description }}
                                                 </label>
                                             </div>

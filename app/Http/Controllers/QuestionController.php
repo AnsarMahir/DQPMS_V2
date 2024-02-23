@@ -21,7 +21,7 @@ class QuestionController extends Controller
     {
         //This is the function that created in the beginning of the project which
         //shows question with pagination, but due to lack of knowledge in ajax, I had
-        //to move on to the below one. This one is not in use now
+        //to move on to the below one ('fetch'). This one is not in use now
         $selectedValues = $request->input('selectedValues');
         $examlang = $selectedValues['lang'];
         $examname = $selectedValues['examname'];
@@ -62,6 +62,7 @@ class QuestionController extends Controller
         $questionNature = $selectedValues['qnature'];
         $numberOfQuestions = $selectedValues['noofq'];
 
+        
 
 
         if ($questionType === 'MCQ') {
@@ -92,22 +93,30 @@ class QuestionController extends Controller
             ->get()->toArray();
 
             //dd($qreference);
-
+            $referenceArray = [];
             $answers = DB::table('mcq_answers')
                 ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
-                ->select("mcq_answers.description")
+                ->select("mcq_answers.description","reference")
                 ->whereIn('mcq_answers.question_id', $finalid)
                 ->get();
 
-            // dd($answers);
+                foreach ($answers as $answer) {
+                    $reference = $answer->reference;
+                    $referenceArray[] = $reference;
+                }
 
+                $areference= Reference::whereIn('R_id',$referenceArray)
+                ->get()->toArray();
+
+                
 
 
         }
 
 
-        return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference'));
+        return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference','areference'));
     }
+    
     public function reviewque(Request $request)
     {
         $request->flash();
