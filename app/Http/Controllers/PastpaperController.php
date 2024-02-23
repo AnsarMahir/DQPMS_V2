@@ -43,9 +43,13 @@ class PastpaperController extends Controller
         $no_of_questions = $request['pastpaperData'][4];
         $errors = [];
         $request->flash();
-   
+        
+
+        //Validate Questions and Answers
+
         while($i<(int)$no_of_questions){
-            
+
+            if($request['pastpaperData'][1]=='MCQ'){            
             $validator = Validator::make($request->all(), [
                 'question' . $i => 'required',
                 'questionNature' . $i => 'required',
@@ -67,6 +71,26 @@ class PastpaperController extends Controller
                 $i.'answer3'=>'Answer',
                 $i.'answer4'=>'Answer',
             ]);
+            }
+
+            else{
+
+                $validator = Validator::make($request->all(), [
+                    'question' . $i => 'required',
+                    'questionNature' . $i => 'required',
+                    $i.'answer'=>'required'
+                ],
+                [
+                    $i.'answer.required'=>'Please provide a correct answer'
+                ],
+                [
+                    'question'.$i=>'Question'
+                ]
+                
+                );
+
+
+            }
             
             if ($validator->fails()) {
                 $errors = array_merge($errors, $validator->errors()->toArray());
@@ -79,7 +103,9 @@ class PastpaperController extends Controller
             return redirect()->back()->withErrors($errors);
         }
 
+
         //Store Pastpaper Details
+
         $pastpaper = Pastpaper::create([
             'name' => $request['pastpaperData'][0],
             'question_type' => $request['pastpaperData'][1],
@@ -93,33 +119,32 @@ class PastpaperController extends Controller
         ]
         );
 
-        $j=0;
         
+        $j=0;        
        //Store Questions and Answers
         while($j<(int)$no_of_questions){
-
-            $k=1;
-
             
+                           
             
-            if($request->hasFile($j.'Q_Reference')){
-                
-                $filename = time() . '-' . $j . 'QuestionReference.' . $request->file($j.'Q_Reference')->extension();
-                $request->file($j.'Q_Reference')->move(public_path('References'), $filename);
-
-                $questionReference = Reference::create([
-                    'reference_HTML'=>$filename
-                ]);
-                
-            
-            }else{
-                $questionReference = null;
-            }
-
-            
-            
-
+            // Store Question and Answers 
             if($request['pastpaperData'][1]=='MCQ'){
+
+                //Store Question_Reference if found        
+                if($request->hasFile($j.'Q_Reference')){
+                    
+                    $filename = time() . '-' . $j . 'QuestionReference.' . $request->file($j.'Q_Reference')->extension();
+                    $request->file($j.'Q_Reference')->move(public_path('References'), $filename);
+
+                    $questionReference = Reference::create([
+                        'reference_HTML'=>'<img src="' . $filename . '">'
+                    ]);
+                    
+                
+                }else{
+                    $questionReference = null;
+                }
+
+                //Store Question
                 $question = Mcq_Question::create([
                     'description'=>$request['question' . $j],
                     'nature'=>$request['questionNature' . $j],
@@ -128,17 +153,40 @@ class PastpaperController extends Controller
                     'referenceid'=> $questionReference ? $questionReference->R_id : null
                 ]);
 
-            while($k<=4){
-            $answer = new Mcq_Answer;
-            $answer->question_id = $question->mcq_questions_id;
-            $answer->mcq_ans_id = $k;
-            $answer->description = $request[$j.'answer'.$k];
-            $answer->reference = 1;
-            $answer->save();
-            $k++;
-            }
+                //Store Answers with Reference
+                $a=1;
+                while($a<=4){
+                
+                    if($request->hasFile($j.'A_Reference'.$a)){
+                        
+                        $filename = time() . '-' . $j . 'Answer_Reference' . $a . '.' . $request->file($j.'A_Reference'.$a)->extension();
+                        $request->file($j.'A_Reference'.$a)->move(public_path('References'), $filename);
+    
+                        $answerReference = Reference::create([
+                            'reference_HTML'=>'<img src="' . $filename . '">'
+                        ]);
+    
+                    }else{
+    
+                        $answerReference = null;
+    
+                    }
+
+                    $answer = new Mcq_Answer;
+                    $answer->question_id = $question->mcq_questions_id;
+                    $answer->mcq_ans_id = $a;
+                    $answer->description = $request[$j.'answer'.$a];
+                    $answer->reference = $answerReference ? $answerReference->R_id : null;
+                    $answer->save();
+                    
+                    
+                    $a++;
+
+                }
+
 
             }
+            
             elseif($request['pastpaperData'][1]=='Short Answers'){
 
                 dd($request);
@@ -151,7 +199,7 @@ class PastpaperController extends Controller
         
         }
 
-        dd($request);
+        return redirect('CreatorHomepage');
 
        
         

@@ -63,12 +63,20 @@ $i=0;
                 
                 {{-- Get Questions into Controller --}}
                 @while ($i<$pastpaper['numberOfQuestions'])
+                
+                    @if ($pastpaper['questionType']=='MCQ')
 
-                <x-Create-MCQ-Question :i="$i"/>
+                        <x-Create-MCQ-Question :i="$i"/>
+                        
+                    @else
 
-                @php
-                    $i++
-                @endphp
+                        <x-Create-SH-Question :i="$i"/>
+                        
+                    @endif
+
+                    @php
+                        $i++
+                    @endphp
                     
                 @endwhile           
                 
