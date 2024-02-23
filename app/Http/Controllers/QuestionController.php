@@ -18,6 +18,9 @@ class QuestionController extends Controller
 {
     public function fetchQuestions(Request $request)
     {
+        //This is the function that created in the beginning of the project which
+        //shows question with pagination, but due to lack of knowledge in ajax, I had
+        //to move on to the below one. This one is not in use now
         $selectedValues = $request->input('selectedValues');
         $examlang = $selectedValues['lang'];
         $examname = $selectedValues['examname'];
@@ -43,7 +46,7 @@ class QuestionController extends Controller
                 ->whereIn('mcq_answers.question_id', $finalid)
                 ->paginate(4, ['description']);
         }
-        //return $questions; // Return selected questions
+        //return $questions; 
 
         return view('Question', compact('questions', 'answers', 'selectedValues'));
     }
@@ -61,10 +64,13 @@ class QuestionController extends Controller
 
 
         if ($questionType === 'MCQ') {
+            $time=1;
             $getpids = $this->getpid($examname, $examlang);
             $mcqid = $this->getmcqid($getpids, $questionNature);
             $finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions);
-
+            // if ($questionNature=='GK'){
+            //     $time=1*$numberOfQuestions;
+            // }
             $questions = Mcq_Question::whereIn('mcq_questions_id', $finalid)
                 ->get();
 
@@ -82,7 +88,7 @@ class QuestionController extends Controller
         }
 
 
-        return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid'));
+        return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time'));
     }
     public function reviewque(Request $request)
     {

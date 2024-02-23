@@ -1,6 +1,7 @@
 
 @php $answerindex = 0; 
-            @endphp
+$counter=1;
+@endphp
 
 
 
@@ -30,12 +31,7 @@
 
                         
                         <div class="py-3 px-4">
-                        <h4>Question 
-                            {{-- @if (isset($_GET["page"]))
-                            {{$_GET["page"]}}  
-                        @else
-                            1
-                        @endif --}}
+                        <h4>Question {{$counter}}
                       </h4>
                       
                       @foreach($useranswers as $key => $value)
@@ -106,7 +102,8 @@
 
                 </div>
                 </div>
-                @php $answerindex += 4; @endphp
+                @php $answerindex += 4;
+                $counter++; @endphp
 
             @endforeach
            

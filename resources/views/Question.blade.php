@@ -1,5 +1,6 @@
 
 @php $answerindex = 0; 
+$counter=1;
             @endphp
 
 
@@ -13,6 +14,36 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        
+        let initialTime = {{ $time }};
+    
+        
+        let timeInSeconds = initialTime * 60;
+    
+        // Function to update the countdown every second
+        function updateCountdown() {
+            let minutes = Math.floor(timeInSeconds / 60);
+            let seconds = timeInSeconds % 60;
+    
+            // Display the time in the button
+            document.getElementById('countdown').innerText = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    
+            // Reduce the time by 1 second
+            timeInSeconds--;
+    
+            // Check if the timer has reached 0
+            if (timeInSeconds < 0) {
+                clearInterval(interval);
+                $('#countdown-form').submit();
+                // Here you can add code to handle what happens when the timer reaches 0
+            }
+        }
+    
+        // Call the updateCountdown function every second
+        let interval = setInterval(updateCountdown, 1000);
+    </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -20,11 +51,13 @@
     <section class="p-5 mt-auto">
         <div class="container">
             
-            <form action="/Review" method="GET">
+            <form action="/Review" method="GET" id="countdown-form">
+                <div class="d-grid d-sm-block pb-3">
+                    <button class="btn btn-primary ms-0 bgbody text-dark" type="button" id="countdown">{{$time}}:00</button>
+                </div>
             @foreach ($questions as $question)
             
             <div class="d-grid d-sm-block pb-3">
-                <button class="btn btn-primary ms-0 bgbody text-dark" type="button">00:00</button>
                 <button class="btn btn-primary ms-2 bgbody text-dark" type="button">Report this Question <i class="bi-flag mx-1"></i></button>
             </div>
             
@@ -34,12 +67,8 @@
 
 
                         <div class="py-3 px-4">
-                        <h4>Quesion 
-                            {{-- @if (isset($_GET["page"]))
-                            {{$_GET["page"]}}  
-                        @else
-                            1
-                        @endif --}}
+                        <h4>Question {{$counter}}
+                           
                       </h4>
                         <p> {{ $question->description }}</p>
                         </div>
@@ -50,7 +79,7 @@
                                 <div class="pb-3">
                                     <div class="row">
                                         <div class="col-lg-6">
-    
+                                            <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefaultHidden" value="0" style="display: none;" checked>
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1">
                                                 <label class="form-check-label" for="flexRadioDefault2">
@@ -105,11 +134,15 @@
 
                 </div>
                 </div>
-                @php $answerindex += 4; @endphp
+
+                @php 
+                $answerindex += 4; 
+                $counter++;
+                @endphp
 
             @endforeach
             <div class="d-flex flex-row-reverse pb-3">
-                <button class="btn btn-dark" type="submit">Submit</button>
+                <button class="btn btn-dark" type="submit" id="submit-btn">Submit</button>
             </div>
         </form>
             </div>
