@@ -15,35 +15,67 @@ $counter=1;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        
+    </script>
     <script>
-        
-        let initialTime = {{ $time }};
-    
-        
-        let timeInSeconds = initialTime * 60;
-    
-        // Function to update the countdown every second
         function updateCountdown() {
-            let minutes = Math.floor(timeInSeconds / 60);
-            let seconds = timeInSeconds % 60;
+            let initialTime = localStorage.getItem('initialTime');
+            if (!initialTime) {
+                // Set initial time in minutes (replace 30 with your desired initial time)
+                initialTime = {{ $time }}*60;
+                localStorage.setItem('initialTime', initialTime); // Save initial time in seconds
+            }
+    
+            let timeInSeconds = initialTime;
+    
+            // Function to convert seconds to minutes and seconds
+            function convertTime(seconds) {
+                let minutes = Math.floor(seconds / 60);
+                let remainingSeconds = seconds % 60;
+                return {
+                    minutes: minutes,
+                    seconds: remainingSeconds
+                };
+            }
     
             // Display the time in the button
-            document.getElementById('countdown').innerText = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+            function displayTime(minutes, seconds) {
+                let displayMinutes = (minutes < 10 ? '0' : '') + minutes;
+                let displaySeconds = (seconds < 10 ? '0' : '') + seconds;
+                document.getElementById('countdown').innerText = displayMinutes + ':' + displaySeconds;
+            }
     
             // Reduce the time by 1 second
-            timeInSeconds--;
+            function tick() {
+                timeInSeconds--;
+                let time = convertTime(timeInSeconds);
+                displayTime(time.minutes, time.seconds);
     
-            // Check if the timer has reached 0
-            if (timeInSeconds < 0) {
-                clearInterval(interval);
-                $('#countdown-form').submit();
-                // Here you can add code to handle what happens when the timer reaches 0
+                localStorage.setItem('initialTime', timeInSeconds); // Update stored time in seconds
+    
+                // Check if the timer has reached 0
+                if (timeInSeconds <= 0) {
+                    clearInterval(interval);
+                    localStorage.removeItem('initialTime'); // Clear stored time when countdown ends
+                    $('#countdown-form').submit();
+                    // Here you can add code to handle what happens when the timer reaches 0
+                }
             }
+    
+            tick(); // Call tick immediately to display initial time
+    
+            // Update the countdown every second
+            let interval = setInterval(tick, 1000);
         }
     
-        // Call the updateCountdown function every second
-        let interval = setInterval(updateCountdown, 1000);
+        // Call updateCountdown when the page loads
+        $(document).ready(function() {
+            updateCountdown();
+        });
     </script>
+    
+    
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -71,12 +103,12 @@ $counter=1;
                            
                       </h4>
                         <p> {{ $question->description }}</p>
-                        @foreach($qreference as $q)
+                        {{-- @foreach($qreference as $q)
                         @if($question->referenceid == $q['R_id'])
                             {!!$q['reference_HTML']!!}
                         
                         @endif
-                        @endforeach
+                        @endforeach --}}
                         </div>
 
                         <div class="px-4">
@@ -89,11 +121,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1">
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    @foreach($areference as $a)
+                                                    {{-- @foreach($areference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach
+                                                    @endforeach --}}
                                                     {{ $answers[$answerindex]->description }}
                                                 </label>
                                               </div>
@@ -104,11 +136,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="2">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    @foreach($areference as $a)
+                                                    {{-- @foreach($areference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach
+                                                    @endforeach --}}
                                                     {{ $answers[$answerindex + 1]->description }}
                                                 </label>
                                               </div>
@@ -122,11 +154,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    @foreach($areference as $a)
+                                                    {{-- @foreach($areference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach
+                                                    @endforeach --}}
                                                     {{ $answers[$answerindex + 2]->description }}
                                                 </label>
                                               </div>
@@ -137,11 +169,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4">
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    @foreach($areference as $a)
+                                                    {{-- @foreach($areference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach
+                                                    @endforeach --}}
                                                     {{ $answers[$answerindex + 3]->description }}
                                                 </label>
                                             </div>

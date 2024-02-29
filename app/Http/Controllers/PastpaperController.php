@@ -30,7 +30,7 @@ public function showqnature(){
 
     public function validateHomepageRequest(Request $request){
         $formFields = $request->validate([
-            "examName"=>'required',
+            "exam"=>'required',
             "questionType"=>"required",
             "year"=>"required|integer|between:1990,2099",
             "language"=>"required",
@@ -41,6 +41,19 @@ public function showqnature(){
         return view('QuestionCreation',[
             'pastpaper' => $formFields]);
 
+    }
+
+    public function getLanguages(Request $request)
+    {
+        $exam = $request->input('exam');
+
+        $languages = Pastpaper::where('name', $exam)
+            ->select('language')
+            ->distinct()
+            ->get()
+            ->pluck('language');
+
+        return response()->json($languages);
     }
 
     public function storeQuestions(Request $request){

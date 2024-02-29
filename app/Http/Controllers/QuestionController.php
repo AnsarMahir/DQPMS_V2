@@ -55,8 +55,8 @@ class QuestionController extends Controller
     public function fetch(Request $request)
     {
         $selectedValues = $request->input('selectedValues');
-        $examlang = $selectedValues['lang'];
-        $examname = $selectedValues['examname'];
+        $examlang = $selectedValues['language'];
+        $examname = $selectedValues['exam'];
         $userId = $selectedValues['user_id'];
         $questionType = $selectedValues['questiontype'];
         $questionNature = $selectedValues['qnature'];
@@ -107,10 +107,6 @@ class QuestionController extends Controller
 
                 $areference= Reference::whereIn('R_id',$referenceArray)
                 ->get()->toArray();
-
-                
-
-
         }
 
 

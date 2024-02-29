@@ -6,6 +6,34 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css\QuestionCreation_style.css ') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#exam').change(function() {
+                var exam = $(this).val();
+    
+                $.ajax({
+                    url: "{{ route('get.languages') }}",
+                    method: 'GET',
+                    data: {
+                        exam: exam
+                    },
+                    success: function(data) {
+                        var $languageDropdown = $('#language');
+                        $languageDropdown.empty();
+    
+                        if (data.length) {
+                            $.each(data, function(key, value) {
+                                $languageDropdown.append('<option value="' + value + '">' + value + '</option>');
+                            });
+                        } else {
+                            $languageDropdown.append('<option value="">No languages found</option>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>    
 </head>
 
 <body>
@@ -54,7 +82,7 @@
                     @csrf
                     <div class="col-12 m-0">
                         <div class="form-group">
-                            <select class="form-select" id="questionType" name="examname">
+                            <select class="form-select" id="exam" name="exam">
                                 <option selected disabled>Examination Name</option>
                                 @foreach($examname as $name)
                                 <option value="{{ $name }}">{{ $name }}</option>
@@ -86,11 +114,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select class="form-select" id="language" name="lang">
+                            <select class="form-select" id="language" name="language">
                                 <option selected disabled>Choose your Language</option>
-                                @foreach($languages as $language)
+                                {{-- @foreach($languages as $language)
                                 <option value="{{ $language }}">{{ $language }}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                           </div>
                     </div>

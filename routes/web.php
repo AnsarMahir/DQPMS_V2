@@ -61,4 +61,6 @@ Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 
 Route::get('/Review',[QuestionController::class, 'reviewque']);
+
+Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
 require __DIR__.'/auth.php';

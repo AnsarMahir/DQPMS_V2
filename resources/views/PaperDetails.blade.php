@@ -45,9 +45,9 @@
                       style="background-color: rgb(255, 255, 255);border-color: #7041f5 !important;">
                       <div>
                         <span class="h3 fw-bolder family seccolor" 
-                          > {{$selectedValues["examname"]}} <br /></span
+                          > {{$selectedValues["exam"]}} <br /></span
                         ><span class="h6 pricolor family" 
-                          > {{$selectedValues["lang"]}} | {{$selectedValues["questiontype"]}}<br /><br /><br /></span
+                          > {{$selectedValues["language"]}} | {{$selectedValues["questiontype"]}}<br /><br /><br /></span
                         ><span
                           class="fs-5 pricolor family "
                           > |{{$selectedValues["noofq"]}} MCQ | 12 Mins<br /><br /><br /></span

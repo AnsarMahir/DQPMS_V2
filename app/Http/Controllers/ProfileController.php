@@ -61,7 +61,7 @@ class ProfileController extends Controller
     public function processForm(Request $request)
     {
         // Retrieve submitted data
-        $selectedValues = $request->only(['examname', 'questiontype', 'qnature', 'lang', 'noofq']);
+        $selectedValues = $request->only(['exam', 'questiontype', 'qnature', 'language', 'noofq']);
         $selectedValues['user_id'] = Auth::id();
 
         return view('PaperDetails')->with('selectedValues', $selectedValues);
