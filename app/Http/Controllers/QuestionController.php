@@ -107,6 +107,11 @@ class QuestionController extends Controller
 
                 $areference= Reference::whereIn('R_id',$referenceArray)
                 ->get()->toArray();
+
+                // Attempt increasing code (Refreshing must be disabled)
+                Mcq_Attempt::whereIn('mcq_questions_id',$finalid)
+                ->where('user_id',$userId)
+                ->increment('no_of_attempts');
         }
 
 

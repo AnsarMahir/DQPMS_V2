@@ -59,7 +59,7 @@ $counter=1;
                     clearInterval(interval);
                     localStorage.removeItem('initialTime'); // Clear stored time when countdown ends
                     $('#countdown-form').submit();
-                    // Here you can add code to handle what happens when the timer reaches 0
+                   
                 }
             }
     
