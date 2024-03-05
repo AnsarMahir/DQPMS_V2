@@ -108,6 +108,7 @@
                                 @foreach($natures as $nature)
                                 <option value="{{ $nature }}">{{ $nature }}</option>
                                 @endforeach
+                                <option value="All">ALL</option>
                             </select>
                           </div>
                     </div>

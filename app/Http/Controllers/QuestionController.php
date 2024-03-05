@@ -79,9 +79,17 @@ class QuestionController extends Controller
             else{
                 $time=1.2*$numberOfQuestions;
             }
-            $getpids = $this->getpid($examname, $examlang);
-            $mcqid = $this->getmcqid($getpids, $questionNature);
+            //getpid function gets the pastpaper id's which match the 
+            //user selected pastpaper name and language
+            $getpids = $this->getpid($examname, $examlang); 
+            if ($questionNature==='All'){
+                $mcqid = $this->allmcqid($getpids);
+            }else{
+                $mcqid = $this->getmcqid($getpids, $questionNature);
+            }
+            
             $finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions);
+            
              
             $questions = Mcq_Question::whereIn('mcq_questions_id', $finalid)
             ->get();
@@ -114,6 +122,14 @@ class QuestionController extends Controller
                 ->increment('no_of_attempts');
         }
 
+        if ($questionType === 'MCQ' && $questionNature != 'All') {
+            //getpid function gets the pastpaper id's which match the 
+            //user selected pastpaper name and language
+            $getpids = $this->getpid($examname, $examlang); 
+
+
+        }
+
 
         return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference','areference'));
     }
@@ -144,6 +160,7 @@ class QuestionController extends Controller
 
     public function getpid($n, $n1)
     {
+        //selecting the pastpapers that matches the name and language
         $pid = Pastpaper::where('name', $n)
             ->where('language', $n1)
             ->pluck('P_id')
@@ -161,6 +178,16 @@ class QuestionController extends Controller
 
         return $mcqid;
     }
+
+    public function allmcqid($n)
+    {
+        $mcqid = Mcq_Question::whereIn('pastpaper_reference', $n)
+            ->pluck('mcq_questions_id')
+            ->toArray();
+
+        return $mcqid;
+    }
+
 
     public function mcqidattempt($n, $n1, $n2)
     {
