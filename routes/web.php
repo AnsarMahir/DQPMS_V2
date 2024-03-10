@@ -2,6 +2,7 @@
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FAQcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+route::get('/FAQ/index',[FAQcontroller::class, 'index'])->name('FAQ.index');
+route::get('/FAQ/index2',[FAQcontroller::class, 'index2'])->name('FAQ.index2');
+route::post('/FAQ/store',[FAQcontroller::class,'store'])->name('FAQ.store');
