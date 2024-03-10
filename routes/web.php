@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQcontroller;
 
@@ -32,6 +33,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/QuestionCreation',function(){
+    return view('QuestionCreation');
+});
+
+Route::get('/StudentHomepage',function(){
+    return view('StudentHomepage');
+});
+
+Route::get('/Question',[QuestionController::class,'showit']);
+
+
+
 
 require __DIR__.'/auth.php';
 
