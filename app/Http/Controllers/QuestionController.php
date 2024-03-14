@@ -87,8 +87,10 @@ class QuestionController extends Controller
             }else{
                 $mcqid = $this->getmcqid($getpids, $questionNature);
             }
+            $num=$this->hamaslogic($mcqid, $userId);
+            $finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions,$num);
             
-            $finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions);
+            
             
              
             $questions = Mcq_Question::whereIn('mcq_questions_id', $finalid)
@@ -188,15 +190,36 @@ class QuestionController extends Controller
         return $mcqid;
     }
 
-
-    public function mcqidattempt($n, $n1, $n2)
+    public function hamaslogic($n, $n1)
     {
-        $attemptmcqid = Mcq_Attempt::whereIn('mcq_questions_id', $n)
+        $attempt = Mcq_Attempt::whereIn('mcq_questions_id', $n)
+            ->where('user_id', $n1)
+            ->sum('no_of_attempts');
+
+        return $attempt;
+    }
+
+    public function mcqidattempt($n, $n1, $n2,$n3)
+    {
+        if ($n3==0){
+            $attemptmcqid = Mcq_Attempt::whereIn('mcq_questions_id', $n)
+            ->where('user_id', $n1)
+            ->orderBy('no_of_attempts', 'asc')
+            ->inRandomOrder()
+            ->take($n2)
+            ->pluck('mcq_questions_id')
+            ->toArray();
+        }
+        else{
+            $attemptmcqid = Mcq_Attempt::whereIn('mcq_questions_id', $n)
             ->where('user_id', $n1)
             ->orderBy('no_of_attempts', 'asc')
             ->take($n2)
             ->pluck('mcq_questions_id')
             ->toArray();
+
+        }
+        
 
         return $attemptmcqid;
     }
