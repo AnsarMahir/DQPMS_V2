@@ -1,8 +1,8 @@
 <?php
-use App\Http\Controllers\ChirpController;
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Exam;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,10 +22,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('chirps', ChirpController::class)
-    ->only(['index','store'])
-    ->middleware(['auth','verified']);
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -33,3 +29,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/exam/all', [Exam::class,'index'])->name('user');
+Route::get('/exam/index', function() {
+    return view('exam.index');
+})->name('exam.index');
+
+Route::post('/exam/store', [Exam::class, 'store'])->name('exam.store');
