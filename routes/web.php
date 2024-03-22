@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQcontroller;
+use App\Http\Controllers\TutorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +58,11 @@ route::post('/FAQ/store',[FAQcontroller::class,'store'])->name('FAQ.store');
 Route::get('/TutorHomepage',function(){
     return view('Tutor.TutorHomepage');
 });
+
+Route::get('/TutorForm1',function(){
+    return view('Tutor.TutorForm1');
+});
+
+route::get('/Tutor/TutorHomepage',[TutorController::class, 'TutorHomepage'])->name('Tutor.TutorHomepage');
+route::get('/Tutor/TutorForm1',[TutorController::class, 'TutorForm1'])->name('Tutor.TutorForm1');
+route::post('/Tutor/store',[TutorController::class,'store'])->name('Tutor.store');
