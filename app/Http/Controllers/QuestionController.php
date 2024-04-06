@@ -1,59 +1,70 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Closure;
 use App\Models\User;
+use App\Models\Pastpaper;
+use App\Models\Reference;
 use Illuminate\View\View;
 use App\Models\Mcq_Answer;
+use App\Models\Mcq_Attempt;
 use App\Models\Mcq_Question;
-use App\Models\Pastpaper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Mcq_Attempt;
-use App\Models\Reference;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Collection\paginate;
 
 class QuestionController extends Controller
 
 {
-    public function fetchQuestions(Request $request)
-    {
-        //This is the function that created in the beginning of the project which
-        //shows question with pagination, but due to lack of knowledge in ajax, I had
-        //to move on to the below one ('fetch'). This one is not in use now
-        $selectedValues = $request->input('selectedValues');
-        $examlang = $selectedValues['lang'];
-        $examname = $selectedValues['examname'];
-        $userId = $selectedValues['user_id'];
-        $questionType = $selectedValues['questiontype'];
-        $questionNature = $selectedValues['qnature'];
-        $numberOfQuestions = $selectedValues['noofq'];
+    // public function fetchQuestions(Request $request)
+    // {
+    //     //This is the function that created in the beginning of the project which
+    //     //shows question with pagination, but due to lack of knowledge in ajax, I had
+    //     //to move on to the below one ('fetch'). This one is not in use now
+    //     $selectedValues = $request->input('selectedValues');
+    //     $examlang = $selectedValues['lang'];
+    //     $examname = $selectedValues['examname'];
+    //     $userId = $selectedValues['user_id'];
+    //     $questionType = $selectedValues['questiontype'];
+    //     $questionNature = $selectedValues['qnature'];
+    //     $numberOfQuestions = $selectedValues['noofq'];
 
 
 
-        if ($questionType === 'MCQ') {
-            $getpids = $this->getpid($examname, $examlang);
-            $mcqid = $this->getmcqid($getpids, $questionNature);
-            $finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions);
+    //     if ($questionType === 'MCQ') {
+    //         $getpids = $this->getpid($examname, $examlang);
+    //         $mcqid = $this->getmcqid($getpids, $questionNature);
+    //         //$finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions);
 
-            $questions = Mcq_Question::whereIn('mcq_questions_id', $finalid)
-                ->paginate(1)->withQueryString();
+    //        // $questions = Mcq_Question::whereIn('mcq_questions_id', $finalid)
+    //           //  ->paginate(1)->withQueryString();
 
 
-            $answers = DB::table('mcq_answers')
-                ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
-                ->select("mcq_answers.description")
-                ->whereIn('mcq_answers.question_id', $finalid)
-                ->paginate(4, ['description']);
-        }
-        //return $questions; 
+    //         $answers = DB::table('mcq_answers')
+    //             ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
+    //             ->select("mcq_answers.description")
+    //           //  ->whereIn('mcq_answers.question_id', $finalid)
+    //             ->paginate(4, ['description']);
+    //     }
+    //     //return $questions; 
 
-        return view('Question', compact('questions', 'answers', 'selectedValues'));
-    }
+    //     return view('Question', compact('questions', 'answers', 'selectedValues'));
+    // }
 
     public function fetch(Request $request)
-    {
+{   
+    
+
+    
+    if ($request->session()->has('review_completed')) {
+        $request->session()->forget('review_completed');
+        return redirect('/dashboard');
+    }
+    else{
+    
         $selectedValues = $request->input('selectedValues');
         $examlang = $selectedValues['language'];
         $examname = $selectedValues['exam'];
@@ -131,14 +142,18 @@ class QuestionController extends Controller
 
 
         }
+    
 
-
+    
         return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference','areference'));
     }
+}
     
     public function reviewque(Request $request)
     {
         $request->flash();
+        
+        
         
         $useranswers = request('answers');
 
@@ -153,10 +168,10 @@ class QuestionController extends Controller
             ->get();
 
 
-
+            
 
         //return $questions; // Return selected questions
-
+        $request->session()->put('review_completed', true);
         return view('Review', compact('questions', 'answers', 'useranswers'));
     }
 
@@ -225,6 +240,7 @@ class QuestionController extends Controller
     }
     public function showit(Request $request): View
     {
+        dd($request);
 
         //$questions = Mcq_Question::take(10)->pluck('description');
         $questions = Mcq_Question::paginate(1, '*', 'page');
@@ -240,7 +256,23 @@ class QuestionController extends Controller
         $selectedValues = $request->input('selectedValues');
 
         //  dd($answers);
+        
 
         return view('Question', compact('questions', 'answers', 'selectedValues'));
+    }
+
+    public function getCorrectAnswer(Request $request)
+    {
+        // Get the JSON data from the request
+        $requestData = $request->json()->all();
+
+        // Make the request to the GPT-3 API
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.config('services.gpt3.api_key'),
+        ])->post(config('services.gpt3.endpoint').'/v1/completions', $requestData);
+
+        $correctAnswer = $response->json()['choices'][0]['text'] ?? 'No answer available';
+
+        return response()->json(['answer' => $correctAnswer]);
     }
 }

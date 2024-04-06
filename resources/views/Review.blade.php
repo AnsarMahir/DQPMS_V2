@@ -14,6 +14,18 @@ $counter=1;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function removestorage(){
+            localStorage.removeItem('initialTime');
+            
+            
+        }
+        $(document).ready(function() {
+            removestorage();
+        });
+    </script>
+    
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -27,7 +39,7 @@ $counter=1;
             
             <div class="row">
                 <div class="col-12">
-                    <div class="mb-4 shadow-lg rounded border border-3 bgbody">
+                    <div id="questionbox{{$counter}}" class="mb-4 shadow-lg rounded border border-3 bgbody">
 
                         
                         <div class="py-3 px-4">
@@ -38,8 +50,55 @@ $counter=1;
                       @if($question->mcq_questions_id == $key)
                           @if($question->correct_answer == $value)
                               <p> Correct Answer</p>
+                            <script>
+                               var temp= document.getElementById("questionbox{{$counter}}");
+                               
+                               temp.classList.remove("bgbody");
+                               temp.classList.add("rightbg");
+                            </script>
                           @else
-                              <p> Wrong Answer</p>
+                              <p > Wrong Answer</p>
+                              <script>
+                                var temp= document.getElementById("questionbox{{$counter}}");
+                                
+                                temp.classList.remove("bgbody");
+                                temp.classList.add("wrongbg");
+                             </script>
+                              <p id="chatgpt-answer-{{ $question->mcq_questions_id }}"></p>
+                              <script>
+                                  $(document).ready(function() {
+    // Construct the JSON request data
+    var requestData = {
+        messages: [
+            {
+                role: "system",
+                content: "You are an AI assistant that helps people find information."
+            }
+        ],
+        temperature: 0.7,
+        top_p: 0.95,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        max_tokens: 800,
+        stop: null
+    };
+
+    $.ajax({
+        url: "{{ route('get-correct-answer') }}",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(requestData),
+        success: function(response) {
+            console.log("API Response received:", response);
+            // Handle the response as needed
+        },
+        error: function(xhr, status, error) {
+            console.error("API Request failed:", error);
+            // Handle the error and display a message to the user if needed
+        }
+    });
+});
+                              </script>
                           @endif
                       @endif
                   @endforeach
@@ -54,8 +113,21 @@ $counter=1;
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1" {{ old("answers.$question->mcq_questions_id") == '1' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1[{{ $question->mcq_questions_id }}]" value="1" {{ old("answers.$question->mcq_questions_id") == '1' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    <script>
+                                                       var ansak= document.getElementById("flexRadioDefault1[{!! $question->mcq_questions_id !!}]");
+                                                       if({{$question->correct_answer}}==ansak.value){
+                                                        ansak.style.backgroundColor="green";
+                                                       
+                                                       }
+                                                       else if(({{$question->correct_answer}}!== ansak.value) && ansak.checked){
+                                                        ansak.style.backgroundColor="red";
+                                                       }
+
+                                                      
+                                                       </script>
+
                                                     {{ $answers[$answerindex]->description }}
                                                 </label>
                                               </div>
@@ -64,8 +136,18 @@ $counter=1;
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="2" {{ old("answers.$question->mcq_questions_id") == '2' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2[{{ $question->mcq_questions_id }}]" value="2" {{ old("answers.$question->mcq_questions_id") == '2' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    <script>
+                                                       var ansak= document.getElementById("flexRadioDefault2[{!! $question->mcq_questions_id !!}]");
+                                                       if({{$question->correct_answer}}==ansak.value){
+                                                        ansak.style.backgroundColor="green";
+                                                        
+                                                       }
+                                                       else if(({{$question->correct_answer}}!=ansak.value) && ansak.checked){
+                                                        ansak.style.backgroundColor="red";
+                                                       }
+                                                    </script>
                                                     {{ $answers[$answerindex + 1]->description }}
                                                 </label>
                                               </div>
@@ -77,8 +159,19 @@ $counter=1;
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3" {{ old("answers.$question->mcq_questions_id") == '3' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault3[{{ $question->mcq_questions_id }}]" value="3" {{ old("answers.$question->mcq_questions_id") == '3' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                    <script>
+                                                        var ansak= document.getElementById("flexRadioDefault3[{!! $question->mcq_questions_id !!}]");
+                                                        if({{$question->correct_answer}}==ansak.value){
+                                                            ansak.style.backgroundColor="green";
+                                                         
+                                                        }
+                                                        else if(({{$question->correct_answer}}!=ansak.value) && ansak.checked){
+                                                            ansak.style.backgroundColor="red";
+                                                        }
+                                                        console.log(ansak.value);
+                                                        </script>
                                                     {{ $answers[$answerindex + 2]->description }}
                                                 </label>
                                               </div>
@@ -87,8 +180,19 @@ $counter=1;
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4" {{ old("answers.$question->mcq_questions_id") == '4' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault4[{{ $question->mcq_questions_id }}]" value="4" {{ old("answers.$question->mcq_questions_id") == '4' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="flexRadioDefault4">
+                                                    <script>
+                                                        var ansak= document.getElementById("flexRadioDefault4[{!! $question->mcq_questions_id !!}]");
+                                                        
+                                                        if({{$question->correct_answer}}==ansak.value){
+                                                         ansak.style.backgroundColor="green";
+                                                         
+                                                        }
+                                                        else if(({{$question->correct_answer}}!=ansak.value) && ansak.checked){
+                                                            ansak.style.backgroundColor="red";
+                                                        }
+                                                        </script>
                                                     {{ $answers[$answerindex + 3]->description }}
                                                 </label>
                                             </div>

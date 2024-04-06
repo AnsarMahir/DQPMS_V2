@@ -38,6 +38,10 @@ Route::get('/CreatorHomepage',function(){
     return view('CreatorHomepage');
 });
 
+Route::get('/questioncheck',function(){
+    return view('questioncheck');
+});
+
 Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
 
 Route::post('/QuestionStore',[PastpaperController::class,'storeQuestions']);
@@ -63,4 +67,5 @@ Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 Route::get('/Review',[QuestionController::class, 'reviewque']);
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
+Route::post('/get-correct-answer', [QuestionController::class, 'getCorrectAnswer'])->name('get-correct-answer');
 require __DIR__.'/auth.php';

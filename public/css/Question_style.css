@@ -21,3 +21,11 @@
     background-color: #efe9ff;
     border-color: #7748FF !important;
   }
+.rightbg{
+    background-color: rgb(155, 241, 155);
+    border-color: black !important;
+}
+.wrongbg{
+    background-color: #efe9ff;
+    border-color:#7748FF !important;
+}
