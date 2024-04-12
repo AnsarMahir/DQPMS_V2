@@ -25,8 +25,9 @@ class Sh_QuestionFactory extends Factory
         return [
             'description'=>fake()->paragraph(),
             'nature'=>fake()->randomElement($qnature),
-            'referenceid'=>fake()->randomElement($reference),
-            'correct_answer'=>fake()->numberBetween(0,5),
+            'q_referenceid'=>fake()->randomElement($reference),
+            'a_referenceid'=>fake()->randomElement($reference),
+            'correct_answer'=>fake()->paragraph(),
             'pastpaper_reference'=>fake()->randomElement($pp_reference)
         ];
     }

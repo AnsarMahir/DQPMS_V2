@@ -19,8 +19,8 @@
 
             <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-center align-items-center" id="navmenu">
                 <ul class="navbar-nav text-light" style="column-gap: 2REM;">
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Home</a></li>
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Drafted Papers</a></li>
+                    <li class="nav-item "><a href="CreatorHomepage" class="nav-link nav-hover">Home</a></li>
+                    <li class="nav-item "><a href="Draftpapers" class="nav-link nav-hover">Drafted Papers</a></li>
                     <li class="nav-item "><a href="#" class="nav-link nav-hover">Published Papers</a></li>
                     
                 </ul>

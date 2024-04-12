@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id('sh_questions_id');
             $table->text('description');
             $table->enum('nature',['IQ','GK','MATH','OTHER']);
-            $table->unsignedBigInteger('referenceid');
-            $table->unsignedBigInteger('correct_answer');
+            $table->unsignedBigInteger('q_referenceid')->nullable();
+            $table->text('correct_answer');
+            $table->unsignedBigInteger('a_referenceid')->nullable();
             $table->unsignedBigInteger('pastpaper_reference');
-            $table->foreign('referenceid')->references('R_id')->on('reference');
+            $table->foreign('q_referenceid')->references('R_id')->on('reference');
+            $table->foreign('a_referenceid')->references('R_id')->on('reference');
             $table->foreign('pastpaper_reference')->references('P_id')->on('pastpaper');
             $table->timestamps();
         });

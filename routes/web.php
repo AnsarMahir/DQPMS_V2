@@ -4,6 +4,7 @@ use App\Http\Controllers\PastpaperController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Question\Question;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,12 +49,19 @@ Route::get('/StudentHomepage',function(){
     return view('StudentHomepage');
 });
 
-
 Route::get('/Question',[QuestionController::class,'showit']);
 
 Route::get('/PaperDetails',function(){
     return view('PaperDetails');
 });
+
+Route::get('/Draftpapers',function(){
+    return view('DraftPaperPage');
+});
+
+Route::post('/problems',[PastpaperController::class,'draft'])->name('problems');
+
+
 
 
 

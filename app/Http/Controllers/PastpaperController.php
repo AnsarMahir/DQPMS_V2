@@ -9,7 +9,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Mcq_Answer;
 use App\Models\Mcq_Question;
 use App\Models\Reference;
+use App\Models\Sh_Question;
 use Illuminate\Support\Facades\Validator;
+
+use function Laravel\Prompts\error;
+
 //use Illuminate\Validation\Validator;
 
 class PastpaperController extends Controller
@@ -35,6 +39,10 @@ class PastpaperController extends Controller
 
     }
 
+    public function draft(Request $request){
+        dd($request);
+    }
+
     public function validateAndStoreQuestions(Request $request){
 
         //dd($request);
@@ -49,7 +57,8 @@ class PastpaperController extends Controller
 
         while($i<(int)$no_of_questions){
 
-            if($request['pastpaperData'][1]=='MCQ'){            
+            if($request['pastpaperData'][1]=='MCQ'){     
+
             $validator = Validator::make($request->all(), [
                 'question' . $i => 'required',
                 'questionNature' . $i => 'required',
@@ -57,11 +66,13 @@ class PastpaperController extends Controller
                 $i . 'answer2' => 'required',
                 $i . 'answer3' => 'required',
                 $i . 'answer4' => 'required',
-                $i . 'answerRadio'=> 'required'
+                $i . 'answerRadio'=> 'required',
+                //$i . 'answer'=>'required'
                 //Validate Reference
             ],
             [
-                $i.'answerRadio.required'=>'Please provide a correct answer.'
+                $i.'answerRadio.required'=>'Please provide a correct answer.',
+                $i.'answer.required'=>'Please provide a correct answer'
 
             ],
             [
@@ -73,6 +84,8 @@ class PastpaperController extends Controller
             ]);
             }
 
+
+            //ShortAnswer Validator
             else{
 
                 $validator = Validator::make($request->all(), [
@@ -91,17 +104,20 @@ class PastpaperController extends Controller
 
 
             }
-            
+
             if ($validator->fails()) {
                 $errors = array_merge($errors, $validator->errors()->toArray());
             }
         $i++;
         };
 
+        //dd($errors);
 
         if (!empty($errors)) {
             return redirect()->back()->withErrors($errors);
         }
+
+        //  dd($request);
 
 
         //Store Pastpaper Details
@@ -116,16 +132,14 @@ class PastpaperController extends Controller
             'ModeratorState'=>'Published',
             'CreatorID'=>1,
             'ModeratorID'=>1
-        ]
+        ]   
         );
 
         
         $j=0;        
        //Store Questions and Answers
-        while($j<(int)$no_of_questions){
-            
-                           
-            
+        while($j<(int)$no_of_questions){  
+
             // Store Question and Answers 
             if($request['pastpaperData'][1]=='MCQ'){
 
@@ -136,8 +150,11 @@ class PastpaperController extends Controller
                     $request->file($j.'Q_Reference')->move(public_path('References'), $filename);
 
                     $questionReference = Reference::create([
-                        'reference_HTML'=>'<img src="' . $filename . '">'
+                        'reference_HTML'=>'<img src="' . $filename . "\"" . ' class="img-fluid">'
+
                     ]);
+
+                    // dd($questionReference);
                     
                 
                 }else{
@@ -189,7 +206,51 @@ class PastpaperController extends Controller
             
             elseif($request['pastpaperData'][1]=='Short Answers'){
 
-                dd($request);
+                //dd($request);
+
+                if($request->hasFile($j.'Q_Reference')){
+                    
+                    $filename = time() . '-' . $j . 'QuestionReference.' . $request->file($j.'Q_Reference')->extension();
+                    $request->file($j.'Q_Reference')->move(public_path('References'), $filename);
+
+                    $questionReference = Reference::create([
+                        'reference_HTML'=>'<img src="' . $filename . "\"" . ' class="img-fluid">'
+
+                    ]);
+
+                    // dd($questionReference);
+                    
+                
+                }else{
+                    $questionReference = null;
+                }
+
+                if($request->hasFile($j.'A_Reference')){
+                    
+                    $filename = time() . '-' . $j . 'AnswerReference.' . $request->file($j.'A_Reference')->extension();
+                    $request->file($j.'A_Reference')->move(public_path('References'), $filename);
+
+                    $answerReference = Reference::create([
+                        'reference_HTML'=>'<img src="' . $filename . "\"" . ' class="img-fluid">'
+
+                    ]);
+
+                    // dd($questionReference);
+                    
+                
+                }else{
+                    $answerReference = null;
+                }
+
+                $question = Sh_Question::create([
+                    'description'=>$request['question' . $j],
+                    'nature'=>$request['questionNature' . $j],
+                    'pastpaper_reference'=>$pastpaper->P_id,
+                    'q_referenceid'=> $questionReference ? $questionReference->R_id : null,
+                    'a_referenceid'=> $answerReference ? $answerReference->R_id : null,
+                    'correct_answer'=>$request[$j.'answer']
+                ]);
+
 
             }else{
                 dd($request);
@@ -203,6 +264,8 @@ class PastpaperController extends Controller
 
        
         
-    }   
+    }  
+    
+    
     
 }
