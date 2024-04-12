@@ -85,7 +85,7 @@ $counter=1;
         <div class="container">
             
             
-            <form action="/Review" method="GET" id="countdown-form">
+            <form action="/Review" method="POST" id="countdown-form">
                 <div class="d-grid d-sm-block pb-3 sticky-top">
                     <button class="btn btn-primary ms-0 bgbody text-dark" type="button" id="countdown">{{$time}}:00</button>
                 </div>

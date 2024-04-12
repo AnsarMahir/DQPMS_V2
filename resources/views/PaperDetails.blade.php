@@ -65,7 +65,7 @@
                           most appropriate.</span
                         >
                       </div>
-                      <form action="/Question" method="GET">
+                      <form action="/Question" method="POST">
                       <div class="d-grid gap-2 col-lg-6 mx-auto p-4">
                         @csrf
                         @foreach($selectedValues as $key => $value)

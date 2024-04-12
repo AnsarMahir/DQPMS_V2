@@ -53,7 +53,7 @@ Route::get('/Student',[PastpaperController::class,'showForm']
 ->middleware(['auth','verified']);
 
 
-Route::GET('/Question',[QuestionController::class,'fetch'])
+Route::POST('/Question',[QuestionController::class,'fetch'])
 ->middleware(['auth','verified']);
 
 Route::get('/PaperDetails',function(){
@@ -64,7 +64,7 @@ Route::get('/PaperDetails',function(){
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 
-Route::get('/Review',[QuestionController::class, 'reviewque']);
+Route::POST('/Review',[QuestionController::class, 'reviewque']);
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
 Route::post('/get-correct-answer', [QuestionController::class, 'getCorrectAnswer'])->name('get-correct-answer');
