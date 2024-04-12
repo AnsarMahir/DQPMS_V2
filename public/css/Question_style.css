@@ -21,6 +21,7 @@
     background-color: #efe9ff;
     border-color: #7748FF !important;
   }
+
 .rightbg{
     background-color: rgb(155, 241, 155);
     border-color: black !important;
@@ -29,3 +30,12 @@
     background-color: #efe9ff;
     border-color:#7748FF !important;
 }
+
+
+.noBorder {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #adadad;
+    outline:none;
+    box-shadow:none;
+  }

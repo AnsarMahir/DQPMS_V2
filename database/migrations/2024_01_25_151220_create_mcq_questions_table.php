@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('mcq_questions_id');
             $table->text('description');
             $table->enum('nature',['IQ','GK','MATH','OTHER']);
-            $table->unsignedBigInteger('referenceid');
+            $table->unsignedBigInteger('referenceid')->nullable();
             $table->unsignedBigInteger('correct_answer');
             $table->unsignedBigInteger('pastpaper_reference');
             $table->foreign('referenceid')->references('R_id')->on('reference');

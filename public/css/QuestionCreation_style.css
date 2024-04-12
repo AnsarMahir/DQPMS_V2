@@ -62,7 +62,7 @@ body::before{
     margin-left: auto;
   }
 
-  #name {
+  .noBorder {
     background: transparent;
     border: none;
     border-bottom: 1px solid #adadad;
@@ -70,16 +70,18 @@ body::before{
     box-shadow:none;
   }
 
- #name:hover{
+ .noBorder:hover{
   border-bottom: 1px solid #000000;
  }
 
- #name:focus{
+ .noBorder:focus{
   border-bottom: 1px solid #000000;
+  box-shadow: none;
  }
+
 
  .form-control::placeholder { 
-  color: black;
+  color: rgb(123, 123, 123);
   opacity: 1; 
 }
 
