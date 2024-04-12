@@ -30,5 +30,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'gpt3' => [
+        'endpoint' => env('GPT3_ENDPOINT'),
+        'api_key' => env('GPT3_API_KEY'),
+    ],
 
 ];

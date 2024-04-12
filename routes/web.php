@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\PastpaperController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +34,38 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/CreatorHomepage',function(){
+    return view('CreatorHomepage');
+});
+
+Route::get('/questioncheck',function(){
+    return view('questioncheck');
+});
+
+Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
+
+Route::post('/QuestionStore',[PastpaperController::class,'storeQuestions']);
+
+//Route::post('/QuestionCreation',[PastpaperController::class,'store']);
+
+Route::get('/Student',[PastpaperController::class,'showForm']
+)
+->middleware(['auth','verified']);
+
+
+Route::POST('/Question',[QuestionController::class,'fetch'])
+->middleware(['auth','verified']);
+
+Route::get('/PaperDetails',function(){
+    return view('PaperDetails');
+})
+->middleware(['auth','verified']);
+
+Route::post('/process-form', [ProfileController::class, 'processForm']);
+Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
+
+Route::POST('/Review',[QuestionController::class, 'reviewque']);
+
+Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
+Route::post('/get-correct-answer', [QuestionController::class, 'getCorrectAnswer'])->name('get-correct-answer');
 require __DIR__.'/auth.php';
