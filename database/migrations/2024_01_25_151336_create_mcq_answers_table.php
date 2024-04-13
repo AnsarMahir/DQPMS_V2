@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('mcq_ans_id');
             $table->text('description');
-            $table->unsignedBigInteger('reference');
+            $table->unsignedBigInteger('reference')->nullable();
             $table->primary(['mcq_ans_id','question_id']);
             $table->foreign('question_id')->references('mcq_questions_id')->on('mcq_questions');
             $table->foreign('reference')->references('R_id')->on('reference');

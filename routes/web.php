@@ -4,6 +4,7 @@ use App\Http\Controllers\PastpaperController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Question\Question;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ Route::get('/questioncheck',function(){
 
 Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
 
-Route::post('/QuestionStore',[PastpaperController::class,'storeQuestions']);
+Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuestions']);
 
 //Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 
@@ -60,6 +61,14 @@ Route::get('/PaperDetails',function(){
     return view('PaperDetails');
 })
 ->middleware(['auth','verified']);
+
+Route::get('/Draftpapers',function(){
+    return view('DraftPaperPage');
+});
+
+Route::post('/problems',[PastpaperController::class,'draft'])->name('problems');
+
+
 
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);

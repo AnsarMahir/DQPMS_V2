@@ -16,7 +16,8 @@ class Sh_Question extends Model
         'sh_questions_id',
         'description',
         'nature',
-        'referenceid',
+        'q_referenceid',
+        'a_referenceid',
         'correct_answer',
         'pastpaper_reference'
     ];

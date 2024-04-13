@@ -19,8 +19,8 @@
 
             <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-center align-items-center" id="navmenu">
                 <ul class="navbar-nav text-light" style="column-gap: 2REM;">
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Home</a></li>
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Drafted Papers</a></li>
+                    <li class="nav-item "><a href="CreatorHomepage" class="nav-link nav-hover">Home</a></li>
+                    <li class="nav-item "><a href="Draftpapers" class="nav-link nav-hover">Drafted Papers</a></li>
                     <li class="nav-item "><a href="#" class="nav-link nav-hover">Published Papers</a></li>
                     
                 </ul>
@@ -106,7 +106,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type='number' min="5" max="50" step="5" class="form-control" placeholder="Enter Number of Questions" name="numberOfQuestions">
+                            <input type='number' max="50" step="5" class="form-control" placeholder="Enter Number of Questions" name="numberOfQuestions">
                             @error('numberOfQuestions')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
                             @enderror

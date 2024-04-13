@@ -18,6 +18,7 @@ class Pastpaper extends Model
         'name',
         'year',
         'language',
+        'no_of_questions',
         'CreatorState',
         'ModeratorState',
         'CreatorID',

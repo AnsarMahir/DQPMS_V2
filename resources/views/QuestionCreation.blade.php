@@ -2,7 +2,6 @@
 
 $i=0;
 
-
 ?>
 
 <!DOCTYPE html>
@@ -51,19 +50,33 @@ $i=0;
                 </div>
             </div>
 
-            <form action="/QuestionStore" method="POST">
+            <form action="/QuestionStore" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                {{-- Get Pastpaper Data into controller --}}
                 @foreach ($pastpaper as $data)
 
                 <input type="hidden" value="{{$data}}" name="pastpaperData[]">
                     
                 @endforeach
 
+                
+                {{-- Get Questions into Controller --}}
                 @while ($i<$pastpaper['numberOfQuestions'])
+                
+                    @if ($pastpaper['questionType']=='MCQ')
 
-                <x-Create-MCQ-Question/>
-                <div class="d-none">{{$i++}}</div>
+                        <x-Create-MCQ-Question :i="$i"/>
+                        
+                    @else
+
+                        <x-Create-SH-Question :i="$i"/>
+                        
+                    @endif
+
+                    @php
+                        $i++
+                    @endphp
                     
                 @endwhile           
                 
@@ -72,7 +85,7 @@ $i=0;
                     <div class="col-lg-8 px-0">
                         <div class="d-flex flex-row-reverse">
                             <button class="btn btncolor ms-2  text-dark" type="submit">Submit</button>
-                            <button class="btn  ms-0  text-dark" type="button">Save as Draft</button>                        
+                            <button class="btn  ms-0  text-dark" type="submit" formaction="{{route('problems')}}">Save as Draft</button>                        
                         </div>
                         
                     </div>

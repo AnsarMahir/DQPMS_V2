@@ -19,7 +19,7 @@ class PastpaperFactory extends Factory
     public function definition(): array
     {
         $creatorState = ['Draft','Submitted','Approved'];
-        $moderatorState = ['Draft','Published'];
+        $moderatorState = ['Draft','Published','Review'];
         $language = ['English','Sinhala','Tamil'];
         $questionType = ['MCQ','Short Answer'];
         $creatorId = DB::table('users')->pluck('id');
