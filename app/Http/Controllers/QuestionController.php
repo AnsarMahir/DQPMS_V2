@@ -56,9 +56,6 @@ class QuestionController extends Controller
 
     public function fetch(Request $request)
 {   
-    
-
-    
     if ($request->session()->has('review_completed')) {
         $request->session()->forget('review_completed');
         return redirect('/dashboard');
@@ -72,9 +69,6 @@ class QuestionController extends Controller
         $questionType = $selectedValues['questiontype'];
         $questionNature = $selectedValues['qnature'];
         $numberOfQuestions = $selectedValues['noofq'];
-
-        
-
 
         if ($questionType === 'MCQ') {
             $time=1;
@@ -99,11 +93,9 @@ class QuestionController extends Controller
                 $mcqid = $this->getmcqid($getpids, $questionNature);
             }
             $num=$this->hamaslogic($mcqid, $userId);
+
             $finalid = $this->mcqidattempt($mcqid, $userId, $numberOfQuestions,$num);
             
-            
-            
-             
             $questions = Mcq_Question::whereIn('mcq_questions_id', $finalid)
             ->get();
 
@@ -113,7 +105,6 @@ class QuestionController extends Controller
             $qreference= Reference::whereIn('R_id',$qreferenceid)
             ->get()->toArray();
 
-            //dd($qreference);
             $referenceArray = [];
             $answers = DB::table('mcq_answers')
                 ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
@@ -140,40 +131,11 @@ class QuestionController extends Controller
             //user selected pastpaper name and language
             $getpids = $this->getpid($examname, $examlang); 
 
-
         }
-    
-
-    
         return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference','areference'));
     }
 }
     
-    public function reviewque(Request $request)
-    {
-        $request->flash();
-        
-        
-        
-        $useranswers = request('answers');
-
-        $finalids = request('finalids');
-        $questions = Mcq_Question::whereIn('mcq_questions_id', $finalids)
-            ->get();
-
-        $answers = DB::table('mcq_answers')
-            ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
-            ->select("mcq_answers.description")
-            ->whereIn('mcq_answers.question_id', $finalids)
-            ->get();
-
-
-            
-
-        //return $questions; // Return selected questions
-        $request->session()->put('review_completed', true);
-        return view('Review', compact('questions', 'answers', 'useranswers'));
-    }
 
     public function getpid($n, $n1)
     {

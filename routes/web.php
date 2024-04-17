@@ -3,6 +3,7 @@ use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\PastpaperController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Question\Question;
 
@@ -73,7 +74,7 @@ Route::post('/problems',[PastpaperController::class,'draft'])->name('problems');
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 
-Route::POST('/Review',[QuestionController::class, 'reviewque']);
+Route::POST('/Review',[ReviewController::class, 'reviewque']);
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
 Route::post('/get-correct-answer', [QuestionController::class, 'getCorrectAnswer'])->name('get-correct-answer');

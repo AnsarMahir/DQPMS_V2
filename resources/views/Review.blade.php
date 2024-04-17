@@ -15,10 +15,13 @@ $counter=1;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script type="text/javascript">
+        Cookies.set('question', 1);
+    </script>
     <script>
         function removestorage(){
             localStorage.removeItem('initialTime');
-            
             
         }
         $(document).ready(function() {

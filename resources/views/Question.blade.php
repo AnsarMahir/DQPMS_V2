@@ -1,7 +1,11 @@
 
-@php $answerindex = 0; 
+@php 
+$answerindex = 0; 
 $counter=1;
-            @endphp
+  header("Cache-Control: no-cache, no-store, must-revalidate"); //HTTP 1.1
+  header("Pragma: no-cache"); //HTTP 1.0
+  header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+@endphp
 
 
 
@@ -15,6 +19,7 @@ $counter=1;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script type="text/javascript">
         
     </script>
@@ -68,10 +73,20 @@ $counter=1;
             // Update the countdown every second
             let interval = setInterval(tick, 1000);
         }
+
+        function examfinish(){
+            if(Cookies.get('question') === 1){
+            window.location = "http://127.0.0.1:8000/Student";
+        }
+        tick();
+        let interval = setInterval(tick, 10);
+        }
     
         // Call updateCountdown when the page loads
         $(document).ready(function() {
             updateCountdown();
+            examfinish();
+           
         });
     </script>
 
