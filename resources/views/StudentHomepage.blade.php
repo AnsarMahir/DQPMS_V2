@@ -8,31 +8,41 @@
     <link rel="stylesheet" href="{{ asset('css\QuestionCreation_style.css ') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#exam').change(function() {
-                var exam = $(this).val();
-    
-                $.ajax({
-                    url: "{{ route('get.languages') }}",
-                    method: 'GET',
-                    data: {
-                        exam: exam
-                    },
-                    success: function(data) {
-                        var $languageDropdown = $('#language');
-                        $languageDropdown.empty();
-    
-                        if (data.length) {
-                            $.each(data, function(key, value) {
-                                $languageDropdown.append('<option value="' + value + '">' + value + '</option>');
-                            });
-                        } else {
-                            $languageDropdown.append('<option value="">No languages found</option>');
-                        }
-                    }
-                });
-            });
-        });
+        var selectedLanguage = null;
+
+$(document).ready(function() {
+  selectedLanguage = $('#selectedLanguage').val(); // Assuming a hidden field
+
+  $('#exam').change(function() {
+    var exam = $(this).val();
+
+    $.ajax({
+      url: "{{ route('get.languages') }}",
+      method: 'GET',
+      data: {
+        exam: exam
+      },
+      success: function(data) {
+        var $languageDropdown = $('#language');
+        $languageDropdown.empty();
+
+        if (data.length) {
+          $.each(data, function(key, value) {
+            $languageDropdown.append('<option value="' + value + '">' + value + '</option>');
+          });
+        } else {
+          $languageDropdown.append('<option value="">No languages found</option>');
+        }
+
+        // Pre-select language if available
+        if (selectedLanguage) {
+          $('#language').val(selectedLanguage);
+        }
+      }
+    });
+  });
+});
+
     </script>    
 </head>
 
@@ -115,7 +125,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select class="form-select" id="language" name="language">
+                            <select class="form-select" id="language" name="language" value="{{ old('language') }}">
                                 <option selected disabled>Choose your Language</option>
                                 {{-- @foreach($languages as $language)
                                 <option value="{{ $language }}">{{ $language }}</option>

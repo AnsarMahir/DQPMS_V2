@@ -56,6 +56,7 @@ class QuestionController extends Controller
 
     public function fetch(Request $request)
 {   
+    if ($request)
     if ($request->session()->has('review_completed')) {
         $request->session()->forget('review_completed');
         return redirect('/dashboard');
@@ -124,15 +125,13 @@ class QuestionController extends Controller
                 Mcq_Attempt::whereIn('mcq_questions_id',$finalid)
                 ->where('user_id',$userId)
                 ->increment('no_of_attempts');
+
+                return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference','areference'));
+        }else{
+            
         }
 
-        if ($questionType === 'MCQ' && $questionNature != 'All') {
-            //getpid function gets the pastpaper id's which match the 
-            //user selected pastpaper name and language
-            $getpids = $this->getpid($examname, $examlang); 
-
-        }
-        return view('Question', compact('questions', 'answers', 'selectedValues', 'finalid','time','qreference','areference'));
+        
     }
 }
     
