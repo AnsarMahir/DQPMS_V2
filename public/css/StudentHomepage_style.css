@@ -69,3 +69,9 @@ body::before{
 
   }
 
+  .paperCard:hover{ 
+    border-radius: 10px;
+    border-color:#efe9ff ;
+    color:  #0b036b !important;
+    background-color: #efe9ff;
+  }

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('mcq_questions', function (Blueprint $table) {
             $table->id('mcq_questions_id');
-            $table->text('description');
+            $table->text('description')->nullable();;
             $table->enum('nature',['IQ','GK','MATH','OTHER']);
             $table->unsignedBigInteger('referenceid')->nullable();
-            $table->unsignedBigInteger('correct_answer');
+            $table->unsignedBigInteger('correct_answer')->nullable();;
             $table->unsignedBigInteger('pastpaper_reference');
             $table->foreign('referenceid')->references('R_id')->on('reference');
             $table->foreign('pastpaper_reference')->references('P_id')->on('pastpaper');

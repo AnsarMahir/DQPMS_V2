@@ -55,11 +55,10 @@ Route::get('/PaperDetails',function(){
     return view('PaperDetails');
 });
 
-Route::get('/Draftpapers',function(){
-    return view('DraftPaperPage');
-});
+Route::get('/Draftpapers',[PastpaperController::class,'retrieveDraft']);
 
-Route::post('/problems',[PastpaperController::class,'draft'])->name('problems');
+Route::post('/savedraft',[PastpaperController::class,'savedraft'])->name('savedraft');
+
 
 
 

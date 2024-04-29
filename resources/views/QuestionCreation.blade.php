@@ -85,7 +85,7 @@ $i=0;
                     <div class="col-lg-8 px-0">
                         <div class="d-flex flex-row-reverse">
                             <button class="btn btncolor ms-2  text-dark" type="submit">Submit</button>
-                            <button class="btn  ms-0  text-dark" type="submit" formaction="{{route('problems')}}">Save as Draft</button>                        
+                            <button class="btn  ms-0  text-dark" type="submit" formaction="{{route('savedraft')}}">Save as Draft</button>                        
                         </div>
                         
                     </div>

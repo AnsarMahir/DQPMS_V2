@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('question_type',['MCQ','Short Answer']);
             $table->integer('no_of_questions');
             $table->enum('CreatorState',['Draft','Submitted','Approved']);
-            $table->enum('ModeratorState',['Draft','Review','Published']);
+            $table->enum('ModeratorState',['Draft','Review','Published','NULL']);
             $table->unsignedBigInteger('CreatorID');
             $table->unsignedBigInteger('ModeratorID');
             $table->foreign("CreatorID")->references('id')->on('users');
