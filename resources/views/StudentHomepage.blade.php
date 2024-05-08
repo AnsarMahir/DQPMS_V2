@@ -127,9 +127,9 @@ $(document).ready(function() {
                         <div class="form-group">
                             <select class="form-select" id="language" name="language" value="{{ old('language') }}">
                                 <option selected disabled>Choose your Language</option>
-                                {{-- @foreach($languages as $language)
-                                <option value="{{ $language }}">{{ $language }}</option>
-                                @endforeach --}}
+                                
+                                <option value="English">English</option>
+                                
                             </select>
                           </div>
                     </div>
@@ -150,7 +150,15 @@ $(document).ready(function() {
                     </button>
                    
                 </form>
-
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
             </div>
                 

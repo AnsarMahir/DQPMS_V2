@@ -15,8 +15,10 @@ $counter=1;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script type="text/javascript">
+
         Cookies.set('question', 1);
     </script>
     <script>
@@ -67,41 +69,11 @@ $counter=1;
                                 temp.classList.remove("bgbody");
                                 temp.classList.add("wrongbg");
                              </script>
-                              <p id="chatgpt-answer-{{ $question->mcq_questions_id }}"></p>
-                              <script>
-                                  $(document).ready(function() {
-    // Construct the JSON request data
-    var requestData = {
-        messages: [
-            {
-                role: "system",
-                content: "You are an AI assistant that helps people find information."
-            }
-        ],
-        temperature: 0.7,
-        top_p: 0.95,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-        max_tokens: 800,
-        stop: null
-    };
 
-    $.ajax({
-        url: "{{ route('get-correct-answer') }}",
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(requestData),
-        success: function(response) {
-            console.log("API Response received:", response);
-            // Handle the response as needed
-        },
-        error: function(xhr, status, error) {
-            console.error("API Request failed:", error);
-            // Handle the error and display a message to the user if needed
-        }
-    });
-});
-                              </script>
+                              @inject('provider', 'App\Http\Controllers\QuestionController')
+                              <span class="text-bold">
+                                {{ $provider::getCorrectAnswer($question->description) }}
+                            </span>
                           @endif
                       @endif
                   @endforeach

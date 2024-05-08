@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 use App\Models\Mcq_Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 
 class ReviewController extends Controller
 {
@@ -31,6 +34,51 @@ class ReviewController extends Controller
         //return $questions; // Return selected questions
         $request->session()->put('review_completed', true);
         return view('Review', compact('questions', 'answers', 'useranswers'));
+    }
+
+    public function showit(Request $request): View
+    {
+        dd($request);
+
+        //$questions = Mcq_Question::take(10)->pluck('description');
+        $questions = Mcq_Question::paginate(1, '*', 'page');
+
+        $questionId = $questions->first()->mcq_questions_id;
+
+        $answers = DB::table('mcq_answers')
+            ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
+            ->select("mcq_answers.description")
+            ->where('mcq_answers.question_id', $questionId)
+            ->get();
+
+        $selectedValues = $request->input('selectedValues');
+
+        //  dd($answers);
+        
+
+        return view('Question', compact('questions', 'answers', 'selectedValues'));
+    }
+
+    public static function getCorrectAnswer($request)
+    {
+
+        $response= Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'api-key' => 'dd21562cc7054bd0a0e5ce89196b16b7', // Replace 'YOUR_API_KEY' with your actual API key
+        ])->post('https://mslearn.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
+            "prompt" => "{{$request}}",
+            "max_tokens" => 50,
+            "temperature" => 0.2,
+            "frequency_penalty" => 0,
+            "presence_penalty" => 0,
+            "top_p" => 0.5,
+            "best_of" =>1,
+            "stop" => null,
+        ])->json();
+        Log::info('API Response: ' . json_encode($response));
+        $correctAnswer = $response['choices'][0]['text'] ?? 'No answer available';
+            
+        return $correctAnswer;
     }
 
     

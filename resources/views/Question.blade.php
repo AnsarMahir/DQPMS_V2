@@ -24,7 +24,7 @@ $counter=1;
         function updateCountdown() {
             let initialTime = localStorage.getItem('initialTime');
             if (!initialTime) {
-                // Set initial time in minutes (replace 30 with your desired initial time)
+                // Set initial time in minutes
                 initialTime = {{ $time }}*60;
                 localStorage.setItem('initialTime', initialTime); // Save initial time in seconds
             }
@@ -69,16 +69,7 @@ $counter=1;
     
             // Update the countdown every second
             let interval = setInterval(tick, 1000);
-        }
-
-        function examfinish(){
-            if(Cookies.get('question') === 1){
-            window.location = "http://127.0.0.1:8000/Student";
-        }
-        tick();
-        let interval = setInterval(tick, 10);
-        }
-    
+        }  
         // Call updateCountdown when the page loads
         $(document).ready(function() {
             updateCountdown();
@@ -103,11 +94,11 @@ $counter=1;
                 </div>
             @foreach ($questions as $question)
             
-            <div class="d-grid d-sm-block pb-3">
+            {{-- <div class="d-grid d-sm-block pb-3">
                 <button class="btn btn-primary ms-2 bgbody text-dark" type="button">Report this Question <i class="bi-flag mx-1"></i></button>
-            </div>
+            </div> --}}
             
-            <div class="row">
+            <div class="row"> {{-- Question box starts here--}}
                 <div class="col-12">
                     <div class="mb-4 shadow-lg rounded border border-3 bgbody">
 
@@ -122,7 +113,7 @@ $counter=1;
                             {!!$q['reference_HTML']!!}
                         
                         @endif
-                        @endforeach --}}
+                        @endforeach  --}}
                         </div>
 
                         <div class="px-4">
@@ -168,11 +159,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    {{-- @foreach($areference as $a)
+                                                     {{-- @foreach($areference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach --}}
+                                                    @endforeach  --}}
                                                     {{ $answers[$answerindex + 2]->description }}
                                                 </label>
                                               </div>
@@ -183,11 +174,11 @@ $counter=1;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4">
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    {{-- @foreach($areference as $a)
+                                                     {{-- @foreach($areference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach --}}
+                                                    @endforeach  --}}
                                                     {{ $answers[$answerindex + 3]->description }}
                                                 </label>
                                             </div>
@@ -197,7 +188,7 @@ $counter=1;
                                 </div>
 
                             
-                                @foreach ($finalid as $item)
+                                @foreach ($finalizedmcqid as $item)
                                 <input type="hidden" name="finalids[]" value="{{ $item }}">
                                 @endforeach
                                 
@@ -220,38 +211,16 @@ $counter=1;
             </div>
             
             
-            <div class="row" style="margin-top: 2rem;">
+            {{-- <div class="row" style="margin-top: 2rem;">
                 <div class="col d-flex justify-content-center">
-                    {{-- <ul class="pagination"> --}}
-                        {{-- <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li> --}}
-                        {{-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                        <li class="page-item">
-                            
-                          <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                    </ul> --}}
+                   
                     
                 </div>
-            </div>
+            </div> --}}
             
             
         </div>
-        {{-- {{$questions->links()}}  --}}
+       
     </section>
     
     

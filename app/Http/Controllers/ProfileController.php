@@ -70,6 +70,7 @@ class ProfileController extends Controller
 
         ]);
         $selectedValues = $request->only(['exam', 'questiontype', 'qnature', 'language', 'noofq']);
+        //add user ID with the retrieved data
         $selectedValues['user_id'] = Auth::id();
 
         return view('PaperDetails')->with('selectedValues', $selectedValues);

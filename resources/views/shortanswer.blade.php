@@ -17,7 +17,7 @@
             <div class="d-grid d-sm-block pb-3">
                 <button class="btn btn-primary ms-0 bgbody text-dark" type="button">00:00</button>
               </div>
-            
+            @foreach($questions as $question)
             <div class="row">
                 <div class="col-12">
                     <div class="mb-4 shadow-lg rounded border border-3 bgbody">
@@ -25,7 +25,7 @@
 
                         <div class="py-3 px-4">
                         <h4>Question 1 </h4>
-                        <p> One of the easiest question type is a short answer question, which has 1 correct simple answer to be provided?</p>
+                        <p>{{$question->description}}</p>
                         </div>
 
                         <div class="px-4">
@@ -51,33 +51,7 @@
                 </div>
                 
             </div>
-            
-            <!-- <div class="row" style="margin-top: 2rem;">
-                <div class="col d-flex justify-content-center">
-                    <ul class="pagination">
-                        <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                    </ul>
-                </div>
-            </div> -->
+            @endforeach
             
             
         </div>

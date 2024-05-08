@@ -1,10 +1,11 @@
 <?php
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
-use App\Http\Controllers\PastpaperController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\ReviewController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PastpaperController;
 use Symfony\Component\Console\Question\Question;
 
 /*
@@ -75,8 +76,27 @@ Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 
 Route::POST('/Review',[ReviewController::class, 'reviewque']);
-Route::POST('/shortanswer',[QuestionController::class,'fetch']);
+Route::POST('/shortanswer',[QuestionController::class,'fetch'])->name('shortanswer');
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
 Route::post('/get-correct-answer', [QuestionController::class, 'getCorrectAnswer'])->name('get-correct-answer');
+
+Route::get('/ai',function(){
+$response= Http::withHeaders([
+    'Content-Type' => 'application/json',
+    'api-key' => 'dd21562cc7054bd0a0e5ce89196b16b7', // Replace 'YOUR_API_KEY' with your actual API key
+])->post('https://mslearn.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
+    "prompt" => "Who is the current president of srilanka?",
+    "max_tokens" => 50,
+    "temperature" => 1,
+    "frequency_penalty" => 0,
+    "presence_penalty" => 0,
+    "top_p" => 0.5,
+    "best_of"=>1,
+    "stop" => null,
+])->json();
+    dd($response);
+
+});
+Route::post('/get-correct-answer', 'ReviewController@getCorrectAnswer');
 require __DIR__.'/auth.php';
