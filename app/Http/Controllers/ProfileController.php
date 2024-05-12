@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use Exception;
 use App\Models\Pastpaper;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -60,6 +61,10 @@ class ProfileController extends Controller
     }
     public function processForm(Request $request)
     {
+        if ($request->getMethod() === 'GET' && $request->route()->getName() === 'process-form') {
+            // Redirect to a different route or URL
+            return redirect()->route('home')->with('error', 'GET method is not supported for process-form route.');
+        }
         // Retrieve submitted data
         $validated = $request->validate([
             'exam' => 'required',
@@ -74,5 +79,7 @@ class ProfileController extends Controller
         $selectedValues['user_id'] = Auth::id();
 
         return view('PaperDetails')->with('selectedValues', $selectedValues);
-    }
+    
+}
+
 }

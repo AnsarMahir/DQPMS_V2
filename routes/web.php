@@ -60,9 +60,9 @@ Route::POST('/Question',[QuestionController::class,'fetch'])
 ->middleware(['auth','verified','nocache']);
 
 Route::get('/PaperDetails',function(){
-    return view('PaperDetails');
+     return view('PaperDetails');
 })
-->middleware(['auth','verified']);
+ ->middleware(['auth','verified']);
 
 Route::get('/Draftpapers',function(){
     return view('DraftPaperPage');
