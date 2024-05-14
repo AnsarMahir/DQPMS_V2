@@ -53,11 +53,16 @@ Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuesti
 
 Route::get('/Student',[PastpaperController::class,'showForm']
 )
+->middleware(['auth','verified'])
+->name('student');
+
+Route::get('/StudentHomepage',[PastpaperController::class,'showForm']
+)
 ->middleware(['auth','verified']);
 
 
 Route::POST('/Question',[QuestionController::class,'fetch'])
-->middleware(['auth','verified','nocache']);
+->middleware(['auth','verified']);
 
 Route::get('/PaperDetails',function(){
      return view('PaperDetails');
@@ -75,11 +80,10 @@ Route::post('/problems',[PastpaperController::class,'draft'])->name('problems');
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 
-Route::POST('/Review',[ReviewController::class, 'reviewque']);
+Route::POST('/Review',[ReviewController::class, 'reviewque'])->middleware('nocache');
 Route::POST('/shortanswer',[QuestionController::class,'fetch'])->name('shortanswer');
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
-Route::post('/get-correct-answer', [QuestionController::class, 'getCorrectAnswer'])->name('get-correct-answer');
 
 Route::get('/ai',function(){
 $response= Http::withHeaders([

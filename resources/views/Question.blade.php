@@ -4,8 +4,6 @@ $answerindex = 0;
 $counter=1;
 @endphp
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +15,6 @@ $counter=1;
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script type="text/javascript">
-        
-    </script>
     <script>
         function updateCountdown() {
             let initialTime = localStorage.getItem('initialTime');
@@ -76,6 +71,15 @@ $counter=1;
             examfinish();
            
         });
+
+        
+        
+        window.history.forward(); 
+        function noBack() { 
+            window.history.forward(); 
+        } 
+    
+
     </script>
 
     
@@ -88,7 +92,7 @@ $counter=1;
         <div class="container">
             
             
-            <form action="/Review" method="POST" id="countdown-form">
+            <form action="/Review" method="POST" id="countdown-form" >
                 <div class="d-grid d-sm-block pb-3 sticky-top">
                     <button class="btn btn-primary ms-0 bgbody text-dark" type="button" id="countdown">{{$time}}:00</button>
                 </div>

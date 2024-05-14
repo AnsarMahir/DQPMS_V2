@@ -62,11 +62,11 @@ class QuestionController extends Controller
     public function fetch(Request $request)
 {   
     
-    if ($request->session()->has('review_completed')) {
-        $request->session()->forget('review_completed');
-        return redirect('/dashboard');
-    }
-    else{
+    // if ($request->session()->has('review_completed')) {
+    //     $request->session()->forget('review_completed');
+    //     return redirect('/dashboard');
+    // }
+    // else{
     
         $selectedValues = $request->input('selectedValues');
         $examlang = $selectedValues['language'];
@@ -80,6 +80,7 @@ class QuestionController extends Controller
         //user selected pastpaper name and language
         try{
             $getpids = $this->getpid($examname, $examlang);
+            
         }catch(QueryException $e){
             return response()->json(['error' => 'Database error occurred'], 500);
         }
@@ -185,6 +186,12 @@ class QuestionController extends Controller
             $questions = Sh_Question::whereIn('sh_questions_id', $finalid)
             ->get();
 
+            $questionsCount = $questions->count();
+
+            if ($questionsCount < $numberOfQuestions){
+                return view('StudentHomepage');
+            }
+
             $qreferenceid= Sh_Question::whereIn('sh_questions_id', $finalid)
             ->get('referenceid');
 
@@ -214,7 +221,7 @@ class QuestionController extends Controller
         }
 
         
-    }
+    //}
 }
     
 
@@ -266,7 +273,7 @@ class QuestionController extends Controller
         $shortid = Sh_Question::whereIn('pastpaper_reference', $n)
             ->pluck('sh_questions_id')
             ->toArray();
-
+            
         return $shortid;
     }
 
@@ -361,25 +368,25 @@ class QuestionController extends Controller
         return view('Question', compact('questions', 'answers', 'selectedValues'));
     }
 
-    public static function getCorrectAnswer($request)
-    {
+    // public static function getCorrectAnswer($request)
+    // {
 
-        $response= Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'api-key' => 'dd21562cc7054bd0a0e5ce89196b16b7', // Replace 'YOUR_API_KEY' with your actual API key
-        ])->post('https://mslearn.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
-            "prompt" => "what is the current president of sri lanka?",
-            "max_tokens" => 50,
-            "temperature" => 0.2,
-            "frequency_penalty" => 0,
-            "presence_penalty" => 0,
-            "top_p" => 0.5,
-            "best_of" =>1,
-            "stop" => null,
-        ])->json();
+    //     $response= Http::withHeaders([
+    //         'Content-Type' => 'application/json',
+    //         'api-key' => 'dd21562cc7054bd0a0e5ce89196b16b7', // Replace 'YOUR_API_KEY' with your actual API key
+    //     ])->post('https://mslearn.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
+    //         "prompt" => "what is the current president of sri lanka?",
+    //         "max_tokens" => 50,
+    //         "temperature" => 0.2,
+    //         "frequency_penalty" => 0,
+    //         "presence_penalty" => 0,
+    //         "top_p" => 0.5,
+    //         "best_of" =>1,
+    //         "stop" => null,
+    //     ])->json();
 
-        $correctAnswer = $response['choices'][0]['text'] ?? 'No answer available';
+    //     $correctAnswer = $response['choices'][0]['text'] ?? 'No answer available';
             
-        return $correctAnswer;
-    }
+    //     return $correctAnswer;
+    // }
 }

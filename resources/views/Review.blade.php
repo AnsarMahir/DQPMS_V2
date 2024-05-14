@@ -29,6 +29,15 @@ $counter=1;
         $(document).ready(function() {
             removestorage();
         });
+
+        
+    function myfunction() {
+        // Redirect to the desired location
+        window.location.replace("http://127.0.0.1:8000/Student");
+        // Return false to prevent the form from submitting via default behavior
+        return false;
+    }
+</script>
     </script>
     
 </head>
@@ -69,8 +78,8 @@ $counter=1;
                                 temp.classList.remove("bgbody");
                                 temp.classList.add("wrongbg");
                              </script>
-
-                              @inject('provider', 'App\Http\Controllers\QuestionController')
+                                
+                              @inject('provider', 'App\Http\Controllers\ReviewController')
                               <span class="text-bold">
                                 {{ $provider::getCorrectAnswer($question->description) }}
                             </span>
@@ -221,7 +230,9 @@ $counter=1;
             
             
         </div>
-        {{-- {{$questions->links()}}  --}}
+        <div class="d-flex justify-content-center pb-3">
+            <button class="btn btn-dark" type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
+        </div>
     </section>
     
     

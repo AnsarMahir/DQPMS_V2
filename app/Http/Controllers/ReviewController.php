@@ -61,7 +61,6 @@ class ReviewController extends Controller
 
     public static function getCorrectAnswer($request)
     {
-
         $response= Http::withHeaders([
             'Content-Type' => 'application/json',
             'api-key' => 'dd21562cc7054bd0a0e5ce89196b16b7', // Replace 'YOUR_API_KEY' with your actual API key

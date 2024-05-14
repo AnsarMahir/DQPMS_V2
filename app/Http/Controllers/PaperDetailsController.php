@@ -10,6 +10,7 @@ class PaperDetailsController extends Controller
 {
     public function showPaperDetails(Request $request)
     {
+        
         // Retrieve submitted data from the session
         $selectedValues = $request->session()->get('selectedValues');
        
