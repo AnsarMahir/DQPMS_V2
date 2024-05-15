@@ -56,11 +56,6 @@ Route::get('/Student',[PastpaperController::class,'showForm']
 ->middleware(['auth','verified'])
 ->name('student');
 
-Route::get('/StudentHomepage',[PastpaperController::class,'showForm']
-)
-->middleware(['auth','verified']);
-
-
 Route::POST('/Question',[QuestionController::class,'fetch'])
 ->middleware(['auth','verified']);
 

@@ -10,6 +10,8 @@ unset($_SESSION['review_completed']);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css\QuestionCreation_style.css ') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script type="text/javascript">
         var selectedLanguage = null;
 
@@ -49,12 +51,23 @@ $(document).ready(function() {
     </script>    
 </head>
 
-<body>
-    @if(isset($message))
-    <div class="alert alert-success">
-        {{ $message }}
+<body class="position-relative">
+    
+    @if (session()->has('message'))
+
+    <div x-data="{show:true}" x-init = "setTimeout(() => show = false , 3000)" x-show='show' class="position-absolute top-0 start-50 translate-middle-x text-light pop-z-index">
+    <div class=" px-4 pb-4 popup text-center">
+        <i class="bi bi-check-circle-fill fs-1"></i>
+        <h5 class="my-auto text-center text-uppercase pt-2">
+            {{session('message')}}
+        </h5>
     </div>
-    @endif
+    </div>
+
+@endif
+
+    
+    
     <nav class="navbar navbar-dark navbar-expand-lg text-light py-3 fixed-top bgprimary" >
         <div class="container">
             <a href="#" class="navbar-brand flex-fill align-items-center">DQPMS</a>
