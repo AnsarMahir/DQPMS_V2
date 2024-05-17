@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Sh_Answer;
+use App\Models\Sh_Question;
 use Illuminate\Support\Facades\Http;
 
 class ReviewController extends Controller
@@ -15,7 +17,7 @@ class ReviewController extends Controller
     public function reviewque(Request $request)
     {
         $request->flash();
-        
+
         $useranswers = request('answers');
 
         $finalids = request('finalids');
@@ -29,11 +31,26 @@ class ReviewController extends Controller
             ->get();
 
 
-            
+
 
         //return $questions; // Return selected questions
         $request->session()->put('review_completed', true);
         return view('Review', compact('questions', 'answers', 'useranswers'));
+    }
+
+    public function sreview(Request $request)
+    {
+        //dd($request);
+        $request->flash();
+        $finalids = request('finalids');
+        $questions = Sh_Question::whereIn('sh_questions_id', $finalids)
+            ->get();
+        $answer=Sh_Answer::whereIn('question_id',$finalids)
+            ->get();
+
+        //return $questions; // Return selected questions
+        $request->session()->put('review_completed', true);
+        return view('sreview', compact('questions','answer'));
     }
 
     public function showit(Request $request): View
@@ -54,14 +71,14 @@ class ReviewController extends Controller
         $selectedValues = $request->input('selectedValues');
 
         //  dd($answers);
-        
+
 
         return view('Question', compact('questions', 'answers', 'selectedValues'));
     }
 
     public static function getCorrectAnswer($request)
     {
-        $response= Http::withHeaders([
+        $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'api-key' => 'dd21562cc7054bd0a0e5ce89196b16b7', // Replace 'YOUR_API_KEY' with your actual API key
         ])->post('https://mslearn.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
@@ -71,14 +88,12 @@ class ReviewController extends Controller
             "frequency_penalty" => 0,
             "presence_penalty" => 0,
             "top_p" => 0.5,
-            "best_of" =>1,
+            "best_of" => 1,
             "stop" => null,
         ])->json();
         Log::info('API Response: ' . json_encode($response));
         $correctAnswer = $response['choices'][0]['text'] ?? 'No answer available';
-            
+
         return $correctAnswer;
     }
-
-    
 }

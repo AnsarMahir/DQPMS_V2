@@ -75,7 +75,8 @@ Route::post('/problems',[PastpaperController::class,'draft'])->name('problems');
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
 
-Route::POST('/Review',[ReviewController::class, 'reviewque'])->middleware('nocache');
+Route::POST('/Review',[ReviewController::class, 'reviewque']);
+Route::POST('/sreview',[ReviewController::class, 'sreview']);
 Route::POST('/shortanswer',[QuestionController::class,'fetch'])->name('shortanswer');
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');

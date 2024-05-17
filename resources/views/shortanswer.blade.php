@@ -84,7 +84,8 @@ $counter=1;
 
     <section class="p-5 mt-auto">
         <div class="container">
-            <form action="/Review" method="POST" id="countdown-form" >
+            <form autocomplete="off" action="/sreview" method="POST" id="countdown-form" >
+            @csrf
             <div class="d-grid d-sm-block pb-3 sticky-top">
                 <button class="btn btn-primary ms-0 bgbody text-dark" type="button" id="countdown">{{$time}}:00</button>
             </div>
@@ -103,17 +104,11 @@ $counter=1;
                             
 
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Answer</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"  >
-                                    <div id="emailHelp" class="form-text">Please write answer without space</div>
+                                    <label for="answer" class="form-label">Answer</label>
+                                    <input type="text" class="form-control" id="answerinput" name="answer{{$counter}}" >
+                                    {{-- <div class="form-text">Please write answer without space</div> --}}
                                   </div>
 
-                                
-                                
-                               
-                               
-                                
-                            
                         </div>
 
                 </div>
@@ -127,6 +122,9 @@ $counter=1;
             <div class="d-flex flex-row-reverse pb-3">
                 <button class="btn btn-dark" type="submit">Submit</button>
             </div>
+            @foreach ($finalid as $item)
+            <input type="hidden" name="finalids[]" value="{{ $item }}">
+            @endforeach
         </form>
             
             

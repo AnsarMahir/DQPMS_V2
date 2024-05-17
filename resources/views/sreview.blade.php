@@ -17,6 +17,13 @@ $counter=1;
         function noBack() { 
             window.history.forward(); 
         } 
+
+        function myfunction() {
+        // Redirect to the desired location
+        window.location.replace("http://127.0.0.1:8000/Student");
+        // Return false to prevent the form from submitting via default behavior
+        return false;
+    }
     </script>
 </head>
 
@@ -24,10 +31,8 @@ $counter=1;
 
     <section class="p-5 mt-auto">
         <div class="container">
-            <form action="/Review" method="POST" id="countdown-form" >
-            <div class="d-grid d-sm-block pb-3 sticky-top">
-                <button class="btn btn-primary ms-0 bgbody text-dark" type="button" id="countdown">{{$time}}:00</button>
-            </div>
+            <form autocomplete="off" action="" method="" id="countdown-form" >
+           
             @foreach($questions as $question)
             <div class="row">
                 <div class="col-12">
@@ -42,10 +47,15 @@ $counter=1;
                         <div class="px-4">
                             
                                 <div class="mb-3">
-                                    <label for="answer" class="form-label">Answer</label>
-                                    <input type="text" class="form-control" id="answerinput"  >
-                                    {{-- <div class="form-text">Please write answer without space</div> --}}
-                                  </div>
+                                 <label for="answer" class="form-label">Answer provided :</label>
+                                 <p> <b> {{ old("answer$counter")}} </b></p>
+                                 <label for="answer" class="form-label">Guided Answer:</label>
+                                 @foreach($answer as $item)
+                                 @if($question->sh_questions_id == $item->question_id)
+                                 <p> <b> {{$item->description}} </b></p> 
+                                 @endif
+                                 @endforeach
+                                </div>
 
                         </div>
 
@@ -57,10 +67,11 @@ $counter=1;
             $counter++;
             @endphp
             @endforeach
-            <div class="d-flex flex-row-reverse pb-3">
-                <button class="btn btn-dark" type="submit">Submit</button>
-            </div>
+        
         </form>
+        <div class="d-flex justify-content-center pb-3">
+            <button class="btn btn-dark" type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
+        </div>
             
             
         </div>
