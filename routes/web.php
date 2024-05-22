@@ -6,6 +6,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PastpaperController;
+use App\Livewire\Gptanswer;
 use Symfony\Component\Console\Question\Question;
 
 /*
@@ -80,7 +81,7 @@ Route::POST('/sreview',[ReviewController::class, 'sreview']);
 Route::POST('/shortanswer',[QuestionController::class,'fetch'])->name('shortanswer');
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
-
+Route::get('/gptanswer', Gptanswer::class);
 Route::get('/ai',function(){
 $response= Http::withHeaders([
     'Content-Type' => 'application/json',

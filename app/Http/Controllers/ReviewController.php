@@ -80,8 +80,8 @@ class ReviewController extends Controller
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'api-key' => 'dd21562cc7054bd0a0e5ce89196b16b7', // Replace 'YOUR_API_KEY' with your actual API key
-        ])->post('https://mslearn.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
+            'api-key' => '19405950af274c20aa51eb3a1f4418bc', // Replace 'YOUR_API_KEY' with your actual API key
+        ])->post('https://ansak.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
             "prompt" => "{{$request}}",
             "max_tokens" => 50,
             "temperature" => 0.2,

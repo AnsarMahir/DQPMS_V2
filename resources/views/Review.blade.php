@@ -78,11 +78,9 @@ $counter=1;
                                 temp.classList.remove("bgbody");
                                 temp.classList.add("wrongbg");
                              </script>
-                                
-                              @inject('provider', 'App\Http\Controllers\ReviewController')
-                              <span class="text-bold">
-                                {{ $provider::getCorrectAnswer($question->description) }}
-                            </span>
+                            <div>
+                                <livewire:gpt-answer :description="$question->description" lazy="on-load" />
+                            </div>
                           @endif
                       @endif
                   @endforeach
