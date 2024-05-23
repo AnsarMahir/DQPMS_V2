@@ -78,12 +78,13 @@ class ReviewController extends Controller
 
     public static function getCorrectAnswer($request)
     {
+        $apiKey = config('services.my_service.api_key');
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'api-key' => '19405950af274c20aa51eb3a1f4418bc', // Replace 'YOUR_API_KEY' with your actual API key
+            'api-key' => $apiKey, // Replace 'YOUR_API_KEY' with your actual API key
         ])->post('https://ansak.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
-            "prompt" => "{{$request}}",
-            "max_tokens" => 50,
+            "prompt" => "{{$request}} explain briefly",
+            "max_tokens" => 100,
             "temperature" => 0.2,
             "frequency_penalty" => 0,
             "presence_penalty" => 0,
@@ -93,7 +94,6 @@ class ReviewController extends Controller
         ])->json();
         Log::info('API Response: ' . json_encode($response));
         $correctAnswer = $response['choices'][0]['text'] ?? 'No answer available';
-
         return $correctAnswer;
     }
 }
