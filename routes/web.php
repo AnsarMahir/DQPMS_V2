@@ -1,12 +1,14 @@
 <?php
+use App\Livewire\Gptanswer;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PastpaperController;
-use App\Livewire\Gptanswer;
+use Intervention\Image\Laravel\Facades\Image;
 use Symfony\Component\Console\Question\Question;
 
 /*
@@ -41,6 +43,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/CreatorHomepage',function(){
     return view('CreatorHomepage');
 });
+
+Route::get('/Rank', [RankController::class,'generateBadge']);
 
 Route::get('/questioncheck',function(){
     return view('questioncheck');
@@ -101,4 +105,10 @@ Route::get('/ai',function(){
     dd($response);
 });
 Route::post('/get-correct-answer', 'ReviewController@getCorrectAnswer');
+Route::get('/badge', [RankController::class, 'showBadgePage']);
+Route::post('/generate-badge', [RankController::class, 'generateBadge'])->name('generatebadge');
+
+Route::get('/ansak', function () {
+    $image = Image::read('level1.jpg');
+});
 require __DIR__.'/auth.php';
