@@ -31,7 +31,8 @@
 
                
                         <img src="{{ $image }}" alt="" class="w-50 align-content-start">
-                       
+                        <p>{{ $firebaseImageUrl }}</p>
+                        <img src="{{ $firebaseImageUrl }}" alt="" class="w-50 align-content-start">
         
                         <h1 class="text-center">Ahamed Hamas</h1>
                         <h5 class="pb-4">Paper Creator</h5> 
