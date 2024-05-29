@@ -30,21 +30,29 @@
                     <div class="d-flex flex-column justify-content-center align-items-center">
 
                
-                        <img src="{{ $image }}" alt="" class="w-50 align-content-start">
-                        <p>{{ $firebaseImageUrl }}</p>
                         <img src="{{ $firebaseImageUrl }}" alt="" class="w-50 align-content-start">
         
                         <h1 class="text-center">Ahamed Hamas</h1>
                         <h5 class="pb-4">Paper Creator</h5> 
-
-                        
-                        <button class="btn btncolor">
-                            <p class="m-0"><i class="bi bi-share-fill me-2"></i>Share</p>                            
-                        </button> 
+ 
+                        <div class="share-buttons">
+                            <h3>Share your badge:</h3>
+                            <a class="share-button" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($firebaseImageUrl) }}" target="_blank">
+                                <img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Share on Facebook" width="40">
+                            </a>
+                            <a class="share-button" href="https://twitter.com/intent/tweet?url={{ urlencode($firebaseImageUrl) }}&text=Check%20out%20my%20badge!" target="_blank">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Share on Twitter" width="40">
+                            </a>
+                            <a class="share-button" href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode($firebaseImageUrl) }}&title=My%20Badge" target="_blank">
+                                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Share on LinkedIn" width="40">
+                            </a>
+                            <a class="share-button" href="https://api.whatsapp.com/send?text={{ urlencode($firebaseImageUrl) }}" target="_blank">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Share on WhatsApp" width="40">
+                            </a>
+                        </div>
                         
                         
                      
-                                               
                         
         
                     </div> 

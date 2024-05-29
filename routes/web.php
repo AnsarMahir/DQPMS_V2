@@ -105,7 +105,8 @@ Route::get('/ai',function(){
     dd($response);
 });
 Route::post('/get-correct-answer', 'ReviewController@getCorrectAnswer');
-Route::get('/badge', [RankController::class, 'showBadgePage']);
+Route::get('/badge/{id}', [RankController::class, 'showBadge'])->name('badge.show');
+
 Route::post('/generate-badge', [RankController::class, 'generateBadge'])->name('generatebadge');
 
 Route::get('/ansak', function () {

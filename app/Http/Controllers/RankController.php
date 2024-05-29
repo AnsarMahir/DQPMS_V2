@@ -5,31 +5,44 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Factory;
 use App\Http\Controllers\Controller;
+use App\Models\Mcq_Attempt;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Laravel\Facades\Image;
 
 class RankController extends Controller
 {
-    public function showBadgePage(Request $request)
-    {
-        // Normally, you'd retrieve the user's name from the authenticated user or session
-        $userName = 'Hamaas'; // This is just an example. You'd replace this with actual logic.
-
-        // Store the name in the session
-        session(['userName' => $userName]);
-
-        // Trigger the generation via a POST request to the same controller
-        return view('badge'); // Create a Blade view named badge-page
-    }
 
     public static function generateBadge(Request $request)
     {
         // Retrieve the authenticated user's name
         $userName = Auth::user()->name;
-    
-        // Load the base image
+
+        //level logic
+        $mcqcount = Mcq_Attempt::where('user_id',Auth::user()->id)
+        ->count();
+        $nonattempt=Mcq_Attempt::where('user_id',Auth::user()->id)
+        ->whereNot('no_of_attempts',[0,NULL])
+        ->count();
+
+        $mcqattemptpercentage = ($nonattempt/$mcqcount)*100;
+
+
+        if ($mcqattemptpercentage>=0 && $mcqattemptpercentage<=30 ){
+            // Load the base image
         $image = ImageManager::gd()->read('level1.jpg');
+
+        }
+        else if($mcqattemptpercentage>30 && $mcqattemptpercentage<=75){
+        // Load the base image
+        $image = ImageManager::gd()->read('level2.jpg');
+        }
+        else if ($mcqattemptpercentage>75 && $mcqattemptpercentage<=100){
+            // Load the base image
+        $image = ImageManager::gd()->read('level3.jpg');
+
+        }
+        
     
         // Define text properties
         $fontPath = public_path('fonts/arial.ttf'); // Path to the font file
