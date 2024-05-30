@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('CreatorState',['Draft','Submitted','Approved']);
             $table->enum('ModeratorState',['Draft','Review','Published','NULL']);
             $table->unsignedBigInteger('CreatorID');
-            $table->unsignedBigInteger('ModeratorID');
+            $table->unsignedBigInteger('ModeratorID')->nullable();
             $table->foreign("CreatorID")->references('id')->on('users');
             $table->foreign("ModeratorID")->references('id')->on('users');
             $table->timestamps();

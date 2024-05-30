@@ -1,48 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css\StudentHomepage_style.css ') }}">
-</head>
+<x-index>
 
-<body>
-    <nav class="navbar navbar-dark navbar-expand-lg text-light py-3 fixed-top bgprimary" >
-        <div class="container">
-            <a href="#" class="navbar-brand flex-fill align-items-center">DQPMS</a>
+    <x-flash-message/>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <x-nav-bar/>
 
-            <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-center align-items-center" id="navmenu">
-                <ul class="navbar-nav text-light" style="column-gap: 2REM;">
-                    <li class="nav-item "><a href="CreatorHomepage" class="nav-link nav-hover">Home</a></li>
-                    <li class="nav-item "><a href="Draftpapers" class="nav-link nav-hover">Drafted Papers</a></li>
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Published Papers</a></li>
-                    
-                </ul>
-            </div>
-            
-            <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-end align-items-center" id="navmenu">
-                <ul class="navbar-nav text-light ">
-                    <li class="nav-item">
-                        <a href="" class="nav-link ps-lg-3">Profile</a>  
-                    </li>
-                    <li class="badge nav-item">
-                        <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="" class="rounded-circle">   
-                    </li>
-                </ul>
-
-            </div>               
-            
-        </div>
-    </nav>
-
-    <section class="p-5 pt-lg-5 bgbody">
-        <div class="container" >
+    <section class="pt-sm-5 bgbody">
+        <div class="container pt-5" >
             <div class="p-5 text-center ">
                 <h1 class="p-2 textheading">Welcome Creator!</h1>
                 <h4 class="p-2 textsub">Create your paper...</h4>
@@ -74,7 +37,7 @@
                             <select class="form-select" name="questionType">
                                 <option selected disabled>Choose the question type</option>
                                 <option>MCQ</option>
-                                <option>Short Answers</option>
+                                <option>Short Answer</option>
                             </select>
                             @error('questionType')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
@@ -83,7 +46,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type='number' step="1" class="form-control" placeholder="Enter the year" name="year">
+                            <input type='number' step="1" max="2024" min="1990" class="form-control" placeholder="Enter the year" name="year">
                             @error('year')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
                             @enderror
@@ -106,7 +69,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type='number' max="50" step="5" class="form-control" placeholder="Enter Number of Questions" name="numberOfQuestions">
+                            <input type='number' max="50" min="5" class="form-control" placeholder="Enter Number of Questions" name="numberOfQuestions">
                             @error('numberOfQuestions')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
                             @enderror
@@ -119,26 +82,11 @@
                       
                 </form>
 
-
             </div>
                 
         </div>  
 
     </section>
 
-    <!-- <footer class="p-4 bg-dark text-white text-center position-relative">
-        <div class="container">
-            <p class="lead m-0">Copyright &copy; 2024 DQPMS</p>
-
-        </div>
-    </footer>  
     
-    <script>
-        document.addEventListener('DOMContentLoaded', e => {
-            $('#input-datalist').autocomplete()
-        }, false);
-    </script> -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
-</html>
+</x-index>

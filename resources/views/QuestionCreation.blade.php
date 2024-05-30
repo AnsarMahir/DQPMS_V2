@@ -50,7 +50,7 @@ $i=0;
                 </div>
             </div>
 
-            <form action="/QuestionStore" method="POST" enctype="multipart/form-data">
+            <form action="/QuestionStore" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
 
                 {{-- Get Pastpaper Data into controller --}}

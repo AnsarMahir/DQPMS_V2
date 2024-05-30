@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css\StudentHomepage_style.css ') }}">
+    <link rel="stylesheet" href="{{ asset('css\Hamas_style.css ') }}">
 </head>
 
 <body>
@@ -42,7 +42,7 @@
     </nav>
 
     <section class="p-5 pt-lg-5">
-        <div class="container">
+        <div class="container pt-5">
             <div class="row">
 
                 @if ($PastpaperData->isEmpty())
@@ -56,7 +56,7 @@
                 
                 <div class="col-lg-4 mb-3 ">
 
-                    <a href="/paper/{{$paper->P_id}}" style="text-decoration: none">
+                    <a href="/paper/{{$paper->P_id}}/{{$paper->question_type}}" style="text-decoration: none">
 
                     <div class="col" style="border-radius: 5px; background-color:#7e53ff">
 

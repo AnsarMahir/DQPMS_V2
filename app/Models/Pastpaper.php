@@ -17,6 +17,7 @@ class Pastpaper extends Model
     protected $fillable = [
         'name',
         'year',
+        'question_type',
         'language',
         'no_of_questions',
         'CreatorState',

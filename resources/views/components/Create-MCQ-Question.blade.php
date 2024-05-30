@@ -36,6 +36,7 @@
                 <div class="row">
                     <img src="" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
                 </div>
+                
 
                 <div class="row" style="column-gap: 2rem;"> 
                     <div class="col-lg-5 mt-3">
