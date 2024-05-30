@@ -1,6 +1,5 @@
 
 @php $answerindex = 0; 
-$counter=1;
 @endphp
 
 
@@ -15,15 +14,29 @@ $counter=1;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script type="text/javascript">
+
+        Cookies.set('question', 1);
+    </script>
     <script>
         function removestorage(){
             localStorage.removeItem('initialTime');
-            
             
         }
         $(document).ready(function() {
             removestorage();
         });
+
+        
+    function myfunction() {
+        // Redirect to the desired location
+        window.location.replace("http://127.0.0.1:8000/Student");
+        // Return false to prevent the form from submitting via default behavior
+        return false;
+    }
+</script>
     </script>
     
 </head>
@@ -32,73 +45,37 @@ $counter=1;
 
     <section class="p-5 mt-auto">
         <div class="container">
-            
-            
             @foreach ($questions as $question)
-            
-            
             <div class="row">
                 <div class="col-12">
-                    <div id="questionbox{{$counter}}" class="mb-4 shadow-lg rounded border border-3 bgbody">
-
-                        
-                        <div class="py-3 px-4">
-                        <h4>Question {{$counter}}
-                      </h4>
-                      
+                    <div id="questionbox{{$loop->iteration}}" class="mb-4 shadow-lg rounded border border-3 bgbody">
+                        <div class="py-3 px-4"> 
+                         <h4 id="q{{$loop->iteration}}">Question {{$loop->iteration}}
+                         </h4>
                       @foreach($useranswers as $key => $value)
                       @if($question->mcq_questions_id == $key)
                           @if($question->correct_answer == $value)
-                              <p> Correct Answer</p>
+                              {{-- <p> Correct Answer</p> --}}
                             <script>
-                               var temp= document.getElementById("questionbox{{$counter}}");
+                               //var temp= document.getElementById("questionbox{{$loop->iteration}}");
+                               var temp= document.getElementById("q{{$loop->iteration}}");
+                                    temp.style.color="green";
                                
-                               temp.classList.remove("bgbody");
-                               temp.classList.add("rightbg");
+                            //    temp.classList.remove("bgbody");
+                            //    temp.classList.add("rightbg");
                             </script>
                           @else
                               <p > Wrong Answer</p>
                               <script>
-                                var temp= document.getElementById("questionbox{{$counter}}");
+                                var temp= document.getElementById("questionbox{{$loop->iteration}}");
                                 
-                                temp.classList.remove("bgbody");
-                                temp.classList.add("wrongbg");
+                                // temp.classList.remove("bgbody");
+                                // temp.classList.add("wrongbg");
                              </script>
-                              <p id="chatgpt-answer-{{ $question->mcq_questions_id }}"></p>
-                              <script>
-                                  $(document).ready(function() {
-    // Construct the JSON request data
-    var requestData = {
-        messages: [
-            {
-                role: "system",
-                content: "You are an AI assistant that helps people find information."
-            }
-        ],
-        temperature: 0.7,
-        top_p: 0.95,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-        max_tokens: 800,
-        stop: null
-    };
-
-    $.ajax({
-        url: "{{ route('get-correct-answer') }}",
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(requestData),
-        success: function(response) {
-            console.log("API Response received:", response);
-            // Handle the response as needed
-        },
-        error: function(xhr, status, error) {
-            console.error("API Request failed:", error);
-            // Handle the error and display a message to the user if needed
-        }
-    });
-});
-                              </script>
+                            {{-- <div class="mb-4 shadow-lg rounded border border-3 bgbody">
+                                <h4>GPT explanation</h4>
+                                <livewire:gpt-answer :description="$question->description" lazy="on-load" />
+                            </div> --}}
                           @endif
                       @endif
                   @endforeach
@@ -106,29 +83,27 @@ $counter=1;
                         </div>
 
                         <div class="px-4">
-                            
                                 @csrf
                                 <div class="pb-3">
                                     <div class="row">
                                         <div class="col-lg-6">
-    
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1[{{ $question->mcq_questions_id }}]" value="1" {{ old("answers.$question->mcq_questions_id") == '1' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val1[{{ $question->mcq_questions_id }}]" value="1" {{ old("answers.$question->mcq_questions_id") == '1' ? 'checked' : '' }}>
+                                                <label class="form-check-label" id ="val1label[{{$question->mcq_questions_id}}]" for="val11">
+                                                    {{ $answers[$answerindex]->description }}
                                                     <script>
-                                                       var ansak= document.getElementById("flexRadioDefault1[{!! $question->mcq_questions_id !!}]");
-                                                       if({{$question->correct_answer}}==ansak.value){
-                                                        ansak.style.backgroundColor="green";
+                                                       var answer= document.getElementById("val1[{!! $question->mcq_questions_id !!}]");
+                                                       var lable = document.getElementById("val1label[{!!$question->mcq_questions_id!!}]");
+                                                       if({{$question->correct_answer}}==answer.value){
+                                                        lable.style.color="green";
+                                                        lable.classList.add("fw-bold");
+                                                        
                                                        
                                                        }
-                                                       else if(({{$question->correct_answer}}!== ansak.value) && ansak.checked){
-                                                        ansak.style.backgroundColor="red";
+                                                       else if(({{$question->correct_answer}}!== answer.value) && answer.checked){
+                                                        lable.style.color="red";
                                                        }
-
-                                                      
-                                                       </script>
-
-                                                    {{ $answers[$answerindex]->description }}
+                                                    </script>   
                                                 </label>
                                               </div>
     
@@ -136,19 +111,20 @@ $counter=1;
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2[{{ $question->mcq_questions_id }}]" value="2" {{ old("answers.$question->mcq_questions_id") == '2' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val2[{{ $question->mcq_questions_id }}]" value="2" {{ old("answers.$question->mcq_questions_id") == '2' ? 'checked' : '' }}>
+                                                <label class="form-check-label" id ="val2label[{{$question->mcq_questions_id}}]" for="val2">
+                                                    {{ $answers[$answerindex + 1]->description }}
                                                     <script>
-                                                       var ansak= document.getElementById("flexRadioDefault2[{!! $question->mcq_questions_id !!}]");
-                                                       if({{$question->correct_answer}}==ansak.value){
-                                                        ansak.style.backgroundColor="green";
+                                                       var answer= document.getElementById("val2[{!! $question->mcq_questions_id !!}]");
+                                                       var lable = document.getElementById("val2label[{!!$question->mcq_questions_id!!}]");
+                                                       if({{$question->correct_answer}}==answer.value){
+                                                        lable.style.color="green";
                                                         
                                                        }
-                                                       else if(({{$question->correct_answer}}!=ansak.value) && ansak.checked){
-                                                        ansak.style.backgroundColor="red";
+                                                       else if(({{$question->correct_answer}}!=answer.value) && answer.checked){
+                                                        lable.style.color="red";
                                                        }
                                                     </script>
-                                                    {{ $answers[$answerindex + 1]->description }}
                                                 </label>
                                               </div>
     
@@ -159,20 +135,20 @@ $counter=1;
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault3[{{ $question->mcq_questions_id }}]" value="3" {{ old("answers.$question->mcq_questions_id") == '3' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val3[{{ $question->mcq_questions_id }}]" value="3" {{ old("answers.$question->mcq_questions_id") == '3' ? 'checked' : '' }}>
+                                                <label class="form-check-label" id ="val3label[{{$question->mcq_questions_id}}]" for="val3">
+                                                    {{ $answers[$answerindex + 2]->description }}
                                                     <script>
-                                                        var ansak= document.getElementById("flexRadioDefault3[{!! $question->mcq_questions_id !!}]");
-                                                        if({{$question->correct_answer}}==ansak.value){
-                                                            ansak.style.backgroundColor="green";
+                                                        var answer= document.getElementById("val3[{!! $question->mcq_questions_id !!}]");
+                                                        var lable = document.getElementById("val3label[{!!$question->mcq_questions_id!!}]");
+                                                        if({{$question->correct_answer}}==answer.value){
+                                                            lable.style.color="green";
                                                          
                                                         }
-                                                        else if(({{$question->correct_answer}}!=ansak.value) && ansak.checked){
-                                                            ansak.style.backgroundColor="red";
+                                                        else if(({{$question->correct_answer}}!=answer.value) && answer.checked){
+                                                            lable.style.color="red";
                                                         }
-                                                        console.log(ansak.value);
                                                         </script>
-                                                    {{ $answers[$answerindex + 2]->description }}
                                                 </label>
                                               </div>
     
@@ -180,20 +156,20 @@ $counter=1;
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
-                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault4[{{ $question->mcq_questions_id }}]" value="4" {{ old("answers.$question->mcq_questions_id") == '4' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="flexRadioDefault4">
+                                                <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val4[{{ $question->mcq_questions_id }}]" value="4" {{ old("answers.$question->mcq_questions_id") == '4' ? 'checked' : '' }}>
+                                                <label class="form-check-label" id ="val4label[{{$question->mcq_questions_id}}]" for="val4">
+                                                    {{ $answers[$answerindex + 3]->description }}
                                                     <script>
-                                                        var ansak= document.getElementById("flexRadioDefault4[{!! $question->mcq_questions_id !!}]");
-                                                        
-                                                        if({{$question->correct_answer}}==ansak.value){
-                                                         ansak.style.backgroundColor="green";
+                                                        var answer= document.getElementById("val4[{!! $question->mcq_questions_id !!}]");
+                                                        var lable = document.getElementById("val4label[{!!$question->mcq_questions_id!!}]");
+                                                        if({{$question->correct_answer}}==answer.value){
+                                                         lable.style.color="green";
                                                          
                                                         }
-                                                        else if(({{$question->correct_answer}}!=ansak.value) && ansak.checked){
-                                                            ansak.style.backgroundColor="red";
+                                                        else if(({{$question->correct_answer}}!=answer.value) && answer.checked){
+                                                            lable.style.color="red";
                                                         }
                                                         </script>
-                                                    {{ $answers[$answerindex + 3]->description }}
                                                 </label>
                                             </div>
     
@@ -206,47 +182,18 @@ $counter=1;
 
                 </div>
                 </div>
-                @php $answerindex += 4;
-                $counter++; @endphp
-
+                @php
+                 $answerindex += 4;
+                @endphp
             @endforeach
-           
         
             </div>
             
             
-            <div class="row" style="margin-top: 2rem;">
-                <div class="col d-flex justify-content-center">
-                    {{-- <ul class="pagination"> --}}
-                        {{-- <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li> --}}
-                        {{-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                        <li class="page-item">
-                            
-                          <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                    </ul> --}}
-                    
-                </div>
-            </div>
-            
-            
         </div>
-        {{-- {{$questions->links()}}  --}}
+        <div class="d-flex justify-content-center pb-3">
+            <button class="btn btn-dark" type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
+        </div>
     </section>
     
     

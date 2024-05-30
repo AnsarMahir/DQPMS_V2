@@ -36,16 +36,32 @@ class DatabaseSeeder extends Seeder
         CreatorRank::factory(5)->create();
 
         //Factory to populate many to many MCQ Attempt
-        foreach(User::all() as $user){
+        foreach (User::all() as $user) {
             $mcq_questions = Mcq_Question::all();
 
-            foreach($mcq_questions as $item)
-            {$user->mcqAttempt()->attach($item,
-            [
-                'no_of_attempts'=>rand(0,10)
-            ]);}
+            foreach ($mcq_questions as $item) {
+                $user->mcqAttempt()->attach(
+                    $item,
+                    [
+                        'no_of_attempts' => rand(0, 10)
+                    ]
+                );
+            }
         }
-        
+
+        foreach (User::all() as $user) {
+            $sh_questions = Sh_Question::all();
+
+            foreach ($sh_questions as $item) {
+                $user->shAttempt()->attach(
+                    $item,
+                    [
+                        'no_of_attempts' => rand(0, 10)
+                    ]
+                );
+            }
+        }
+
 
 
 

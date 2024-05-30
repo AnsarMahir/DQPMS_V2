@@ -10,9 +10,10 @@ class PaperDetailsController extends Controller
 {
     public function showPaperDetails(Request $request)
     {
+        
         // Retrieve submitted data from the session
         $selectedValues = $request->session()->get('selectedValues');
-        dd($selectedValues);
+       
         // Use the retrieved data to dynamically change values in the view
         return view('paperdetails', compact('selectedValues'));
     }

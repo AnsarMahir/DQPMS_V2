@@ -12,6 +12,9 @@ class Sh_Question extends Model
 
     protected $table = 'sh_questions';
 
+    protected $primaryKey = 'sh_questions_id';
+
+
     protected $fillable = [
         'sh_questions_id',
         'description',

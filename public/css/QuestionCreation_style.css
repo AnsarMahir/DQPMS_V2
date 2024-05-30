@@ -1,8 +1,15 @@
-body::before{
-    display: block;
-    content: "";
-    height: 60px;
+.pop-z-index{
+  z-index: 10000;
+  margin-top: 90px;
 }
+
+.popup{
+background-color: #5d2fba;
+border-radius: 5px;
+
+
+}
+
 
 .bgprimary{
   background-color: #875EFF;
