@@ -1,15 +1,97 @@
+
 .pop-z-index{
-  z-index: 10000;
-  margin-top: 90px;
+    z-index: 10000;
+    margin-top: 90px;
 }
 
 .popup{
 background-color: #5d2fba;
 border-radius: 5px;
+}
 
+.share-buttons {
+  margin-top: 20px;
+}
+.share-button {
+ display: inline-block;
+ margin-right: 10px;
+}
+
+
+.bgprimary{
+background-color: #7e53ff
+}
+
+.bgbody{
+background-color: #efe9ff;
+height: 100vh;
+}
+
+.textheading{
+color: #0b036b;
+}
+
+.textsub{
+color: #483FB4
+}
+
+.btncolor{
+color: white;
+background-color: #a181ff;
+border-color: #8e68ff;
+}
+
+.btn:hover{
+border-color: #8e68ff;
+}
+
+.bgImage{
+background-image: url('/images/Vector 2.png');
+background-repeat: no-repeat;
+background-size: contain;
+}
+
+
+.nav-link{
+color: white;
+}
+
+.badge{
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.badge img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.col-centered {
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.nav-hover:hover{
+    border-radius: 10px;
+    color:  #0b036b !important;
+    background-color: #efe9ff;;
 
 }
 
+.paperCard:hover{ 
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    border-color: #0b036b;
+    color: #0b036b !important;
+    background-color: #efe9ff;
+}
 
 .bgprimary{
   background-color: #875EFF;
@@ -91,4 +173,5 @@ border-radius: 5px;
   color: rgb(123, 123, 123);
   opacity: 1; 
 }
+
 

@@ -1,42 +1,73 @@
+@php
+unset($_SESSION['review_completed']);
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css\QuestionCreation_style.css ') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#exam').change(function() {
-                var exam = $(this).val();
-    
-                $.ajax({
-                    url: "{{ route('get.languages') }}",
-                    method: 'GET',
-                    data: {
-                        exam: exam
-                    },
-                    success: function(data) {
-                        var $languageDropdown = $('#language');
-                        $languageDropdown.empty();
-    
-                        if (data.length) {
-                            $.each(data, function(key, value) {
-                                $languageDropdown.append('<option value="' + value + '">' + value + '</option>');
-                            });
-                        } else {
-                            $languageDropdown.append('<option value="">No languages found</option>');
-                        }
-                    }
-                });
-            });
-        });
+        var selectedLanguage = null;
+
+$(document).ready(function() {
+  selectedLanguage = $('#selectedLanguage').val(); // Assuming a hidden field
+
+  $('#exam').change(function() {
+    var exam = $(this).val();
+
+    $.ajax({
+      url: "{{ route('get.languages') }}",
+      method: 'GET',
+      data: {
+        exam: exam
+      },
+      success: function(data) {
+        var $languageDropdown = $('#language');
+        $languageDropdown.empty();
+
+        if (data.length) {
+          $.each(data, function(key, value) {
+            $languageDropdown.append('<option value="' + value + '">' + value + '</option>');
+          });
+        } else {
+          $languageDropdown.append('<option value="">No languages found</option>');
+        }
+
+        // Pre-select language if available
+        if (selectedLanguage) {
+          $('#language').val(selectedLanguage);
+        }
+      }
+    });
+  });
+});
+
     </script>    
 </head>
 
-<body>
+<body class="position-relative">
+    
+    @if (session()->has('message'))
+
+    <div x-data="{show:true}" x-init = "setTimeout(() => show = false , 3000)" x-show='show' class="position-absolute top-0 start-50 translate-middle-x text-light pop-z-index">
+    <div class=" px-4 pb-4 popup text-center">
+        <i class="bi bi-check-circle-fill fs-1"></i>
+        <h5 class="my-auto text-center text-uppercase pt-2">
+            {{session('message')}}
+        </h5>
+    </div>
+    </div>
+
+@endif
+
+    
+    
     <nav class="navbar navbar-dark navbar-expand-lg text-light py-3 fixed-top bgprimary" >
         <div class="container">
             <a href="#" class="navbar-brand flex-fill align-items-center">DQPMS</a>
@@ -115,11 +146,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select class="form-select" id="language" name="language">
+                            <select class="form-select" id="language" name="language" value="{{ old('language') }}">
                                 <option selected disabled>Choose your Language</option>
-                                {{-- @foreach($languages as $language)
-                                <option value="{{ $language }}">{{ $language }}</option>
-                                @endforeach --}}
+                                
+                                <option value="English">English</option>
+                                
                             </select>
                           </div>
                     </div>
@@ -140,7 +171,15 @@
                     </button>
                    
                 </form>
-
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
             </div>
                 

@@ -2,6 +2,10 @@
 
 namespace App\Exceptions;
 
+
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -25,6 +29,10 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (MethodNotAllowedHttpException $e, Request $request) {
+            return redirect()->route('dashboard')->with('error', 'GET method is not supported for process-form route.');
         });
     }
 }
