@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css\StudentHomepage_style.css ') }}">
+    <link rel="stylesheet" href="{{ asset('css\Hamas_style.css ') }}">
 </head>
 
 <body>
@@ -42,45 +42,39 @@
     </nav>
 
     <section class="p-5 pt-lg-5">
-        <div class="container">
+        <div class="container pt-5">
             <div class="row">
-                <div class="col-lg-4">
+
+                @if ($PastpaperData->isEmpty())
+
+                    <p>No Draft Papers Found</p>
+                    
+                @endif
+
+
+                @foreach ($PastpaperData as $paper)
+                
+                <div class="col-lg-4 mb-3 ">
+
+                    <a href="/paper/{{$paper->P_id}}/{{$paper->question_type}}" style="text-decoration: none">
+
                     <div class="col" style="border-radius: 5px; background-color:#7e53ff">
 
                         <div class="d-flex flex-column">
-                            <div class="flex flex-column p-4 text-light">
-                                <h5 >Srilanka Administration Service</h4>
-                                <p> 2016 | English | MCQ | 5 Questions</p>
+                            <div class="flex flex-column p-4 text-light paperCard">
+                                <h5 >{{$paper->name}}</h4>
+                                <p> {{$paper->year}} | {{$paper->language}} | {{$paper->question_type}} | {{$paper->no_of_questions}} Questions</p>
                             </div>
                         </div>
 
                     </div>
+                    </a>
                 </div>
-                <div class="col-lg-4">
-                    <div class="col" style="background-color: cornflowerblue; border-radius: 5px">
+                
+                    
+                @endforeach
+            </div>         
 
-                        <div class="d-flex flex-column">
-                            <div class="flex flex-column p-4">
-                                <h5>Srilanka Administration Service</h4>
-                                <p> 2016 | English | MCQ | 5 Questions</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="col" style="background-color: cornflowerblue; border-radius: 5px">
-
-                        <div class="d-flex flex-column">
-                            <div class="flex flex-column p-4">
-                                <h5>Srilanka Administration Service</h4>
-                                <p> 2016 | English | MCQ | 5 Questions</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 

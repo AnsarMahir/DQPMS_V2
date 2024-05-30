@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\CreatorRank;
 use App\Models\FAQ;
 use App\Models\User;
 use App\Models\Pastpaper;
@@ -31,7 +33,7 @@ class DatabaseSeeder extends Seeder
         Mcq_Question::factory(20)->create();
         Mcq_Answer::factory(20)->create();
         Sh_Question::factory(22)->create();
-        //Sh_Answer::factory(20)->create();
+        CreatorRank::factory(5)->create();
 
         //Factory to populate many to many MCQ Attempt
         foreach(User::all() as $user){

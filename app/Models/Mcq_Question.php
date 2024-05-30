@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Mcq_Question extends Model
 {
@@ -24,5 +25,10 @@ class Mcq_Question extends Model
     public function answers(): HasMany
     {
         return $this->hasMany(Mcq_Answer::class,'question_id','mcq_questions_id');
+    }
+
+    public function reference(): HasOne
+    {
+        return $this->hasOne(Reference::class,'R_id','referenceid');
     }
 }

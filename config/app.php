@@ -159,15 +159,20 @@ return [
         /*
          * Package Service Providers...
          */
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
+        App\Providers\FirebaseServiceProvider::class,
+
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        
     ])->toArray(),
 
     /*
@@ -183,6 +188,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ])->toArray(),
 
 ];

@@ -1,17 +1,25 @@
-body::before{
-    display: block;
-    content: "";
-    height: 60px;
+
+.pop-z-index{
+  z-index: 10000;
+  margin-top: 90px;
+}
+
+.popup{
+  background-color: #5d2fba;
+  border-radius: 5px;
+
+
 }
 
 .bgprimary{
-  background-color: #875EFF;
   background-color: #7e53ff
 }
 
 .bgbody{
   background-color: #efe9ff;
+  height: 100vh;
 }
+
 .textheading{
   color: #0b036b;
 }
@@ -69,3 +77,9 @@ body::before{
 
   }
 
+  .paperCard:hover{ 
+    border-radius: 10px;
+    border-color:#efe9ff ;
+    color:  #0b036b !important;
+    background-color: #efe9ff;
+  }

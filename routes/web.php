@@ -1,9 +1,11 @@
 <?php
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
-use App\Http\Controllers\PastpaperController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PastpaperController;
+use App\Http\Controllers\ShareWidgetController;
 use Symfony\Component\Console\Question\Question;
 
 /*
@@ -35,9 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/CreatorHomepage',function(){
-    return view('CreatorHomepage');
-});
+Route::view('/CreatorHomepage', 'CreatorHomepage');
 
 Route::get('/questioncheck',function(){
     return view('questioncheck');
@@ -62,13 +62,19 @@ Route::get('/PaperDetails',function(){
 })
 ->middleware(['auth','verified']);
 
-Route::get('/Draftpapers',function(){
-    return view('DraftPaperPage');
+Route::get('/Draftpapers',[PastpaperController::class,'retrieveDraft']);
+
+Route::post('/savedraft',[PastpaperController::class,'savedraft'])->name('savedraft');
+
+Route::post('/resavedraft',[PastpaperController::class,'resavedraft'])->name('resavedraft');
+
+Route::get('/paper/{id}/{paperType}',[PastpaperController::class,'viewPaper']);
+
+Route::get('/myProfile',function(){
+    return view('Profile');
 });
 
-Route::post('/problems',[PastpaperController::class,'draft'])->name('problems');
-
-
+Route::get('/share', [ShareWidgetController::class,'ShareWidget']);
 
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
