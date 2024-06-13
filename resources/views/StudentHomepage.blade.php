@@ -13,7 +13,8 @@ unset($_SESSION['review_completed']);
     <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script type="text/javascript">
-        var selectedLanguage = null;
+    localStorage.clear();
+    var selectedLanguage = null;
 
 $(document).ready(function() {
   selectedLanguage = $('#selectedLanguage').val(); // Assuming a hidden field
