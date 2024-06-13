@@ -26,12 +26,12 @@ class Pastpaper extends Model
         'ModeratorID'
     ];
 
-    public function pastPaperMcqQuestions() : HasMany
+    public function McqQuestions() : HasMany
     {
         return $this->hasMany(Mcq_Question::class, 'pastpaper_reference', 'P_id'); 
     }
 
-    public function pastPaperShQuestions() : HasMany
+    public function ShQuestions() : HasMany
     {
         return $this->hasMany(Sh_Question::class, 'pastpaper_reference', 'P_id'); 
     }

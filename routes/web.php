@@ -67,7 +67,11 @@ Route::get('/myProfile',function(){
     return view('Profile');
 });
 
-Route::get('/share', [ShareWidgetController::class,'ShareWidget']);
+Route::get('/creatorRank', [ShareWidgetController::class,'getProfilePage']);
+
+Route::get('/shareBadge/{appName}',[ShareWidgetController::class,'shareBadge']);
+
+
 
 
 

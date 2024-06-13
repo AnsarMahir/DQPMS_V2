@@ -45,6 +45,12 @@
                 </div>
                 @endif
 
+                @error($i.'Q_Reference')
+
+                    <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>  
+                    
+                @enderror
+
                 <div class="row" style="column-gap: 2rem;"> 
                     <div class="col-lg-5 mt-3">
                         <div class="form-check d-flex align-items-center mb-0" style="column-gap: 1rem;">

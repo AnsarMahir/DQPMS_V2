@@ -16,16 +16,23 @@
         </div>
         
         <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-end align-items-center" id="navmenu">
-
-            <ul class="navbar-nav text-light ">
-                <li class="nav-item">
-                    <a href="" class="nav-link ps-lg-3">Profile</a>  
-                </li>
-                <li class="badge nav-item">
-                    <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="" class="rounded-circle">   
-                </li>
-            </ul>
-
+            <div class="dropdown">
+                <button class="btn btncolor dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle fs-5"></i>
+                  </button>
+                <ul class="text-light dropdown-menu">
+                    <li>
+                        <a href="" class="dropdown-item ps-lg-3">Profile</a>  
+                    </li>
+                    <li>
+                        <a href="/creatorRank" class="dropdown-item ps-lg-3">Rank</a>  
+                    </li>
+                    <li>
+                        <a href="" class="dropdown-item ps-lg-3">Log out</a>  
+                    </li>
+                </ul>
+            </div>
+            
         </div>               
         
     </div>

@@ -408,6 +408,18 @@ class PastpaperController extends Controller
 
     public function storeQuestionReference($request,$j){
 
+        $rules = [
+            $j.'Q_Reference' => 'image|dimensions:min_width=100,min_height=100,max_width=1000,max_height=600'
+        ];
+
+        $messages = [
+            $j.'Q_Reference.image' => 'The file must be an image.',
+            $j.'Q_Reference.dimensions' => 'The image dimensions must be between 100x100 and 1000x600 pixels.'
+        ];
+    
+        // Validate the request
+        $request->validate($rules,$messages);
+
         $filename = time() . '-' . $j . 'QuestionReference.' . $request->file($j.'Q_Reference')->extension();
         $request->file($j.'Q_Reference')->move(public_path('References'), $filename);
 
