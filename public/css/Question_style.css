@@ -22,14 +22,11 @@
     border-color: #7748FF !important;
   }
 
-.rightbg{
-    background-color: rgb(155, 241, 155);
-    border-color: black !important;
-}
-.wrongbg{
-    background-color: rgb(217, 184, 184);
-    border-color:#000000 !important;
-}
+  /* .fixed-size-container {
+    width: 1100px; 
+    height: auto; 
+    overflow-y: auto; 
+} */
 
 
 .noBorder {

@@ -61,10 +61,10 @@ class ProfileController extends Controller
     }
     public function processForm(Request $request)
     {
-        if ($request->getMethod() === 'GET' && $request->route()->getName() === 'process-form') {
-            // Redirect to a different route or URL
-            return redirect()->route('home')->with('error', 'GET method is not supported for process-form route.');
-        }
+        // if ($request->getMethod() === 'GET' && $request->route()->getName() === 'process-form') {
+        //     // Redirect to a different route or URL
+        //     return redirect()->route('home')->with('error', 'GET method is not supported for process-form route.');
+        // }
         // Retrieve submitted data
         $validated = $request->validate([
             'exam' => 'required',

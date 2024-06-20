@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css\Question_style.css ') }}">
@@ -48,37 +49,31 @@
             @foreach ($questions as $question)
             <div class="row">
                 <div class="col-12">
-                    <div id="questionbox{{$loop->iteration}}" class="mb-4 shadow-lg rounded border border-3 bgbody">
+                    <div id="questionbox{{$loop->iteration}}" class=" fixed-size-container mb-4 shadow-lg rounded border border-3 bgbody">
                         <div class="py-3 px-4"> 
                          <h4 id="q{{$loop->iteration}}">Question {{$loop->iteration}}
-                         </h4>
                       @foreach($useranswers as $key => $value)
                       @if($question->mcq_questions_id == $key)
                           @if($question->correct_answer == $value)
-                              {{-- <p> Correct Answer</p> --}}
+                          <i class="fas fa-check" style="color: green;"></i>
                             <script>
-                               //var temp= document.getElementById("questionbox{{$loop->iteration}}");
                                var temp= document.getElementById("q{{$loop->iteration}}");
                                     temp.style.color="green";
-                               
-                            //    temp.classList.remove("bgbody");
-                            //    temp.classList.add("rightbg");
                             </script>
                           @else
-                              <p > Wrong Answer</p>
+                          <i class="fas fa-times" style="color: red;"></i>
                               <script>
-                                var temp= document.getElementById("questionbox{{$loop->iteration}}");
-                                
-                                // temp.classList.remove("bgbody");
-                                // temp.classList.add("wrongbg");
+                                var temp= document.getElementById("q{{$loop->iteration}}");
+                                temp.style.color="red";
                              </script>
-                            {{-- <div class="mb-4 shadow-lg rounded border border-3 bgbody">
+                            <div class="mb-4 shadow-lg rounded border border-3 bgbody">
                                 <h4>GPT explanation</h4>
                                 <livewire:gpt-answer :description="$question->description" lazy="on-load" />
-                            </div> --}}
+                            </div> 
                           @endif
                       @endif
                   @endforeach
+                         </h4>
                         <p> {{ $question->description }}</p>
                         </div>
 
