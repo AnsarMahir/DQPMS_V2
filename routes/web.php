@@ -55,7 +55,7 @@ Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuesti
 
 Route::get('/Student',[PastpaperController::class,'showForm']
 )
-->middleware(['auth','verified'])
+->middleware(['auth','verified','student'])
 ->name('student');
 
 Route::POST('/Question',[QuestionController::class,'fetch'])

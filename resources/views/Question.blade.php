@@ -186,6 +186,13 @@ $counter=1;
             </div>
         </form>
     </section>
+
+    <div class="nav-bubbles">
+        @foreach ($questions as $question)
+            <div class="bubble" data-target="question{{ $loop->iteration }}">{{ $loop->iteration }}</div>
+        @endforeach
+    </div>
+
     
     <footer class="p-4 bg-dark text-white text-center mt-auto">
         <div class="container">
@@ -214,6 +221,7 @@ $counter=1;
             </div>
         </div>
     </div>  
+    
     <script>
         document.getElementById('countdown-form').addEventListener('submit', function(event) {
             const radios = document.querySelectorAll('input[type="radio"]:checked');
@@ -241,5 +249,21 @@ $counter=1;
         });
         </script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const bubbles = document.querySelectorAll('.bubble');
+
+        bubbles.forEach(bubble => {
+            bubble.addEventListener('click', () => {
+                const targetId = bubble.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

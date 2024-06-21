@@ -26,6 +26,12 @@
                     </div>
                 </header>
             @endif
+            @if(session('error'))
+            <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                 class="bg-red-500 text-white py-2 px-4 rounded-md shadow-md absolute top-0 left-1/2 transform -translate-x-1/2 mt-4">
+                {{ session('error') }}
+            </div>
+            @endif
 
             <!-- Page Content -->
             <main>
