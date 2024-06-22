@@ -1,7 +1,6 @@
 
 @php 
 $answerindex = 0; 
-$counter=1;
 @endphp
 
 <!DOCTYPE html>
@@ -90,7 +89,7 @@ $counter=1;
                 </div>
 
             @foreach ($questions as $question)
-            <div class="row"> {{-- Question box starts here--}}
+            <div id="question{{ $loop->iteration }}" class="row"> {{-- Question box starts here--}}
                 <div class="col-12">
                     <div class="mb-4 shadow-lg rounded border border-3 bgbody">
                         <div class="py-3 px-4">
@@ -212,7 +211,7 @@ $counter=1;
                     </button>
                 </div>
                 <div class="modal-body">
-                    You have unanswered questions. Do you want to proceed to review or go back to change your answers?
+                    <!-- The content will be dynamically updated by the script -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="change-answers-btn">Change Answers</button>
@@ -224,30 +223,42 @@ $counter=1;
     
     <script>
         document.getElementById('countdown-form').addEventListener('submit', function(event) {
-            const radios = document.querySelectorAll('input[type="radio"]:checked');
+            const questions = document.querySelectorAll('.row[id^="question"]'); // Selecting all question rows
             let allAnswered = true;
-        
-            radios.forEach(function(radio) {
-                if (radio.value == "0") {
+            let unansweredQuestions = [];
+    
+            questions.forEach(function(question) {
+                const radios = question.querySelectorAll('input[type="radio"]');
+                let answered = false;
+                radios.forEach(function(radio) {
+                    if (radio.checked && radio.value != "0") {
+                        answered = true;
+                    }
+                });
+                if (!answered) {
                     allAnswered = false;
+                    let questionNumber = question.id.replace('question', '');
+                    unansweredQuestions.push(questionNumber);
                 }
             });
-        
+    
             if (!allAnswered) {
                 event.preventDefault();
+                const modalBody = document.querySelector('#confirmationModal .modal-body');
+                modalBody.innerHTML = `You have unanswered questions: ${unansweredQuestions.join(', ')}. Do you want to proceed to review or go back to change your answers?`;
                 $('#confirmationModal').modal('show');
             }
         });
-        
+    
         document.getElementById('proceed-btn').addEventListener('click', function() {
             $('#confirmationModal').modal('hide');
             document.getElementById('countdown-form').submit();
         });
-        
+    
         document.getElementById('change-answers-btn').addEventListener('click', function() {
             $('#confirmationModal').modal('hide');
         });
-        </script>
+    </script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
  <script>
     document.addEventListener('DOMContentLoaded', () => {
