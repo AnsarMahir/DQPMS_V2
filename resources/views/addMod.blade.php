@@ -63,6 +63,19 @@
 
     }
 
+    .dropdown {
+       
+        
+        padding: 12px 22px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        
+        display: inline-block;
+        text-align: center;
+        font-size: 13px;
+    }
+
     .btn {
         cursor: pointer;
         border-radius: 50px; /* Rounded edges */
@@ -71,7 +84,7 @@
         transition-duration: 0.35;
         -webkit-transition-property: boxshadow, transform;
         transition-property: boxshadow, transform;
-        margin: 5px;
+        margin: 13px;
         display: flex;
         flex-direction: column;
 
@@ -146,12 +159,12 @@
     <form  action="datasubmit" method="POST">
       @csrf
       <div class="col-md-6 form-group">
-        <label for="first_name">First Name</label>
-        <input class="form-control" name="first_name" id="first_name" type="text" placeholder="Enter the first name here" >
+        <label for="name">Name</label>
+        <input class="form-control" name="name" id="name" type="text" placeholder="Enter the first and last name here" >
       </div>
       <div class="col-md-6 form-group">
-        <label for="last_name">Last Name</label>
-        <input class="form-control" name="last_name" id="last_name" type="text" placeholder="Enter the last name here" >
+        <label for="phone">Phone</label>
+        <input class="form-control" name="phone" id="phone" type="tel" placeholder="Enter the contact number here" >
       </div>
       <div class="col-md-6 form-group">
         <label for="email">Email</label>
@@ -171,11 +184,22 @@
       </div>
       
         
-      <div class="form-check">
+      <!-- <div class="form-check">
         <label class="form-check-label">
           <input class="form-check-input" type="checkbox" name="list" required="required"> List as a moderator.
         </label>
+      </div> -->
+     
+      
+       
+      <div class="dropdown"><label for="type">List as</label>
+      <select name="type" id="type" required="required">
+       <option value="moderator">moderator</option>
+       <option value="creator">creator</option>
+       <option value="tutor">tutor</option>
+      </select>
       </div>
+
       <button type="submit" class="btn btn-primary" style="background-color: #875EFF;">Submit</button>
     </form>
   </div>

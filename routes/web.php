@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Moderator; //add the model for the moderators
 use App\Models\Paper_creator; //add the model for the paper creators
 use Illuminate\Support\Facades\Validator; //add the validator
+use App\Models\User; //add the model for the users
 
 //use App\Http\Controllers\ModeratorsController; //add the controller for the moderators, alt method
 
@@ -34,7 +35,7 @@ Route::middleware('auth')->group(function () {
 });
 
 //route to the user details page
-Route::get('/', function () {
+Route::get('/userDetails', function () {
    $users=DB::table('users')->get();
    
    return view('userDetails', ['users'=>$users]);
@@ -74,6 +75,7 @@ Route::post('datasend',function(){
         'password' => $validate_data['password'],
         'workplace' => $validate_data['workplace'],
         'position' => $validate_data['position']
+        
     ]);
     return redirect('/addCreator');
     
@@ -88,24 +90,27 @@ Route::get('/addMod', function () {
 
 
 
-//route to validate and save data into the database (moderators)
+//route to validate and save data into the database (moderators--user)
 Route::post('datasubmit',function(){
     $validate_data = Validator::make(request()->all(), [
-        'first_name' => 'required|string|max:20',
-        'last_name' => 'required|string|max:20',
+        'name' => 'required|string|max:30',
+        'phone' => 'required|numeric|digits:10',
         'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
         'password' => 'required',
         'workplace' => 'required',
-        'position' => 'required'
+        'position' => 'required',
+        'type' => 'required'
+        
     ])->validated();
 
-    Moderator::create([
-        'first_name' => $validate_data['first_name'],
-        'last_name' => $validate_data['last_name'],
+    User::create([
+        'name' => $validate_data['name'],
+        'phone' => $validate_data['phone'],
         'email' => $validate_data['email'],
         'password' => $validate_data['password'],
         'workplace' => $validate_data['workplace'],
-        'position' => $validate_data['position']
+        'position' => $validate_data['position'],
+        'type' => $validate_data['type']
     ]);
     return redirect('/addMod');
     
