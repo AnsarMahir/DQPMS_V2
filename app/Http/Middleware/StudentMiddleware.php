@@ -19,7 +19,7 @@ class StudentMiddleware
     public function handle(Request $request, Closure $next)
     {
         // Check if the user is authenticated and has the 'STUDENT' role
-        if (Auth::check() && Auth::user()->type === 'STUDENT') {
+        if (Auth::check() && (Auth::user()->type === 'STUDENT' || Auth::user()->type === 'ADMIN')) {
             return $next($request);
         }
 

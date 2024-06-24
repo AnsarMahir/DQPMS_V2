@@ -83,7 +83,7 @@ class ReviewController extends Controller
             'Content-Type' => 'application/json',
             'api-key' => $apiKey, // Replace 'YOUR_API_KEY' with your actual API key
         ])->post('https://ansak.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
-            "prompt" => "{{$request}} explain briefly",
+            "prompt" => "{$request} explain briefly in two lines",
             "max_tokens" => 150,
             "temperature" => 0.2,
             "frequency_penalty" => 0,

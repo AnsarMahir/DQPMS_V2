@@ -21,6 +21,16 @@ border-radius: 5px;
 .textheading{
   color: #0b036b;
 }
+.nav-link{
+  color: white; 
+  border-radius: 10px;
+}
+.nav-hover:hover{
+  border-radius: 10px;
+  color:  #0b036b !important;
+  background-color: #efe9ff;;
+
+}
 
 .textsub{
   color: #483FB4

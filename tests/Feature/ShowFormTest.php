@@ -71,6 +71,7 @@ class ShowFormTest extends TestCase
         // Acting as an authenticated and verified user
         $user = User::factory()->create([
             'email_verified_at' => now(),
+            'type' => 'STUDENT',
         ]);
 
         // Simulate a GET request to the '/Student' route

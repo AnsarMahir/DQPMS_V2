@@ -19,7 +19,7 @@
     </script>
 </head>
 
-<body>
+<body class="bgbody">
     <nav class="navbar navbar-dark navbar-expand-lg text-light py-3 fixed-top bgprimary">
         <div class="container">
             <a href="#" class="navbar-brand">DQPMS</a>

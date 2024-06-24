@@ -66,8 +66,8 @@
                                 var temp= document.getElementById("q{{$loop->iteration}}");
                                 temp.style.color="red";
                              </script>
-                            <div class="mb-4 shadow-lg rounded border border-3 bgbody">
-                                <h4>GPT explanation</h4>
+                            <div class="mb-4 mt-4 bg-transparent bg-gradient text-dark fs-5 shadow-lg rounded border border-3">
+                                <h4 id="gpt-heading" style="color: black"><u>GPT-Reference</u></h4>
                                 <livewire:gpt-answer :description="$question->description" lazy="on-load" />
                             </div> 
                           @endif
@@ -114,6 +114,7 @@
                                                        var lable = document.getElementById("val2label[{!!$question->mcq_questions_id!!}]");
                                                        if({{$question->correct_answer}}==answer.value){
                                                         lable.style.color="green";
+                                                        lable.classList.add("fw-bold");
                                                         
                                                        }
                                                        else if(({{$question->correct_answer}}!=answer.value) && answer.checked){
@@ -138,6 +139,7 @@
                                                         var lable = document.getElementById("val3label[{!!$question->mcq_questions_id!!}]");
                                                         if({{$question->correct_answer}}==answer.value){
                                                             lable.style.color="green";
+                                                            lable.classList.add("fw-bold");
                                                          
                                                         }
                                                         else if(({{$question->correct_answer}}!=answer.value) && answer.checked){
@@ -159,6 +161,7 @@
                                                         var lable = document.getElementById("val4label[{!!$question->mcq_questions_id!!}]");
                                                         if({{$question->correct_answer}}==answer.value){
                                                          lable.style.color="green";
+                                                         lable.classList.add("fw-bold");
                                                          
                                                         }
                                                         else if(({{$question->correct_answer}}!=answer.value) && answer.checked){
@@ -177,6 +180,7 @@
 
                 </div>
                 </div>
+            </div>
                 @php
                  $answerindex += 4;
                 @endphp

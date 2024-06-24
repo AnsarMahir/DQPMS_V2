@@ -32,8 +32,8 @@
                
                         <img src="{{ $firebaseImageUrl }}" alt="" class="w-50 align-content-start">
         
-                        <h1 class="text-center">Ahamed Hamas</h1>
-                        <h5 class="pb-4">Paper Creator</h5> 
+                        <h1 class="text-center">Ansak Mahir</h1>
+                        <h5 class="pb-4">Student</h5> 
  
                         <div class="share-buttons">
                             <h3>Share your badge:</h3>
@@ -61,7 +61,7 @@
 
                     <div class="row ">
                         <div class="col-12 pb-3">
-                            <h2>Number of Questions Created</h2>
+                            <h2>Number of Questions Attempted</h2>
                         </div>
                     </div>
                     <div class="row">
