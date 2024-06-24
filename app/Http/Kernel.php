@@ -66,5 +66,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'nocache' => \App\Http\Middleware\CacheControlMiddleware::class,
         'student' => \App\Http\Middleware\StudentMiddleware::class,
+        'creator' => \App\Http\Middleware\CheckCreator::class,
+        'moderator' => \App\Http\Middleware\CheckModerator::class,
+        'tutor' => \App\Http\Middleware\CheckTutor::class,
     ];
 }
