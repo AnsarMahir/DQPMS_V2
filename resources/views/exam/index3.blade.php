@@ -116,6 +116,15 @@
         justify-content: space-between;
     }
 
+div.transbox {
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
+}
+
+
+
 
     .icon-1 {
         position: absolute;
@@ -125,6 +134,11 @@
         /* Adjust the padding as needed */
 
     }
+
+
+
+
+
 
     .card:hover {
         border-color: #875EFF;
@@ -162,6 +176,11 @@
 
     </div>
     </Div>
+    
+    <div class="m-40px d-flex justify-content-end">
+        <a href="{{ route('comment') }}" class="btn btn-primary">Community Forum</a>
+    </div>
+
 
     <div class="justify-content-center mt-5">
         <div class="container  ">

@@ -22,7 +22,7 @@ class Exam extends Controller
                 'closing_date' => 'required|date',
                 'exam_date' => 'required|date',
                 'gazzete_notice'=>'required' ,
-                'amendment_notice' => 'required',
+                'amendment_notice' => 'nullable',
                 'apply_link' => 'nullable',
                 'quick_link' => 'nullable',
 

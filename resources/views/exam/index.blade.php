@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upcoming Exams</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="{{ asset('Assets/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('Assets/css/customform.css') }}" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
@@ -105,7 +106,7 @@
                                     <label for="examination" class="form-label">Examination:</label>
                                 </div>
                                 <div class="col-sm-12 col-md-10 col-lg-10 ">
-                                    <input type="TEXT" class="form-control" name="examination_name" id="example">
+                                    <input type="TEXT" class="form-control" name="examination_name"placeholder="Enter examination name... " id="example">
                                 </div>
                             </div>
 
@@ -114,7 +115,7 @@
                                     <label for="examination" class="form-label">Closing Date:</label>
                                 </div>
                                 <div class="col-sm-12 col-md-10 col-lg-10 ">
-                                    <input type="date" class="form-control" name="closing_date" id="example">
+                                    <input type="date" class="form-control"  placeholder="Enter closing date... "name="closing_date" id="example">
                                 </div>
                             </div>
 
@@ -123,7 +124,7 @@
                                     <label for="examination" class="form-label">examination date:</label>
                                 </div>
                                 <div class="col-sm-12 col-md-10 col-lg-10 ">
-                                    <input type="date" class="form-control" name="exam_date" id="example">
+                                    <input type="date" class="form-control" placeholder="Enter examination date..."  name="exam_date" id="example">
                                 </div>
                             </div>
 
@@ -132,7 +133,7 @@
                                         <label for="gazzete_notice" class="form-label">Gazzete-notice:</label>
                                     </div>
                                     <div class="col-sm-12 col-md-10 col-lg-10 ">
-                                        <input type="file" class="form-control" name="gazzete_notice" id="example">
+                                        <input type="file" class="form-control" placeholder="Upload gazzete..." name="gazzete_notice" id="example">
 
                                     </div>
 
@@ -144,7 +145,7 @@
                                     <label for="amendment_notice" class="form-label">Amendment-notice:</label>
                                 </div>
                                 <div class="col-sm-12 col-md-10 col-lg-10 ">
-                                    <input type="file" class="form-control" name="amendment_notice" id="example">
+                                    <input type="file" class="form-control" placeholder="Enter Amendment-notice..." name="amendment_notice" id="example">
 
                                 </div>
                             </div>
@@ -155,16 +156,16 @@
                                 <label for="apply_link" class="form-label">Online Application link:</label>
                             </div>
                             <div class="col-sm-12 col-md-10 col-lg-10 ">
-                                <input type="url" class="form-control" name="apply_link" id="example">
+                                <input type="url" class="form-control"placeholder="Enter online application link... " name="apply_link" id="example">
 
 
                     </div>
                     <div class="mb-3 row">
                         <div class="col-sm-12 col-md-2 col-lg-2 ">
-                            <label for="quick_link" class="form-label">Quick-link</label>
+                            <label for="quick_link" class="form-label">Quick link</label>
                         </div>
                         <div class="col-sm-12 col-md-10 col-lg-10 ">
-                            <input type="url" class="form-control" name="quick_link" id="example">
+                            <input type="url" class="form-control" placeholder="Enter quick link... " name="quick_link" id="example">
 
                         </div>
                     </div>
@@ -178,7 +179,7 @@
 
                 </div>
             </div>
-            <td><button type="submit" class="btn  mb-2" style="background-color: #beadf1 ;">ADD</button>
+            <td><button type="submit" class="btn btn-lg ml-4" style="background-color: #beadf1 ;">POST NOTICE </button>
 
         </div>
 

@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Exam;
+use App\Http\Controllers\ModeratorController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +35,20 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+
 Route::get('/exam/all', [Exam::class,'index'])->name('user');
 Route::get('/exam/index', function() {
     return view('exam.index');
 })->name('exam.index');
 
 Route::post('/exam/store', [Exam::class, 'store'])->name('exam.store');
+
+
+
+
+
+Route::get('/comment', [PostController::class, 'index'])->name('comment');
+
+Route::get('/moderator/home', [ModeratorController::class, 'home'])->name('moderator.home');
+
+
