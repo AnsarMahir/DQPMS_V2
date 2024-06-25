@@ -66,5 +66,27 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Pastpaper::class,'ModeratorID','id');
     }
+    public function isAdmin()
+    {
+        return $this->type === 'ADMIN';
+    }
+    public function isCreator()
+    {
+        return $this->type === 'CREATOR';
+    }
+    public function isModerator()
+    {
+        return $this->type === 'MODERATOR';
+    }
+    public function isTutor()
+    {
+        return $this->type === 'TUTOR';
+    }
+    public function isStudent()
+    {
+        return $this->type === 'STUDENT';
+    }
+    
+    
 }   
 
