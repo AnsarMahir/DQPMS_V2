@@ -34,7 +34,11 @@
                 @enderror 
                 
                 <div class="row">
-                    <img src="" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
+                    <div class="d-flex flex-row-reverse" > 
+                        <button class="btn" type="button" id="QuestionClearBtn{{$i}}" onClick="clearImage({{$i}},'Q')" style="display:none"><i class="bi bi-x"></button></i>
+                    </div>
+
+                    <img src="" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">                    
                 </div>
                 
 
@@ -81,13 +85,17 @@
 
                 <div class="row mx-4" style="column-gap: 2rem">
 
-                    <div class="col-lg-5">  
+                    <div class="col-lg-5"> 
+                        
+                        <button class="btn" type="button" id="AnswerClearBtn{{$i.'1'}}" onClick="clearImage({{$i}},'A',1)" style="display: none"><i class="bi bi-x"></button></i>
 
                         <img src="" alt="" id="{{$i.'answerPreviewImageTag1'}}" class="img-fluid">
 
                     </div>
 
                     <div class="col-lg-5">
+
+                        <button class="btn" type="button" id="AnswerClearBtn{{$i.'2'}}" onClick="clearImage({{$i}},'A',2)" style="display: none"><i class="bi bi-x"></button></i>
 
                         <img src="" alt="" id="{{$i.'answerPreviewImageTag2'}}" class="img-fluid">
 
@@ -139,11 +147,15 @@
 
                     <div class="col-lg-5">  
 
+                        <button class="btn" type="button" id="AnswerClearBtn{{$i.'3'}}" onClick="clearImage({{$i}},'A',3)" style="display: none"><i class="bi bi-x"></button></i>
+
                         <img src="" alt="" id="{{$i.'answerPreviewImageTag3'}}" class="img-fluid">
 
                     </div>
 
                     <div class="col-lg-5">
+
+                        <button class="btn" type="button" id="AnswerClearBtn{{$i.'4'}}" onClick="clearImage({{$i}},'A',4)" style="display: none"><i class="bi bi-x"></button></i>
 
                         <img src="" alt="" id="{{$i.'answerPreviewImageTag4'}}" class="img-fluid">
 
@@ -201,7 +213,15 @@
         
         const imgTag = document.getElementById(previewImageTag); // get img tag Element Object
 
+        let clearButtonId = 'QuestionClearBtn' + questionId;
+
+        const clearButton = document.getElementById(clearButtonId);
+
+
+
         createBlob(imgTag,uploadImgElement);
+
+        clearButton.style.display = "block";
         
     }    
     
@@ -216,7 +236,14 @@
 
         const imgTag = document.getElementById(previewImageTag);
 
+        let clearButtonId = 'AnswerClearBtn' + questionId + answerId;
+
+        const clearButton = document.getElementById(clearButtonId);
+
         createBlob(imgTag,uploadImgElement);
+
+        clearButton.style.display = "block";
+        
 
     }
 
@@ -234,5 +261,30 @@
 
 
     }
+
+    function clearImage(questionId , type , answerIndex = null) {
+
+        let previewImageTagId, inputFileId, clearButtonId;
+
+        if (type === 'Q') {
+            previewImageTagId = questionId + 'questionPreviewImageTag';
+            inputFileId = questionId + 'Q_Reference';
+            clearButtonId = 'QuestionClearBtn' + questionId;
+        } else {
+            previewImageTagId = questionId + 'answerPreviewImageTag' + answerIndex;
+            inputFileId = questionId + 'A_Reference' + answerIndex;
+            clearButtonId = 'AnswerClearBtn' + questionId + answerIndex;
+        }
+
+        let imgTag = document.getElementById(previewImageTagId);
+        let inputFile = document.getElementById(inputFileId);
+        let clearButton = document.getElementById(clearButtonId);
+
+
+        imgTag.style.display = "none";
+        imgTag.src = "";
+        inputFile.value = "";
+        clearButton.style.display = "none";
+        }
 
 </script>
