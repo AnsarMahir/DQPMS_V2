@@ -95,7 +95,7 @@
                     <td>02/06</td>
                     <td>MCQ</td>
                     <td>Sinhala</td>
-                    <td>25</td>
+                    <td>20</td>
                     <td>Mark</td>
                     <td>Jacob</td>
                   </tr>
@@ -104,7 +104,7 @@
                     <td>02/03</td>
                     <td>MCQ</td>
                     <td>English</td>
-                    <td>25</td>
+                    <td>20</td>
                     <td>Mark</td>
                     <td>Jacob</td>
                   </tr>
@@ -113,7 +113,7 @@
                     <td>02/04</td>
                     <td>MCQ</td>
                     <td>Sinhala</td>
-                    <td>25</td>
+                    <td>20</td>
                     <td>Jess</td>
                     <td>Henry</td>
                   </tr>
@@ -122,7 +122,7 @@
                     <td>02/01</td>
                     <td>MCQ</td>
                     <td>English</td>
-                    <td>25</td>
+                    <td>20</td>
                     <td>Jess</td>
                     <td>Henry</td>
                   </tr>

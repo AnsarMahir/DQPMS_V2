@@ -18,7 +18,8 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <font class="font-figtree text-4xl text-gray-800 dark:text-gray-100">DQPMS</font>
+                    <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
                 </a>
             </div>
 
