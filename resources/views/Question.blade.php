@@ -80,11 +80,17 @@ $answerindex = 0;
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <div class="d-grid d-sm-block pb-3 sticky-top">
-        <button class="btn btn-primary ms-0 bgbody text-dark" type="button" id="countdown">{{$time}}:00</button>
+    <div class="header-bar">
+        <div class="timer" id="countdown">{{$time}}:00</div>
+        <div class="question-nav">
+            @foreach ($questions as $question)
+                <a href="#question{{ $loop->iteration }}">Q{{ $loop->iteration }}</a>
+            @endforeach
+        </div>
     </div>
+    
 
-    <section class="p-5 mt-auto">
+    <section class="p-5 mt-auto ">
         <div class="container">
             
             <form action="/Review" method="POST" id="countdown-form" >
@@ -182,17 +188,10 @@ $answerindex = 0;
             </div>
             @endforeach
             <div class="d-flex flex-row-reverse pb-3">
-                <button class="btn btn-dark" type="submit" id="submit-btn">Submit</button>
+                <button class="btn btn-custom" type="submit" id="submit-btn">Submit</button>
             </div>
         </form>
     </section>
-
-    <div class="nav-bubbles">
-        @foreach ($questions as $question)
-            <div class="bubble" data-target="question{{ $loop->iteration }}">{{ $loop->iteration }}</div>
-        @endforeach
-    </div>
-
     
     <footer class="p-4 bg-dark text-white text-center mt-auto">
         <div class="container">
@@ -272,6 +271,30 @@ $answerindex = 0;
             });
         });
     });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const bubbles = document.querySelectorAll('.question-nav a');
+    const headerHeight = document.querySelector('.header-bar').offsetHeight;
+
+    bubbles.forEach(bubble => {
+        bubble.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetId = bubble.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerHeight;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
