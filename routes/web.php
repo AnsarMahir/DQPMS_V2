@@ -63,6 +63,8 @@ Route::post('/resavedraft',[PastpaperController::class,'resavedraft'])->name('re
 
 Route::get('/paper/{id}/{paperType}',[PastpaperController::class,'viewPaper']);
 
+Route::get('/paper/{id}', [PastpaperController::class, 'deleteDraftPaper'])->name('deleteDraftPaper');
+
 Route::get('/myProfile',function(){
     return view('Profile');
 });

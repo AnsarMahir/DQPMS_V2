@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type='number' step="1" max="2024" min="1990" class="form-control" placeholder="Enter the year" name="year">
+                            <input type='number' step="1" min="1990" class="form-control" placeholder="Enter the year" name="year">
                             @error('year')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
                             @enderror

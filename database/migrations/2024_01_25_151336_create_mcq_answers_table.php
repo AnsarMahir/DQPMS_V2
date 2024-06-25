@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('mcq_ans_id');
             $table->text('description')->nullable();;
             $table->unsignedBigInteger('reference')->nullable();
-            $table->foreign('question_id')->references('mcq_questions_id')->on('mcq_questions');
+            $table->foreign('question_id')->references('mcq_questions_id')->on('mcq_questions')->onDelete('cascade');
             $table->foreign('reference')->references('R_id')->on('reference');
             $table->timestamps();
         });

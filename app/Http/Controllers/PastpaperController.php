@@ -33,10 +33,13 @@ class PastpaperController extends Controller
 
 
     public function validateHomepageRequest(Request $request){
+
+        $currentYear = date('Y');
+
         $formFields = $request->validate([
             "examName"=>'required',
             "questionType"=>"required",
-            "year"=>"required|integer|between:1990,2099",
+            "year"=>"required|integer|between:1990,$currentYear",
             "language"=>"required",
             "numberOfQuestions"=>"required",
 
@@ -54,7 +57,6 @@ class PastpaperController extends Controller
                                     ->orderBy('pastpapers_count', 'asc')
                                     ->first();
 
-// Accessing the results
         $moderatorId = $moderatorQuery->moderatorid;
         
         return $moderatorId;
@@ -266,6 +268,22 @@ class PastpaperController extends Controller
             // 'reference' => $reference
         ]);
 
+    }
+
+    public function deleteDraftPaper($id){
+        $paper = Pastpaper::find($id);
+
+        
+
+
+
+        if (!$paper) {
+            return response()->json(['message' => 'Paper not found'], 404);
+        }
+
+        $paper->delete();
+
+        return response()->json(['message' => 'Paper deleted successfully']);
     }
 
 

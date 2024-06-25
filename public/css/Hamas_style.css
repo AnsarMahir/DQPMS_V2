@@ -1,18 +1,28 @@
+.deleteButton{
+  color: white;
+  background-color: #a181ff;
+  border: none;
+  border-radius: 5px;
+}
+
+.deleteButton:hover{
+  background-color: rgb(255, 56, 56);
+}
 
 .pop-z-index{
-    z-index: 10000;
-    margin-top: 90px;
+  z-index: 10000;
+  margin-top: 90px;
 }
 
 .popup{
-background-color: #5d2fba;
-border-radius: 5px;
+  background-color: #5d2fba;
+  border-radius: 5px;
 
 
 }
 
 .bgprimary{
-background-color: #7e53ff
+  background-color: #7e53ff
 }
 
 .bgbody{
@@ -46,7 +56,8 @@ background-size: contain;
 
 
 .nav-link{
-color: white;
+  color: white; 
+  border-radius: 10px;
 }
 
 .badge{
@@ -105,6 +116,12 @@ color: white;
   color: white !important;
   background-color: #a181ff;
   border-color: #8e68ff;
+}
+
+.deleteDraft:hover{
+  border-color: #000000;
+  color: #000000;
+
 }
 
 .btn:hover{

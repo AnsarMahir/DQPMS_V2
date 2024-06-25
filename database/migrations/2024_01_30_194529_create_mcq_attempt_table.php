@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('mcq_questions_id');
             $table->integer('no_of_attempts')->default(0);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('mcq_questions_id')->references('mcq_questions_id')->on('mcq_questions');
+            $table->foreign('mcq_questions_id')->references('mcq_questions_id')->on('mcq_questions')->onDelete('cascade');
             $table->timestamps();
         });
     }
