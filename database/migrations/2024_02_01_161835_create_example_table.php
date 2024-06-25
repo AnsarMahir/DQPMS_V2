@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reference', function (Blueprint $table) {
-            $table->id("R_id");
-            $table->text("reference_HTML");
+        Schema::create('example', function (Blueprint $table) {
+            $table->id();
+            $table->string('example',10);
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reference');
+        Schema::dropIfExists('example');
     }
 };

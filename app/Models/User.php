@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -45,4 +46,25 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Chirp::class);
     }
-}
+
+    public function mcqAttempt(): BelongsToMany
+    {
+        return $this->belongsToMany(Mcq_Question::class,'mcq_attempt','user_id','mcq_questions_id');
+    }
+
+    public function shAttempt(): BelongsToMany
+    {
+        return $this->belongsToMany(Sh_Question::class,'sh_attempt','user_id','sh_questions_id');
+    }
+
+    public function pastPaperCreated():HasMany
+    {
+        return $this->hasMany(Pastpaper::class,'CreatorID','id');
+    }
+
+    public function pastPaperModerated():HasMany
+    {
+        return $this->hasMany(Pastpaper::class,'ModeratorID','id');
+    }
+}   
+

@@ -29,5 +29,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
-    //This is a comment to check git
+    //This is a comment to check git
 };
