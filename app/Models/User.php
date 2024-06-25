@@ -47,9 +47,29 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function chirps(): HasMany
+    public function isAdmin()
     {
-        return $this->hasMany(Chirp::class);
+        return $this->type === 'ADMIN';
+    }
+
+    public function isCreator()
+    {
+        return $this->type === 'CREATOR';
+    }
+
+    public function isModerator()
+    {
+        return $this->type === 'MODERATOR';
+    }
+
+    public function isTutor()
+    {
+        return $this->type === 'TUTOR';
+    }
+
+    public function isStudent()
+    {
+        return $this->type === 'STUDENT';
     }
 
     public function mcqAttempt(): BelongsToMany

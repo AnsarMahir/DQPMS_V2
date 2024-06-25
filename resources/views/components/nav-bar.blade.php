@@ -12,12 +12,27 @@
         <div class="collapse navbar-collapse">
             <div class="d-flex justify-content-between w-100">
                 <!-- Center-aligned links -->
+                <!-- links for student-->
+                @if(Auth::user()->isStudent())
                 <div class="d-flex justify-content-center flex-grow-1" style="margin-left: -35px;">
                     <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
                         <li class="nav-item"><a href="Student" class="nav-link nav-hover fs-6">Home</a></li>
                         <li class="nav-item"><a href="/Rank" class="nav-link nav-hover fs-6">Rank</a></li>
                     </ul>
                 </div>
+                @endif
+
+                <!-- links for creator-->
+                @if(Auth::user()->isCreator())
+                <div class="d-flex justify-content-center flex-grow-1" style="margin-left: -35px;">
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
+                        <li class="nav-item "><a href="CreatorHomepage" class="nav-link nav-hover fs-6">Home</a></li>
+                        <li class="nav-item "><a href="Draftpapers" class="nav-link nav-hover fs-6">Drafted Papers</a></li>
+                        <li class="nav-item "><a href="#" class="nav-link nav-hover fs-6">Published Papers</a></li>
+                    </ul>
+                </div>
+                @endif
+
 
                 <!-- Right-aligned profile dropdown -->
                 <div class="d-flex align-items-center">
