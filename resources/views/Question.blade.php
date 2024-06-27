@@ -16,6 +16,36 @@ $answerindex = 0;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
+
+        //changing browser tab detection
+         let tabSwitchCount = 0;
+        const maxTabSwitches = 2;
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                tabSwitchCount++;
+                if (tabSwitchCount <= maxTabSwitches) {
+                    alert(`Warning: You have ${maxTabSwitches - tabSwitchCount + 1} more chance(s) left.`);
+                } else {
+                    document.getElementById('countdown-form').submit();
+                }
+            }
+        });
+
+        //making the page non copyable
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disables common keyboard shortcuts for copying and developer tools
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'a' || e.key === 'u') ||
+                e.key === 'PrintScreen' || e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || (e.ctrlKey && e.shiftKey && e.key === 'C')) {
+                e.preventDefault();
+            }
+        });
+
         function updateCountdown() {
             let initialTime = localStorage.getItem('initialTime');
             if (!initialTime) {
@@ -79,7 +109,7 @@ $answerindex = 0;
     </script>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 non-copy">
     <div class="header-bar">
         <div class="timer" id="countdown">{{$time}}:00</div>
         <div class="question-nav">
@@ -215,7 +245,7 @@ $answerindex = 0;
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="change-answers-btn">Change Answers</button>
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Proceed to Review</button>
+                    <button type="button" id="proceed-btn" class="btn btn-primary">Proceed to Review</button>
                 </div>
             </div>
         </div>

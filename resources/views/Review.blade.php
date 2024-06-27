@@ -17,10 +17,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript"></script>
+    
 
-        Cookies.set('question', 1);
-    </script>
+   
     <script>
         function removestorage(){
             localStorage.removeItem('initialTime');
@@ -37,8 +37,35 @@
         // Return false to prevent the form from submitting via default behavior
         return false;
     }
+
+    window.history.forward(); 
+        function noBack() { 
+            window.history.forward(); 
+        } 
 </script>
+<script>
+    function attemptQuestion(questionId, isCorrect) {
+        fetch('{{ route("review.attemptQuestion") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                question_id: questionId,
+                is_correct: isCorrect,
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
     </script>
+   
     
 </head>
 
@@ -56,20 +83,34 @@
                       @if($question->mcq_questions_id == $key)
                           @if($question->correct_answer == $value)
                           <i class="fas fa-check" style="color: green;"></i>
+                          <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                attemptQuestion({{ $question->mcq_questions_id }}, 1);
+                            });
+                        </script>
                             <script>
                                var temp= document.getElementById("q{{$loop->iteration}}");
-                                    temp.style.color="green";
+                                temp.style.color="green";
                             </script>
+
                           @else
+
                           <i class="fas fa-times" style="color: red;"></i>
+                          <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                attemptQuestion({{ $question->mcq_questions_id }}, 0);
+                            });
+                        </script>
                               <script>
                                 var temp= document.getElementById("q{{$loop->iteration}}");
-                                temp.style.color="red";
-                             </script>
+                                temp.style.color="red"; 
+                            </script>
+
                             <div class="mb-4 mt-4 bg-transparent bg-gradient text-dark fs-5 shadow-lg rounded border border-3">
                                 <h4 id="gpt-heading" style="color: black"><u>GPT-Reference</u></h4>
-                                <livewire:gpt-answer :description="$question->description" lazy="on-load" />
+                                <livewire:gpt-answer :description="$question->description" lazy />
                             </div> 
+
                           @endif
                       @endif
                   @endforeach
@@ -206,5 +247,6 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
 </body>
 </html>

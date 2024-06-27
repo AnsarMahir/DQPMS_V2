@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sh_Answer;
 use Illuminate\View\View;
+use App\Models\Sh_Question;
 use App\Models\Mcq_Question;
+use App\Models\UserQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\Sh_Answer;
-use App\Models\Sh_Question;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class ReviewController extends Controller
@@ -30,13 +32,11 @@ class ReviewController extends Controller
             ->whereIn('mcq_answers.question_id', $finalids)
             ->get();
 
-
-
-
         //return $questions; // Return selected questions
         $request->session()->put('review_completed', true);
         return view('Review', compact('questions', 'answers', 'useranswers'));
     }
+    
 
     public function sreview(Request $request)
     {
@@ -96,4 +96,34 @@ class ReviewController extends Controller
         $correctAnswer = $response['choices'][0]['text'] ?? 'No answer available';
         return $correctAnswer;
     }
+
+    public function attemptQuestion(Request $request)
+{
+    try {
+        $validatedData = $request->validate([
+            'question_id' => 'required|integer',
+            'is_correct' => 'required|boolean',
+        ]);
+
+        // Perform the update or create operation
+        $userQuestion = UserQuestion::updateOrCreate(
+            ['user_id' => auth()->id(), 'question_id' => $validatedData['question_id']],
+            ['final_answer_status' => $validatedData['is_correct']]
+        );
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $userQuestion
+        ]);
+    } catch (\Exception $e) {
+        // Log the exception message
+        Log::error('Attempt Question Error: ' . $e->getMessage());
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'An error occurred while attempting the question.'
+        ], 500);
+    }
+}
+
 }

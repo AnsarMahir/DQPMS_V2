@@ -174,4 +174,8 @@ color: white;
   opacity: 1; 
 }
 
+.progress-bar-sm { 
+  width: 450px;/* Adjust this value to make the progress bar smaller or larger */
+}
+
 
