@@ -15,24 +15,27 @@ class ShareWidgetController extends Controller
 
     public function getProfilePage()
     {
-        $rank = $this->getRank(10);
-        $rankStat = $this->getRankDetails(10);
+        $creatorId = 5;
+        
+        $rank = $this->getRank($creatorId);
+        
+        $rankStat = $this->getRankDetails($creatorId);
 
         $creatorName = User::find(10)->name;
 
-        $mcqQuestionsCount = $this->getMcqQuestions(10);
+        $mcqQuestionsCount = $this->getMcqQuestions($creatorId);
 
-        $shQuestionsCount= $this->getShQuestions(10);
+        $shQuestionsCount= $this->getShQuestions($creatorId);
 
-        $gkQuestionsCount = $this->getQuestionTypeCount(10,'GK');
+        $gkQuestionsCount = $this->getQuestionTypeCount($creatorId,'GK');
 
-        $IqQuestionsCount = $this->getQuestionTypeCount(10,'IQ');
+        $IqQuestionsCount = $this->getQuestionTypeCount($creatorId,'IQ');
 
-        $MathQuestionsCount = $this->getQuestionTypeCount(10,'MATH');
+        $MathQuestionsCount = $this->getQuestionTypeCount($creatorId,'MATH');
 
-        $LogicQuestionsCount = $this->getQuestionTypeCount(10,'LOGIC');
+        $LogicQuestionsCount = $this->getQuestionTypeCount($creatorId,'LOGIC');
 
-        $OtherQuestionsCount = $this->getQuestionTypeCount(10,'OTHER');
+        $OtherQuestionsCount = $this->getQuestionTypeCount($creatorId,'OTHER');
         
 
         

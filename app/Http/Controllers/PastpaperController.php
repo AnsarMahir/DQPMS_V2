@@ -3,22 +3,25 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Controllers\Controller;
-use App\Models\CreatorRank;
-use App\Providers\FirebaseServiceProvider;
 use Exception;
+use App\Models\User;
+use App\Rules\TitleCase;
 use App\Models\Pastpaper;
 use App\Models\Reference;
 use App\Models\Mcq_Answer;
+use App\Models\CreatorRank;
+use App\Models\Paper_Title;
 use App\Models\Sh_Question;
 use App\Models\Mcq_Question;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Storage;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\error;
 use vendor\jorenvanhocht\src\Share;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Kreait\Firebase\Storage;
+use App\Providers\FirebaseServiceProvider;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 
 //use Illuminate\Validation\Validator;
@@ -26,6 +29,11 @@ use Kreait\Laravel\Firebase\Facades\Firebase;
 class PastpaperController extends Controller
 {
     //
+    public function getCreatorHomepage(){
+        $paperTitles = Paper_Title::distinct()->pluck('Paper_Title');
+
+        return view('CreatorHomepage', compact('paperTitles'));
+    }
     public function show()
     {
         return view('QuestionCreation');
@@ -57,8 +65,16 @@ class PastpaperController extends Controller
                                     ->orderBy('pastpapers_count', 'asc')
                                     ->first();
 
-        $moderatorId = $moderatorQuery->moderatorid;
-        
+        if($moderatorQuery){
+
+            $moderatorId = $moderatorQuery->moderatorid;
+
+        }else{
+
+            $moderatorId = User::where('type', 'MODERATOR')->pluck('id')->first();
+
+        }
+
         return $moderatorId;
     }
 
@@ -245,7 +261,23 @@ class PastpaperController extends Controller
 
         return view('DraftPaperPage',
         ['PastpaperData' => $pastpaperData]
-    );                                
+        );                                
+    }
+
+    public function retrievePublished(){
+        $pastpaperID = Pastpaper::where('CreatorID', 2)->where(function($query) {
+                            $query->where('CreatorState', 'Submitted')
+                                ->orWhere('CreatorState', 'Approved');
+                        })
+                        ->pluck('P_id');
+
+
+        $pastpaperData = Pastpaper::whereIn('P_id', $pastpaperID)->get();
+
+        return view('PublishedPapers',
+        ['PastpaperData' => $pastpaperData]
+        );
+
     }
 
     public function viewPaper($id,$paperType){
@@ -270,18 +302,39 @@ class PastpaperController extends Controller
 
     }
 
+    public function viewPublishedPaper($id,$paperType){
+
+        $pastpaperData = Pastpaper::where('P_id',$id)->get()->toArray();
+
+
+        if($paperType == 'MCQ'){
+            $paperData = Mcq_Question::with(['answers','answers.reference','reference'])->where('pastpaper_reference',$id)->get()->toArray(); 
+         
+        }else{
+            $paperData = Sh_Question::where('pastpaper_reference',$id)->get();   
+        }
+
+        //dd($pastpaperData);
+
+        return view('ViewPublished',[
+            'pastpaper' => $pastpaperData,
+            'paperData' => $paperData
+            // 'reference' => $reference
+        ]);
+
+
+    }
+
     public function deleteDraftPaper($id){
         $paper = Pastpaper::find($id);
-
-        
-
-
 
         if (!$paper) {
             return response()->json(['message' => 'Paper not found'], 404);
         }
 
         $paper->delete();
+
+        session()->flash('message', 'Draft deleted successfully');
 
         return response()->json(['message' => 'Paper deleted successfully']);
     }
@@ -397,7 +450,7 @@ class PastpaperController extends Controller
 
         };
 
-        $this->increaseRank($CreatorId,$no_of_questions);
+        // $this->increaseRank($CreatorId,$no_of_questions);
 
 
 
@@ -544,7 +597,49 @@ class PastpaperController extends Controller
             'correct_answer'=>$request[$j.'answer']
         ]);
 
-    }    
+    } 
+    
+    public function addPaperTitle(Request $request){
+
+        $paperTitle = $request->validate([
+            'paperInput' => ['required', new TitleCase]
+        ],
+        [
+            'paperInput.required' => 'Please enter a valid title'
+        ]);
+
+         //dd($paperTitle);
+
+        Paper_Title::create([
+            'Paper_Title' => $paperTitle['paperInput']
+        ]);
+
+        return redirect()->back()->with('message','Paper Added Successfully');
+
+
+    }
+
+    public function getPaperTitle(){
+        
+        $papers = Paper_Title::all();
+
+        return response()->json($papers);
+    }
+
+    public function deletePaperTitle($id){
+        $paper = Paper_Title::find($id);
+
+        if (!$paper) {
+            return response()->json(['message' => 'Paper not found'], 404);
+        }
+
+        $paper->delete();
+
+        session()->flash('message', 'Paper Title deleted successfully');
+
+        return response()->json(['message' => 'Paper deleted successfully']);
+
+    }
     
     
 }

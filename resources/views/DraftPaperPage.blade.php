@@ -13,7 +13,8 @@
 
 <body>
     <x-nav-bar/>
-
+    
+    <x-flash-message/>
     
 
     <section class="p-5 pt-lg-5">
@@ -64,7 +65,7 @@
                           </div>
                         </div>
                     </div>
-                
+                </div>
                     
                 @endforeach
             </div>        
@@ -91,9 +92,6 @@
                 'X-CSRF-TOKEN': "{{csrf_token()}}"
             },
             success: function(response) {
-                alert('Paper deleted successfully');
-                // Perform any actions after successful deletion
-                // For example, refreshing the page
                 window.location.reload();
             },
             error: function(xhr, status, error) {

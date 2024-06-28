@@ -19,8 +19,11 @@
                         <div class="form-group">
                             <select class="form-select" name="examName">
                                 <option selected disabled>Examination Name</option>
-                                <option>Sri Lanka Administration Service</option>
-                                <option>Sri Lanka Ports and Authorities</option>
+
+                                @foreach($paperTitles as $title)
+                                <option value="{{ $title }}">{{ $title }}</option>
+                                @endforeach
+
                             </select>
                             
                             @error('examName')

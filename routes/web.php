@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::view('/CreatorHomepage', 'CreatorHomepage');
+Route::get('/CreatorHomepage', [PastpaperController::class, 'getCreatorHomepage']);
 
 Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
 
@@ -72,6 +72,18 @@ Route::get('/myProfile',function(){
 Route::get('/creatorRank', [ShareWidgetController::class,'getProfilePage']);
 
 Route::get('/shareBadge/{appName}',[ShareWidgetController::class,'shareBadge']);
+
+Route::view('/paperTitlePage','AddPaperTitle');
+
+Route::post('/addPaperTitle',[PastpaperController::class,'addPaperTitle']);
+
+Route::get('/getPaperTitle',[PastpaperController::class,'getPaperTitle'])->name('getPaperTitle');
+
+Route::post('/deletePaperTitle/{id}',[PastpaperController::class,'deletePaperTitle'])->name('deletePaperTitle');
+
+Route::get('/PublishedPapers',[PastpaperController::class,'retrievePublished']);
+
+Route::get('/PublishedPapers/{id}/{paperType}',[PastpaperController::class,'viewPublishedPaper']);
 
 
 
