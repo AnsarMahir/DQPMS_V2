@@ -59,6 +59,11 @@ Route::get('/addCreator', function () {
     return view('addCreator');
 });
 
+//route to editing profile
+Route::get('/editProfile', function () {
+    return view('editProfile');
+});
+
 //route to save data into the database (paper creators)
 Route::post('datasend',function(){
     $validate_data = Validator::make(request()->all(), [
