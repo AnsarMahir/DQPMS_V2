@@ -81,6 +81,9 @@ $(document).ready(function() {
                     @csrf
                     <div class="col-12 m-0">
                         <div class="form-group">
+                            @error('exam')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="exam" name="exam">
                                 <option selected disabled>Examination Name</option>
                                 @foreach($examname as $name)
@@ -93,6 +96,9 @@ $(document).ready(function() {
                 
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('questiontype')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="questionType" name="questiontype">
                                 <option selected disabled>Choose your question type</option>
                                 <option value="MCQ">MCQ</option>
@@ -102,6 +108,9 @@ $(document).ready(function() {
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('qnature')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="questionNature" name="qnature">
                                 <option selected disabled>Choose your question nature</option>
                                 @foreach($natures as $nature)
@@ -114,6 +123,9 @@ $(document).ready(function() {
 
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('language')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="language" name="language" value="{{ old('language') }}">
                                 <option selected disabled>Choose your Language</option>
                                 
@@ -125,6 +137,9 @@ $(document).ready(function() {
 
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('noofq')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="language" name="noofq">
                                 <option selected disabled>Choose number of Questions</option>
                                 <option value="5">5</option>
@@ -139,16 +154,6 @@ $(document).ready(function() {
                     </button>
                    
                 </form>
-                @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
             </div>
                 
         </div>  

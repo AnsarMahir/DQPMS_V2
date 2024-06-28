@@ -232,7 +232,7 @@
             
         </div>
         <div class="d-flex justify-content-center pb-3">
-            <button class="btn btn-dark" type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
+            <button class="btn btncolor " type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
         </div>
     </section>
     

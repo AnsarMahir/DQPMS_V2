@@ -132,3 +132,11 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
+.btncolor{
+  color: white;
+  background-color: #7748ff;
+  border-color: #7748ff;
+  }
+  .btn:hover{
+  border-color: #7748ff;
+  }

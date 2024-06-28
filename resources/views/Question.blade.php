@@ -218,7 +218,7 @@ $answerindex = 0;
             </div>
             @endforeach
             <div class="d-flex flex-row-reverse pb-3">
-                <button class="btn btn-custom" type="submit" id="submit-btn">Submit</button>
+                <button class="btn btncolor " type="submit" id="submit-btn">Submit</button>
             </div>
         </form>
     </section>

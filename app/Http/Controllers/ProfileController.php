@@ -73,6 +73,13 @@ class ProfileController extends Controller
             'language' => 'required',
             'noofq' => 'required',
 
+        ],[
+            'exam' => 'Please select an exam',
+            'questiontype' => 'Please select a question type',
+            'qnature' => 'Please select a category',
+            'language' => 'Please select a language',
+            'noofq' => 'Please select the number of questions',
+
         ]);
         $selectedValues = $request->only(['exam', 'questiontype', 'qnature', 'language', 'noofq']);
         //add user ID with the retrieved data
