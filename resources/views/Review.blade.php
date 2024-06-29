@@ -231,8 +231,8 @@
             
             
         </div>
-        <div class="d-flex justify-content-center pb-3">
-            <button class="btn btncolor " type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
+        <div class="d-flex justify-content-end pb-3">
+            <button class="btn btncolor" type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
         </div>
     </section>
     
