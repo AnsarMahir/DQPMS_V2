@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('sh_questions_id');
             $table->integer('no_of_attempts');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('sh_questions_id')->references('sh_questions_id')->on('sh_questions');
+            $table->foreign('sh_questions_id')->references('sh_questions_id')->on('sh_questions')->onDelete('cascade');
             $table->timestamps();
         });
     }

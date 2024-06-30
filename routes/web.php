@@ -10,6 +10,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PastpaperController;
 use Intervention\Image\Laravel\Facades\Image;
 use Symfony\Component\Console\Question\Question;
+use App\Http\Controllers\ShareWidgetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/CreatorHomepage',function(){
-    return view('CreatorHomepage');
-});
+Route::get('/CreatorHomepage', [PastpaperController::class, 'getCreatorHomepage']);
 
 Route::get('/Rank', [RankController::class,'generateBadge']);
 
@@ -76,11 +75,27 @@ Route::post('/resavedraft',[PastpaperController::class,'resavedraft'])->name('re
 
 Route::get('/paper/{id}/{paperType}',[PastpaperController::class,'viewPaper']);
 
+Route::get('/paper/{id}', [PastpaperController::class, 'deleteDraftPaper'])->name('deleteDraftPaper');
+
 Route::get('/myProfile',function(){
     return view('Profile');
 });
 
-Route::get('/share', [ShareWidgetController::class,'ShareWidget']);
+Route::get('/creatorRank', [ShareWidgetController::class,'getProfilePage']);
+
+Route::get('/shareBadge/{appName}',[ShareWidgetController::class,'shareBadge']);
+
+Route::view('/paperTitlePage','AddPaperTitle');
+
+Route::post('/addPaperTitle',[PastpaperController::class,'addPaperTitle']);
+
+Route::get('/getPaperTitle',[PastpaperController::class,'getPaperTitle'])->name('getPaperTitle');
+
+Route::post('/deletePaperTitle/{id}',[PastpaperController::class,'deletePaperTitle'])->name('deletePaperTitle');
+
+Route::get('/PublishedPapers',[PastpaperController::class,'retrievePublished']);
+
+Route::get('/PublishedPapers/{id}/{paperType}',[PastpaperController::class,'viewPublishedPaper']);
 
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
@@ -101,4 +116,5 @@ Route::post('/generate-badge', [RankController::class, 'generateBadge'])->name('
 Route::get('/ansak', function () {
     $image = Image::read('level1.jpg');
 });
+
 require __DIR__.'/auth.php';

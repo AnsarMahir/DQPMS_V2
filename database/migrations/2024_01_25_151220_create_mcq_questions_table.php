@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('correct_answer')->nullable();;
             $table->unsignedBigInteger('pastpaper_reference');
             $table->foreign('referenceid')->references('R_id')->on('reference');
-            $table->foreign('pastpaper_reference')->references('P_id')->on('pastpaper');
+            $table->foreign('pastpaper_reference')->references('P_id')->on('pastpaper')->onDelete('cascade');
             $table->timestamps();
         });
     }

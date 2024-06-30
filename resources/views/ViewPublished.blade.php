@@ -25,34 +25,20 @@ $i=0;
                 <div class="col-lg-8 p-4 border shadow">
                     <h3>{{$pastpaper[0]['name']}}</h3>
                     <p> {{$pastpaper[0]['year']}} | {{$pastpaper[0]['language']}} | {{$pastpaper[0]['question_type']}} | {{$pastpaper[0]['no_of_questions']}} Questions</p>
+                    <p><b>Status: </b>{{$pastpaper[0]['CreatorState']}}</p>
                 </div>
             </div>
 
-            {{-- @dd($paperData) --}}
-            
-
-            <form action="/QuestionStore" method="POST" enctype="multipart/form-data">
-                @csrf
-
-                {{-- Get Pastpaper Data into controller --}}
-                {{-- @foreach ($pastpaper[0] as $data) --}}
-
-                <input type="hidden" value="{{$pastpaper[0]['P_id']}}" name="pastpaperData[]">
-                <input type="hidden" value="{{$pastpaper[0]['no_of_questions']}}" name="pastpaperData[]">
-                <input type="hidden" value="{{$pastpaper[0]['question_type']}}" name="pastpaperData[]">
-
-                    
-                {{-- @endforeach --}}
 
                 
                 {{-- Get Questions into Controller --}}
-                @while ($i<$pastpaper[0]['no_of_questions'])
+            @while ($i<$pastpaper[0]['no_of_questions'])
                 
                     @if ($pastpaper[0]['question_type']=='MCQ')
 
                         {{-- @dd($paperData) --}}
 
-                        <x-Edit-MCQ-Question :i="$i" :data="$paperData"/>
+                        <x-View-MCQ-Question :i="$i" :data="$paperData"/>
                         
                     @else
 
@@ -64,18 +50,7 @@ $i=0;
                         $i++
                     @endphp
                     
-                @endwhile           
-                
-
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 px-0">
-                        <div class="d-flex flex-row-reverse">
-                            <button class="btn btncolor ms-2  text-dark" type="submit">Submit</button>
-                            <button class="btn  ms-0  text-dark" type="submit" formaction="{{route('resavedraft')}}">Save as Draft</button>                        
-                        </div>
-                        
-                    </div>
-                </div>
+            @endwhile           
 
             </form>     
 
