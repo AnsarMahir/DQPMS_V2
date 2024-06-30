@@ -121,9 +121,9 @@ class QuestionController extends Controller
 
             $questionsCount = $questions->count();
 
-            // if ($questionsCount < $numberOfQuestions){
-            //     return redirect()->route('student')->with('message','please choose another question');
-            // }
+            if ($questionsCount < $numberOfQuestions){
+                return redirect()->route('student')->with('message','please choose another question');
+            }
 
             //taking the reference ID's of mcq questions
             $qreferenceid=  Mcq_Question::whereIn('mcq_questions_id', $finalizedmcqid)
