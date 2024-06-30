@@ -16,22 +16,41 @@ $answerindex = 0;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-
-        //changing browser tab detection
-         let tabSwitchCount = 0;
+        // Load the tab switch count from localStorage or initialize it if it doesn't exist
+        let tabSwitchCount = localStorage.getItem('tabSwitchCount') ? parseInt(localStorage.getItem('tabSwitchCount')) : 0;
         const maxTabSwitches = 2;
-
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
+        let blurTimeout;
+    
+        // Function to handle blur event
+        function handleBlur() {
+            blurTimeout = setTimeout(() => {
                 tabSwitchCount++;
+                localStorage.setItem('tabSwitchCount', tabSwitchCount);
                 if (tabSwitchCount <= maxTabSwitches) {
                     alert(`Warning: You have ${maxTabSwitches - tabSwitchCount + 1} more chance(s) left.`);
                 } else {
                     document.getElementById('countdown-form').submit();
                 }
-            }
+            }, 5000); // 5 seconds after losing focus
+        }
+    
+        // Function to handle focus event
+        function handleFocus() {
+            clearTimeout(blurTimeout);
+        }
+    
+        // Add event listeners
+        window.addEventListener('focus', handleFocus);
+        window.addEventListener('blur', handleBlur);
+    
+        // Optionally, you might want to clear the tabSwitchCount when the form is submitted
+        document.getElementById('countdown-form').addEventListener('submit', function() {
+            localStorage.removeItem('tabSwitchCount');
         });
-
+    
+    </script>
+    
+    <script>
         //making the page non copyable
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
