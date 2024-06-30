@@ -45,8 +45,6 @@ class RegisteredUserController extends Controller
             'type' => 'STUDENT', // Set default role to STUDENT
         ]);
 
-        dd($user);
-
         event(new Registered($user));
 
         Auth::login($user);
