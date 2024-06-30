@@ -19,7 +19,7 @@
     </script>
 </head>
 
-<body>
+<body class="bgbody">
     <nav class="navbar navbar-dark navbar-expand-lg text-light py-3 fixed-top bgprimary">
         <div class="container">
             <a href="#" class="navbar-brand">DQPMS</a>
@@ -77,7 +77,7 @@
                         @foreach($selectedValues as $key => $value)
                         <input type="hidden" name="selectedValues[{{ $key }}]" value="{{ $value }}">
                         @endforeach
-                          <button class="btn btncolor text-light" type="submit"><h5>Attempt Paper</h5></button>
+                          <button class="btn btncolor text-light" type="submit"><h4>Attempt Paper</h4></button>
                           </div>
                         </form>
                 </div>

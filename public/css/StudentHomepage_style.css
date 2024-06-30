@@ -30,12 +30,11 @@
 
 .btncolor{
   color: white;
-  background-color: #a181ff;
-  border-color: #8e68ff;
-}
-
+  background-color: #7748ff;
+  border-color: #7748ff;
+  }
 .btn:hover{
-  border-color: #8e68ff;
+  border-color: #7748ff;
 }
 
 .bgImage{

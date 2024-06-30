@@ -20,21 +20,16 @@
     
     <x-nav-bar/>
 
-    <section class="" style="margin-top: 11rem">
+    <section class="" style="margin-top: 6rem">
 
-        
+        <h1 style="padding-bottom: 10px;" class="text-center">Welcome, {{ $userName }}</h1>
         <div class="container" style="">
 
             <div class="row gx-5">
                 <div class="col-md-6">
                     <div class="d-flex flex-column justify-content-center align-items-center">
-
-               
                         <img src="{{ $firebaseImageUrl }}" alt="" class="w-50 align-content-start">
         
-                        <h1 class="text-center">Ahamed Hamas</h1>
-                        <h5 class="pb-4">Paper Creator</h5> 
- 
                         <div class="share-buttons">
                             <h3>Share your badge:</h3>
                             <a class="share-button" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($firebaseImageUrl) }}" target="_blank">
@@ -50,69 +45,27 @@
                                 <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Share on WhatsApp" width="40">
                             </a>
                         </div>
-                        
-                        
-                     
-                        
-        
                     </div> 
                 </div>
                 <div class="col-6">
 
-                    <div class="row ">
-                        <div class="col-12 pb-3">
-                            <h2>Number of Questions Created</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>MCQ Questions</p>
-                        </div>
-                        <div class="col-6">
-                            <p>55</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>ShortAnswer Questions</p>
-                        </div>
-                        <div class="col-6">
-                            <p>55</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>General Knowledge</p>
-                        </div>
-                        <div class="col-6">
-                            <p>55</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>IQ Questions</p>
-                        </div>
-                        <div class="col-6">
-                            <p>55</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p>Math Questions</p>
-                        </div>
-                        <div class="col-6">
-                            <p>55</p>
-                        </div>
-                    </div>                  
+                    
+                <h2 style="padding-top: 20px;">Your current level: {{ $level }}</h2>
 
-                </div>
-                
-                
-
-            </div>  
-            
+        <div class="progress" style="height: 30px; width:400px; ">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: {{ $progress }}%;" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
+                {{ $progress }}%
+            </div>
         </div>
-
+        <p>You have answered {{ $rightcount }} questions correctly.
+        @if ($questionsToNextLevel > 0)
+        {{ $questionsToNextLevel }} questions </br>remaining to reach the next level.</p>
+    @else
+        Congratulations! You have reached the highest level.</p>
+    @endif               
+        </div>
+            </div>  
+        </div>
     </section>
     
 </body>

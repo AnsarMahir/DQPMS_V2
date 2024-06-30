@@ -57,4 +57,12 @@ class Routestest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('dashboard');
     }
+    public function testCallNonAvailableRoute()
+    {
+        // Simulate a POST request to the showPaperDetails method without session data
+        $response = $this->post('/paperdetails');
+
+        // Assert the view is rendered correctly
+        $response->assertStatus(404);
+    }
 }

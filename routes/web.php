@@ -30,9 +30,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('chirps', ChirpController::class)
-    ->only(['index','store'])
-    ->middleware(['auth','verified']);
+Route::post('/attempt-question', [ReviewController::class, 'attemptQuestion'])->name('review.attemptQuestion');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -58,7 +57,7 @@ Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuesti
 
 Route::get('/Student',[PastpaperController::class,'showForm']
 )
-->middleware(['auth','verified'])
+->middleware(['auth','verified','student'])
 ->name('student');
 
 Route::POST('/Question',[QuestionController::class,'fetch'])
@@ -93,23 +92,7 @@ Route::POST('/shortanswer',[QuestionController::class,'fetch'])->name('shortansw
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
 Route::get('/gptanswer', Gptanswer::class);
 
-Route::get('/ai',function(){
-    $apiKey = config('services.my_service.api_key');
-    $response = Http::withHeaders([
-        'Content-Type' => 'application/json',
-        'api-key' => $apiKey, // Replace 'YOUR_API_KEY' with your actual API key
-    ])->post('https://ansak.openai.azure.com/openai/deployments/gptt/completions?api-version=2023-09-15-preview', [
-        "prompt" => "Who is the president of Sri Lanka?",
-        "max_tokens" => 50,
-        "temperature" => 0.2,
-        "frequency_penalty" => 0,
-        "presence_penalty" => 0,
-        "top_p" => 0.5,
-        "best_of" => 1,
-        "stop" => null,
-    ])->json();
-    dd($response);
-});
+
 Route::post('/get-correct-answer', 'ReviewController@getCorrectAnswer');
 Route::get('/badge/{id}', [RankController::class, 'showBadge'])->name('badge.show');
 

@@ -13,7 +13,8 @@ unset($_SESSION['review_completed']);
     <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script type="text/javascript">
-        var selectedLanguage = null;
+    localStorage.clear();
+    var selectedLanguage = null;
 
 $(document).ready(function() {
   selectedLanguage = $('#selectedLanguage').val(); // Assuming a hidden field
@@ -65,40 +66,7 @@ $(document).ready(function() {
     </div>
 
 @endif
-
-    
-    
-    <nav class="navbar navbar-dark navbar-expand-lg text-light py-3 fixed-top bgprimary" >
-        <div class="container">
-            <a href="#" class="navbar-brand flex-fill align-items-center">DQPMS</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-center align-items-center" id="navmenu">
-                <ul class="navbar-nav text-light" style="column-gap: 2REM;">
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Home</a></li>
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">FaQ</a></li>
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Upcoming Exams</a></li>
-                    
-                </ul>
-            </div>
-            
-            <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-end align-items-center" id="navmenu">
-                <ul class="navbar-nav text-light ">
-                    <li class="nav-item">
-                        <a href="" class="nav-link ps-lg-3">Profile</a>  
-                    </li>
-                    <li class="badge nav-item">
-                        <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="" class="rounded-circle">   
-                    </li>
-                </ul>
-
-            </div>               
-            
-        </div>
-    </nav>
+<x-nav-bar/>
 
     <section class="p-5 pt-lg-5 bgbody">
         <div class="container" >
@@ -113,6 +81,9 @@ $(document).ready(function() {
                     @csrf
                     <div class="col-12 m-0">
                         <div class="form-group">
+                            @error('exam')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="exam" name="exam">
                                 <option selected disabled>Examination Name</option>
                                 @foreach($examname as $name)
@@ -125,6 +96,9 @@ $(document).ready(function() {
                 
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('questiontype')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="questionType" name="questiontype">
                                 <option selected disabled>Choose your question type</option>
                                 <option value="MCQ">MCQ</option>
@@ -134,6 +108,9 @@ $(document).ready(function() {
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('qnature')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="questionNature" name="qnature">
                                 <option selected disabled>Choose your question nature</option>
                                 @foreach($natures as $nature)
@@ -146,6 +123,9 @@ $(document).ready(function() {
 
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('language')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="language" name="language" value="{{ old('language') }}">
                                 <option selected disabled>Choose your Language</option>
                                 
@@ -157,6 +137,9 @@ $(document).ready(function() {
 
                     <div class="col-md-6">
                         <div class="form-group">
+                            @error('noofq')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
+                            @enderror
                             <select class="form-select" id="language" name="noofq">
                                 <option selected disabled>Choose number of Questions</option>
                                 <option value="5">5</option>
@@ -171,16 +154,6 @@ $(document).ready(function() {
                     </button>
                    
                 </form>
-                @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
             </div>
                 
         </div>  

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Kreait\Firebase\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Mcq_Attempt;
+use App\Models\UserQuestion;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Laravel\Facades\Image;
@@ -15,33 +16,34 @@ class RankController extends Controller
 
     public static function generateBadge(Request $request)
     {
-        // Retrieve the authenticated user's name
         $userName = Auth::user()->name;
 
         //level logic
-        $mcqcount = Mcq_Attempt::where('user_id',Auth::user()->id)
-        ->count();
-        $nonattempt=Mcq_Attempt::where('user_id',Auth::user()->id)
-        ->whereNot('no_of_attempts',[0,NULL])
-        ->count();
-
-        $mcqattemptpercentage = ($nonattempt/$mcqcount)*100;
-
-
-        if ($mcqattemptpercentage>=0 && $mcqattemptpercentage<=30 ){
-            // Load the base image
-        $image = ImageManager::gd()->read('level1.jpg');
-
+        $mcqcount = UserQuestion::where('user_id', Auth::user()->id)->count();
+        $rightcount = UserQuestion::where('user_id', Auth::user()->id)
+                                  ->where('final_answer_status', 1)
+                                  ->count();
+    
+        $level = 1;
+        $progress = 0;
+        $questionsToNextLevel = 0;
+    
+        if ($rightcount >= 0 && $rightcount <= 40) {
+            $image = ImageManager::gd()->read('level1.jpg');
+            $progress = ($rightcount / 40) * 100;
+            $questionsToNextLevel = 40 - $rightcount;
+        } else if ($rightcount > 40 && $rightcount <= 80) {
+            $image = ImageManager::gd()->read('level2.jpg');
+            $level = 2;
+            $progress = (($rightcount - 40) / 40) * 100;
+            $questionsToNextLevel = 80 - $rightcount;
+        } else if ($rightcount > 80) {
+            $image = ImageManager::gd()->read('level3.jpg');
+            $level = 3;
+            $progress = 100;
+            $questionsToNextLevel = 0; // No more levels
         }
-        else if($mcqattemptpercentage>30 && $mcqattemptpercentage<=75){
-        // Load the base image
-        $image = ImageManager::gd()->read('level2.jpg');
-        }
-        else if ($mcqattemptpercentage>75 && $mcqattemptpercentage<=100){
-            // Load the base image
-        $image = ImageManager::gd()->read('level3.jpg');
-
-        }
+    
         
     
         // Define text properties
@@ -65,18 +67,12 @@ class RankController extends Controller
         $temporaryImagePath = storage_path('app/' . uniqid() . '.jpg');
         file_put_contents($temporaryImagePath, $imageContent);
     
-        // Initialize Firebase
-        // $serviceAccount = ServiceAccount::fromJsonFile(storage_path('app/firebase-service-account.json'));
-        // $firebase = (new Factory)
-        //     ->withServiceAccount($serviceAccount)
-        //     ->create();
+        
 
             $factory = (new Factory)
             ->withServiceAccount(storage_path('app/dqpms-102ee-firebase-adminsdk-gf7br-33ae3a8a65.json'))
             ->withDefaultStorageBucket('dqpms-102ee.appspot.com');
 
-            //->withDatabaseUri('https://my-project-default-rtdb.firebaseio.com');
-    
         $storage = $factory->createStorage();
         $bucket = $storage->getBucket();
     
@@ -102,6 +98,8 @@ class RankController extends Controller
         $dataUrl = 'data:image/jpeg;base64,' . $base64Image;
     
         // Pass the image data URL and the Firebase image URL to the view
-        return view('rank', ['image' => $dataUrl, 'firebaseImageUrl' => $imageUrl]);
+        return view('rank', ['image' => $dataUrl, 'firebaseImageUrl' => $imageUrl,'level' => $level,
+        'progress' => $progress,
+        'rightcount' => $rightcount,'userName' => $userName,'questionsToNextLevel' => $questionsToNextLevel]);
     }
 }
