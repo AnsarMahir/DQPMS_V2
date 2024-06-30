@@ -15,7 +15,7 @@ $i=0;
     <link rel="stylesheet" type="text/css" href="{{ asset('css\QuestionCreation_style.css ') }}" >
 </head>
 
-<body>
+<body class="creatorbody">
     <x-nav-bar/>
 
     <section class="p-5">

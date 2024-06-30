@@ -6,8 +6,12 @@
 .popup{
 background-color: #5d2fba;
 border-radius: 5px;
+}
 
-
+.creatorbody::before{
+    display: block;
+    content: "";
+    height: 60px;
 }
 
 
