@@ -33,7 +33,7 @@
         
     function myfunction() {
         // Redirect to the desired location
-        window.location.replace("http://127.0.0.1:8000/Student");
+        window.location.replace("https://dqpms.azurewebsites.net/Student");
         // Return false to prevent the form from submitting via default behavior
         return false;
     }
