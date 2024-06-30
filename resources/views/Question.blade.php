@@ -16,39 +16,31 @@ $answerindex = 0;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-        // Load the tab switch count from localStorage or initialize it if it doesn't exist
-        let tabSwitchCount = localStorage.getItem('tabSwitchCount') ? parseInt(localStorage.getItem('tabSwitchCount')) : 0;
-        const maxTabSwitches = 2;
-        let blurTimeout;
-    
-        // Function to handle blur event
-        function handleBlur() {
-            blurTimeout = setTimeout(() => {
-                tabSwitchCount++;
-                localStorage.setItem('tabSwitchCount', tabSwitchCount);
-                if (tabSwitchCount <= maxTabSwitches) {
-                    alert(`Warning: You have ${maxTabSwitches - tabSwitchCount + 1} more chance(s) left.`);
-                } else {
-                    document.getElementById('countdown-form').submit();
-                }
-            }, 5000); // 5 seconds after losing focus
+    // Load the tab switch count from localStorage or initialize it if it doesn't exist
+    let tabSwitchCount = localStorage.getItem('tabSwitchCount') ? parseInt(localStorage.getItem('tabSwitchCount')) : 0;
+    const maxTabSwitches = 1;
+
+    // Function to handle blur event
+    function handleBlur() {
+        tabSwitchCount++;
+        localStorage.setItem('tabSwitchCount', tabSwitchCount);
+        if (tabSwitchCount <= maxTabSwitches) {
+            document.getElementById('warning-modal-message').innerText = `Warning: You have ${maxTabSwitches - tabSwitchCount + 1} more chance(s) left.`;
+            var warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
+            warningModal.show();
+        } else {
+            document.getElementById('countdown-form').submit();
         }
+    }
+
     
-        // Function to handle focus event
-        function handleFocus() {
-            clearTimeout(blurTimeout);
-        }
-    
-        // Add event listeners
-        window.addEventListener('focus', handleFocus);
-        window.addEventListener('blur', handleBlur);
-    
-        // Optionally, you might want to clear the tabSwitchCount when the form is submitted
-        document.getElementById('countdown-form').addEventListener('submit', function() {
-            localStorage.removeItem('tabSwitchCount');
-        });
-    
-    </script>
+    window.addEventListener('blur', handleBlur);
+
+    // Optionally, you might want to clear the tabSwitchCount when the form is submitted
+    document.getElementById('countdown-form').addEventListener('submit', function() {
+        localStorage.removeItem('tabSwitchCount');
+    });
+</script>
     
     <script>
         //making the page non copyable
@@ -127,6 +119,19 @@ $answerindex = 0;
         } 
     </script>
 </head>
+<div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="warningModalLabel">Warning</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="warning-modal-message">
+                Modal body text goes here.
+            </div>
+        </div>
+    </div>
+</div>
 
 <body class="d-flex flex-column min-vh-100 non-copy">
     <div class="header-bar">
@@ -263,7 +268,7 @@ $answerindex = 0;
                     <!-- The content will be dynamically updated by the script -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="change-answers-btn">Change Answers</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-secondary" id="change-answers-btn">Change Answers</button>
                     <button type="button" id="proceed-btn" class="btn btn-primary">Proceed to Review</button>
                 </div>
             </div>

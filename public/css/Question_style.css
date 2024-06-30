@@ -140,3 +140,4 @@
   .btn:hover{
   border-color: #7748ff;
   }
+  .modal-backdrop.show { opacity: 0.9; }
