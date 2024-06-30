@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\error;
 use vendor\jorenvanhocht\src\Share;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Providers\FirebaseServiceProvider;
@@ -90,7 +91,7 @@ class PastpaperController extends Controller
             'no_of_questions' => $request->pastpaperData[4],
             'CreatorState'=>$CreatorState,
             'ModeratorState'=>$ModeratorState,
-            'CreatorID'=>2,
+            'CreatorID'=>Auth::id(),
             'ModeratorID'=>$ModeratorID
         ]       
         );
@@ -255,7 +256,7 @@ class PastpaperController extends Controller
     }
 
     public function retrieveDraft(){
-        $pastpaperID = Pastpaper::where('CreatorState', 'Draft')->where('CreatorID',2)->pluck('P_id');
+        $pastpaperID = Pastpaper::where('CreatorState', 'Draft')->where('CreatorID',Auth::id())->pluck('P_id');
 
         $pastpaperData = Pastpaper::whereIn('P_id', $pastpaperID)->get();
 
@@ -265,7 +266,7 @@ class PastpaperController extends Controller
     }
 
     public function retrievePublished(){
-        $pastpaperID = Pastpaper::where('CreatorID', 2)->where(function($query) {
+        $pastpaperID = Pastpaper::where('CreatorID', Auth::id())->where(function($query) {
                             $query->where('CreatorState', 'Submitted')
                                 ->orWhere('CreatorState', 'Approved');
                         })
@@ -419,7 +420,7 @@ class PastpaperController extends Controller
         $CreatorState = 'Submitted';
         $ModeratorID = $this->getModeratorId();
         $ModeratorState = "Review";
-        $CreatorId = 10;
+        $CreatorId = Auth::id();
         
 
 
@@ -450,7 +451,7 @@ class PastpaperController extends Controller
 
         };
 
-        // $this->increaseRank($CreatorId,$no_of_questions);
+        $this->increaseRank($CreatorId,$no_of_questions);
 
 
 

@@ -49,7 +49,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type='number' step="1" min="1990" class="form-control" placeholder="Enter the year" name="year">
+                            <select class="form-select" name="year">
+                                <option value="" disabled selected>Select the year</option>
+                                
+                              </select>
                             @error('year')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
                             @enderror
@@ -90,6 +93,21 @@
         </div>  
 
     </section>
+
+    <script>
+         document.addEventListener('DOMContentLoaded', (event) => {
+            const select = document.querySelector('select[name="year"]');
+            const startYear = 1990;
+            const currentYear = new Date().getFullYear();
+
+            for (let year = startYear; year <= currentYear; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                select.appendChild(option);
+            }
+        });
+    </script>
 
     
 </x-index>

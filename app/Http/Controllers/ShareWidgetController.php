@@ -7,6 +7,7 @@ use App\Models\Pastpaper;
 use App\Models\CreatorRank;
 use Kreait\Firebase\Factory;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 
 class ShareWidgetController extends Controller
@@ -15,17 +16,19 @@ class ShareWidgetController extends Controller
 
     public function getProfilePage()
     {
-        $creatorId = 5;
+        $creatorId = Auth::id();
         
-        $rank = $this->getRank($creatorId);
-        
-        $rankStat = $this->getRankDetails($creatorId);
-
-        $creatorName = User::find(10)->name;
+        $creatorName = User::find($creatorId)->name;
 
         $mcqQuestionsCount = $this->getMcqQuestions($creatorId);
 
         $shQuestionsCount= $this->getShQuestions($creatorId);
+
+        $totalQuestionCount = $mcqQuestionsCount + $shQuestionsCount;
+
+        $rank = $this->setRank($creatorId,$totalQuestionCount);
+
+        $rankStat = $this->getRankDetails($creatorId);
 
         $gkQuestionsCount = $this->getQuestionTypeCount($creatorId,'GK');
 
@@ -35,13 +38,28 @@ class ShareWidgetController extends Controller
 
         $LogicQuestionsCount = $this->getQuestionTypeCount($creatorId,'LOGIC');
 
-        $OtherQuestionsCount = $this->getQuestionTypeCount($creatorId,'OTHER');
-        
+        $OtherQuestionsCount = $this->getQuestionTypeCount($creatorId,'OTHER');        
 
         
         return view('Profile', compact('rank','creatorName','mcqQuestionsCount','shQuestionsCount','gkQuestionsCount','IqQuestionsCount','MathQuestionsCount','LogicQuestionsCount','OtherQuestionsCount','rankStat'));
 
         
+    }
+
+    public function setRank($creatorID , $totalCount){
+        $CreatorRankQuery = CreatorRank::where('creator_id',$creatorID)->first();
+
+        $CreatorRankQuery->no_of_questions = $totalCount;
+
+        $CreatorRank = $CreatorRankQuery->no_of_questions/40;
+
+        $CreatorRankQuery->rank = (int)$CreatorRank;
+
+        $CreatorRankQuery->save();
+
+
+        return (int)$CreatorRank;
+
     }
 
     public function getMcqQuestions($CreatorId){
@@ -102,9 +120,11 @@ class ShareWidgetController extends Controller
 
     public function shareBadge($appName){
 
-        $rank = $this->getRank(10);
+        $creatorID = Auth::id();
 
-        $creatorName = User::find(10)->name;
+        $rank = $this->getRank($creatorID);
+
+        $creatorName = User::find($creatorID)->name;
 
         $public_path = public_path('Level/'.$rank.'.png');
 
@@ -134,12 +154,20 @@ class ShareWidgetController extends Controller
         //dd($localimage);
 
         $fontPath = public_path('fonts/font2.ttf'); 
-        $fontSize = 40; 
+        $fontSize = 50; 
         $fontColor = '#000000'; 
 
         $image = ImageManager::gd()->read($localimage);   
 
-        $image->text($creatorName, 250, 450, function ($font) use ($fontPath, $fontSize, $fontColor) {
+        $image->text($creatorName, 260, 450, function ($font) use ($fontPath, $fontSize, $fontColor) {
+            $font->file($fontPath);
+            $font->size($fontSize);
+            $font->color($fontColor);
+            $font->align('center');
+            $font->valign('top');
+        });
+
+        $image->text('Paper Creator', 265, 20, function ($font) use ($fontPath, $fontSize, $fontColor) {
             $font->file($fontPath);
             $font->size($fontSize);
             $font->color($fontColor);
@@ -184,13 +212,8 @@ class ShareWidgetController extends Controller
 
         $CreatorRankQuery = CreatorRank::where('creator_id',$CreatorId)->first();
 
-        $CreatorRank = $CreatorRankQuery->no_of_questions/40;
+        $CreatorRank = $CreatorRankQuery->rank;
 
-        $CreatorRankQuery->rank = (int)$CreatorRank;
-
-        $CreatorRankQuery->save();
-
-        
         return (int)$CreatorRank;
 
     }

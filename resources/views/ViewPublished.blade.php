@@ -25,6 +25,7 @@ $i=0;
                 <div class="col-lg-8 p-4 border shadow">
                     <h3>{{$pastpaper[0]['name']}}</h3>
                     <p> {{$pastpaper[0]['year']}} | {{$pastpaper[0]['language']}} | {{$pastpaper[0]['question_type']}} | {{$pastpaper[0]['no_of_questions']}} Questions</p>
+                    <p><b>Status: </b>{{$pastpaper[0]['CreatorState']}}</p>
                 </div>
             </div>
 
