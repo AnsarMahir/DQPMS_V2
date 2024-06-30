@@ -1,0 +1,105 @@
+.pop-z-index{
+    z-index: 10000;
+    margin-top: 90px;
+  }
+  
+  .popup{
+  background-color: #5d2fba;
+  border-radius: 5px;
+  }
+  
+  body::before{
+      display: block;
+      content: "";
+      height: 60px;
+  }
+  
+  
+  .bgprimary{
+    background-color: #875EFF;
+  }
+  
+  .bgbody{
+    background-color: #efe9ff;
+  }
+  .textheading{
+    color: #0b036b;
+  }
+  .nav-link{
+    color: white; 
+    border-radius: 10px;
+  }
+  .nav-hover:hover{
+    border-radius: 10px;
+    color:  #0b036b !important;
+    background-color: #efe9ff;;
+  
+  }
+  
+  .textsub{
+    color: #483FB4
+  }
+  
+  .btncolor{
+    color: white;
+    background-color: #7748ff;
+    border-color: #7748ff;
+    }
+    .btn:hover{
+    border-color: #7748ff;
+    }
+  
+  .bgImage{
+    background-image: url('/images/Vector 2.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  
+  .nav-link{
+    color: white;
+  }
+  
+  .badge{
+      display: inline-block;
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      border-radius: 50%;
+   }
+   
+   .badge img{
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+   }
+  
+   .col-centered {
+      float: none;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  
+    .noBorder {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #adadad;
+      outline:none;
+      box-shadow:none;
+    }
+  
+   .noBorder:hover{
+    border-bottom: 1px solid #000000;
+   }
+  
+   .noBorder:focus{
+    border-bottom: 1px solid #000000;
+    box-shadow: none;
+   }
+  
+  
+   .form-control::placeholder { 
+    color: rgb(123, 123, 123);
+    opacity: 1; 
+  }
