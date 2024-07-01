@@ -65,7 +65,7 @@
             <div class="progress-bar progress-bar-striped progress-bar-animated bgprimary" role="progressbar" style="width: {{ $progress }}%;" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
             </div>
         </div>
-        <p style="padding-top: 3px">You have answered {{ $rightcount }} questions correctly.
+        <p style="margin-top: 3px">You have answered {{ $rightcount }} questions correctly.
         @if ($questionsToNextLevel > 0)
         {{ $questionsToNextLevel }} questions remaining to reach the next level.</p>
     @else
