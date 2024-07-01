@@ -45,12 +45,11 @@ class ReviewController extends Controller
         $finalids = request('finalids');
         $questions = Sh_Question::whereIn('sh_questions_id', $finalids)
             ->get();
-        $answer=Sh_Answer::whereIn('question_id',$finalids)
-            ->get();
+        
 
         //return $questions; // Return selected questions
         $request->session()->put('review_completed', true);
-        return view('sreview', compact('questions','answer'));
+        return view('sreview', compact('questions'));
     }
 
     public function showit(Request $request): View

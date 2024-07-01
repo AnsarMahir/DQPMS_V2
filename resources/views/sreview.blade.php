@@ -50,9 +50,7 @@ $counter=1;
                                  <label for="answer" class="form-label">Answer provided :</label>
                                  <p> <b> {{ old("answer$counter")}} </b></p>
                                  <label for="answer" class="form-label">Guided Answer:</label>
-                                 @foreach($answer as $item)
-                                 @if($question->sh_questions_id == $item->question_id)
-                                 <p> <b> {{$item->description}} </b></p> 
+                                 <p> <b> {{$question->correct_answer}} </b></p> 
                                  @endif
                                  @endforeach
                                 </div>

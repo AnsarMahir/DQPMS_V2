@@ -199,7 +199,7 @@ class QuestionController extends Controller
             // }
 
             $qreferenceid= Sh_Question::whereIn('sh_questions_id', $finalid)
-            ->get('referenceid');
+            ->get('q_referenceid');
 
             $qreference= Reference::whereIn('R_id',$qreferenceid)
             ->get()->toArray();
