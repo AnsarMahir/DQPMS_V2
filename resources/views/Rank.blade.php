@@ -12,7 +12,9 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <script src="https://kit.fontawesome.com/f903cca9e5.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
     <link rel="stylesheet" href="{{ asset('css\Hamas_style.css ') }}">
 </head>
 
@@ -33,31 +35,37 @@
                         <div class="share-buttons">
                             <h3>Share your badge:</h3>
                             <a class="share-button" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($firebaseImageUrl) }}" target="_blank">
-                                <img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Share on Facebook" width="40">
+                                <button class="btn btncolor">
+                                    <i class="bi bi-facebook me-2 fs-5 mx-0" style="display:contents"></i>                            
+                                </button>
                             </a>
                             <a class="share-button" href="https://twitter.com/intent/tweet?url={{ urlencode($firebaseImageUrl) }}&text=Check%20out%20my%20badge!" target="_blank">
-                                <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Share on Twitter" width="40">
+                                <button class="btn btncolor">
+                                    <i class="bi bi-twitter me-2 fs-5 mx-0" style="display:contents"></i>                            
+                                </button>
                             </a>
                             <a class="share-button" href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode($firebaseImageUrl) }}&title=My%20Badge" target="_blank">
-                                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Share on LinkedIn" width="40">
+                                <button class="btn btncolor">
+                                    <i class="bi bi-linkedin me-2 fs-5 mx-0" style="display:contents"></i>                            
+                                </button>
                             </a>
                             <a class="share-button" href="https://api.whatsapp.com/send?text={{ urlencode($firebaseImageUrl) }}" target="_blank">
-                                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Share on WhatsApp" width="40">
+                                <button class="btn btncolor">
+                                    <i class="bi bi-whatsapp me-2 fs-5 mx-0" style="display:contents"></i>                            
+                                </button>
                             </a>
                         </div>
                     </div> 
                 </div>
                 <div class="col-6">
 
-                    
-                <h2 style="padding-top: 20px;">Your current level: {{ $level }}</h2>
+                <canvas id="myChart" style="width:100%;max-width:600px;margin-bottom:10px;"></canvas>    
 
-        <div class="progress" style="height: 30px; width:400px; ">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: {{ $progress }}%;" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
-                {{ $progress }}%
+        <div class="progress" style="height:30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bgprimary" role="progressbar" style="width: {{ $progress }}%;" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
             </div>
         </div>
-        <p>You have answered {{ $rightcount }} questions correctly.
+        <p style="padding-top: 3px">You have answered {{ $rightcount }} questions correctly.
         @if ($questionsToNextLevel > 0)
         {{ $questionsToNextLevel }} questions </br>remaining to reach the next level.</p>
     @else
@@ -67,6 +75,38 @@
             </div>  
         </div>
     </section>
+    <script>
+        var xValues = ["GK", "IQ", "Math", "Logic", "Other"];
+        var yValues = [{{$gkQuestionsCount}}, {{$IqQuestionsCount}}, {{$MathQuestionsCount}},{{$LogicQuestionsCount}},{{$OtherQuestionsCount}}];
+        var barColors = "#875EFF";
+
+        new Chart("myChart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+                display: true,
+                text: "Answered Correctly",
+                fontSize: 25,
+                fontStyle: 'bold',
+                fontColor: '#000000'
+            },  
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        precision: 0
+                    }
+                }]
+            }
+        }});
+    </script>
     
 </body>
 </html>

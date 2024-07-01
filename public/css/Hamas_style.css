@@ -189,5 +189,8 @@ background-size: contain;
 .progress-bar-sm { 
   width: 450px;/* Adjust this value to make the progress bar smaller or larger */
 }
+a{
+  text-decoration: none;
+}
 
 

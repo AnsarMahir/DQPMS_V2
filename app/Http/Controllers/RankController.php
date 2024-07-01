@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Kreait\Firebase\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Mcq_Attempt;
+use App\Models\Mcq_Question;
 use App\Models\UserQuestion;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
@@ -19,11 +20,26 @@ class RankController extends Controller
         $userName = Auth::user()->name;
 
         //level logic
-        $mcqcount = UserQuestion::where('user_id', Auth::user()->id)->count();
+        $mcqid = UserQuestion::where('user_id', Auth::user()->id)
+        ->where('final_answer_status', 1)
+        ->pluck('question_id');
+
+        $mcqquestion = Mcq_Question::whereIn('mcq_questions_id',$mcqid);
+
+        $gkQuestionsCount = $mcqquestion->where('nature','GK')->count();
+
+        $IqQuestionsCount = $mcqquestion->where('nature','IQ')->count();
+
+        $MathQuestionsCount = $mcqquestion->where('nature','MATH')->count();
+
+        $LogicQuestionsCount = $mcqquestion->where('nature','LOGIC')->count();
+
+        $OtherQuestionsCount = $mcqquestion->where('nature','OTHER')->count();;        
+
         $rightcount = UserQuestion::where('user_id', Auth::user()->id)
                                   ->where('final_answer_status', 1)
                                   ->count();
-    
+
         $level = 1;
         $progress = 0;
         $questionsToNextLevel = 0;
@@ -45,7 +61,6 @@ class RankController extends Controller
         }
     
         
-    
         // Define text properties
         $fontPath = public_path('fonts/arial.ttf'); // Path to the font file
         $fontSize = 50; // Font size
@@ -100,6 +115,10 @@ class RankController extends Controller
         // Pass the image data URL and the Firebase image URL to the view
         return view('rank', ['image' => $dataUrl, 'firebaseImageUrl' => $imageUrl,'level' => $level,
         'progress' => $progress,
-        'rightcount' => $rightcount,'userName' => $userName,'questionsToNextLevel' => $questionsToNextLevel]);
+        'rightcount' => $rightcount,'userName' => $userName,'questionsToNextLevel' => $questionsToNextLevel,'gkQuestionsCount' => $gkQuestionsCount,
+        'IqQuestionsCount' => $IqQuestionsCount,
+        'MathQuestionsCount' => $MathQuestionsCount,
+        'LogicQuestionsCount' => $LogicQuestionsCount,
+        'OtherQuestionsCount' => $OtherQuestionsCount]);
     }
 }
