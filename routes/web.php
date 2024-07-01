@@ -5,6 +5,8 @@ use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQcontroller;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\VideoController;
 
 
 /*
@@ -51,18 +53,47 @@ Route::get('/Question',[QuestionController::class,'showit']);
 
 require __DIR__.'/auth.php';
 
-route::get('/FAQ/index',[FAQcontroller::class, 'index'])->name('FAQ.index');
-route::get('/FAQ/index2',[FAQcontroller::class, 'index2'])->name('FAQ.index2');
-route::post('/FAQ/store',[FAQcontroller::class,'store'])->name('FAQ.store');
+// Admin FAQ Management Routes
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::resource('FAQ', FAQcontroller::class);
+});
+
+Route::get('/FAQ', [FAQcontroller::class, 'publicIndex'])->name('FAQ.public_index');
+
+
+
 
 Route::get('/TutorHomepage',function(){
     return view('Tutor.TutorHomepage');
 });
 
-Route::get('/TutorForm1',function(){
-    return view('Tutor.TutorForm1');
+Route::get('/TutorQuestion',[TutorController::class,'TutorForm1']);
+
+Route::get('/AddQuestion',[TutorController::class,'TutorAddQuestionPage']);
+
+Route::get('/TutorForm2',function(){
+    return view('Tutor.TutorForm2');
 });
 
-route::get('/Tutor/TutorHomepage',[TutorController::class, 'TutorHomepage'])->name('Tutor.TutorHomepage');
-route::get('/Tutor/TutorForm1',[TutorController::class, 'TutorForm1'])->name('Tutor.TutorForm1');
-route::post('/Tutor/store',[TutorController::class,'store'])->name('Tutor.store');
+Route::get('/UploadFile',function(){
+    return view('Tutor.UploadFile');
+});
+
+Route::get('/UploadVideo',function(){
+    return view('Tutor.UploadVideo');
+});
+
+
+
+//route::get('/Tutor/TutorHomepage',[TutorController::class, 'TutorHomepage'])->name('Tutor.TutorHomepage');
+//route::get('/Tutor/TutorForm1',[TutorController::class, 'TutorForm1'])->name('Tutor.TutorForm1');
+//route::post('/Tutor/store',[TutorController::class,'store'])->name('Tutor.store');
+
+Route::get('file-upload', [FileController::class, 'showUploadForm'])->name('file.upload');
+Route::post('file-upload', [FileController::class, 'uploadFile'])->name('file.upload.post');
+Route::get('file-download/{filename}', [FileController::class, 'downloadFile'])->name('file.download');
+
+
+Route::get('video-upload', [VideoController::class, 'showUploadForm'])->name('video.upload');
+Route::post('video-upload', [VideoController::class, 'uploadVideo'])->name('video.upload.post');
+Route::get('video-download/{filename}', [VideoController::class, 'downloadVideo'])->name('video.download');

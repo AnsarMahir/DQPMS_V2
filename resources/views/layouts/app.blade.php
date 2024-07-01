@@ -1,36 +1,74 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'My Application')</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-size: cover;
+    }
+    .container {
+        max-width: 100%;
+        padding: 20px;
+        color: rgb(15, 15, 15);
+    }
+    .navbar {
+        background-color: #875EFF;
+    }
+    .navbar-brand, .nav-link {
+        color: white;
+    }
+    .card {
+        border-radius: 15px;
+        border-color: #875EFF;
+        color: #875EFF;
+        box-shadow: 0 0 30px #6e6d6e7e;
+    }
+    .card-title {
+        color: darkblue;
+    }
+    .card:hover {
+        border-color: #875EFF;
+    }
+    input[type=text], textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #875EFF;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+    }
+    input[type=submit] {
+        background-color: #875EFF;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="#" class="navbar-brand">DQPMS</a>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item mr-5"><a href="#" class="nav-link">Papers</a></li>
+                <li class="nav-item mr-5"><a href="#" class="nav-link">User Details</a></li>
+                <li class="nav-item mr-5"><a href="#" class="nav-link">FAQ</a></li>
+                <li class="nav-item mr-5"><a href="#" class="nav-link">Upcoming Exams</a></li>
+                <li class="nav-item mr-5"><a href="#" class="nav-link">Admin <img src="pic/profile.png" height="35" width="35" style="border-radius: 50%;" class="ml-2"></a></li>
+            </ul>
         </div>
-    </body>
+    </nav>
+    <div class="container mt-5">
+        @yield('content')
+    </div>
+</body>
 </html>

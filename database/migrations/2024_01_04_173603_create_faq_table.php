@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('faq', function (Blueprint $table) {
             $table->id();
-            $table->text('question');
+            $table->string('question');
             $table->text('answer');
             $table->timestamps();
         });
