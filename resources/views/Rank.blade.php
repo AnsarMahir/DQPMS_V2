@@ -67,7 +67,7 @@
         </div>
         <p style="padding-top: 3px">You have answered {{ $rightcount }} questions correctly.
         @if ($questionsToNextLevel > 0)
-        {{ $questionsToNextLevel }} questions </br>remaining to reach the next level.</p>
+        {{ $questionsToNextLevel }} questions remaining to reach the next level.</p>
     @else
         Congratulations! You have reached the highest level.</p>
     @endif               
