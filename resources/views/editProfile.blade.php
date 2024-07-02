@@ -56,28 +56,31 @@
 <div class="container mt-4">
     <div class="profile-card">
         <h3 class="text-center mb-3">Edit your Profile</h3>
+        @include('partials.errors')
         <div class="row">
             <div class="col-md-3 text-center">
                 <img src="https://via.placeholder.com/80" class="profile-photo" alt="Profile Photo">
                 <button class="btn btncolor change-photo-btn">Change Photo</button>
             </div>
             <div class="col-md-9">
-                <form>
+                <form action="{{route('users.editProfile')}}" method="POST">
+                    @csrf
+                    @method('PUT')
                     <div class="mb-2">
                         <label for="name" class="form-label">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}">
                     </div>
                     <div class="mb-2">
                         <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" value="{{$user->email}}">
                     </div>
                     <div class="mb-2">
                         <label for="phone" class="form-label">Contact:</label>
-                        <input type="text" class="form-control" id="phone" name="phone">
+                        <input type="text" class="form-control" id="phone" name="phone" value="{{$user->phone}}">
                     </div>
                     <div class="mb-2">
                         <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password" value="{{$user->password}}" >
                     </div>
                     <div class="mb-2">
                         <label for="confirmpassword" class="form-label">Confirm Password:</label>

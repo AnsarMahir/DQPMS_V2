@@ -64,6 +64,8 @@ Route::get('/editProfile', function () {
     return view('editProfile');
 });
 
+Route::put('users/editProfile','userController@update')->name('users.editProfile');
+
 //route to save data into the database (paper creators)
 Route::post('datasend',function(){
     $validate_data = Validator::make(request()->all(), [
@@ -122,6 +124,7 @@ Route::post('datasubmit',function(){
     return redirect('/addMod');
     
 });
+
 
 
 
