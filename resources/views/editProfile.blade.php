@@ -81,9 +81,18 @@
                     <div class="mb-2">
                         <label for="password" class="form-label">Password:</label>
                         <input type="password" class="form-control" id="password" name="password" >
+                    </div>
                     <div class="mb-2">
                         <label for="confirmpassword" class="form-label">Confirm Password:</label>
                         <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">
+                    </div>
+                    <div class="mb-2">
+                        <label for="position" class="form-label">Position:</label>
+                        <input type="text" class="form-control" id="position" name="position" >
+                    </div>
+                    <div class="mb-2">
+                        <label for="workplace" class="form-label">Position:</label>
+                        <input type="text" class="form-control" id="position" name="position" >
                     </div>
                     <div class="d-flex justify-content-end gap-2">
                         <button type="button" class="btn btncolor">Cancel</button>
