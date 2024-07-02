@@ -2,6 +2,8 @@
 
 $i=0;
 
+$qnatures = $qNatures;
+
 ?>
 
 <!DOCTYPE html>
@@ -12,10 +14,10 @@ $i=0;
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css\QuestionCreation_style.css ') }}" >
+    <link rel="stylesheet" type="text/css" href="{{ asset('css\Hamas_style.css ') }}" >
 </head>
 
-<body>
+<body class="bodyClass">
     <x-nav-bar/>
 
     <section class="p-5">
@@ -44,7 +46,7 @@ $i=0;
                 
                     @if ($pastpaper['questionType']=='MCQ')
 
-                        <x-Create-MCQ-Question :i="$i"/>
+                    <x-create-mcq-question :i="$i" :q-natures="$qNatures"/>
                         
                     @else
 
@@ -62,7 +64,7 @@ $i=0;
                 <div class="row justify-content-center">
                     <div class="col-lg-8 px-0">
                         <div class="d-flex flex-row-reverse">
-                            <button class="btn btncolor ms-2  text-dark" type="submit">Submit</button>
+                            <button class="btn btncolor ms-2  text-light" type="submit">Submit</button>
                             <button class="btn  ms-0  text-dark" type="submit" formaction="{{route('savedraft')}}">Save as Draft</button>                        
                         </div>
                         

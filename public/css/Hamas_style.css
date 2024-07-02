@@ -1,3 +1,9 @@
+.bodyClass::before{
+    display: block;
+    content: "";
+    height: 60px;
+}
+
 .deleteButton{
   color: white;
   background-color: #a181ff;
@@ -185,5 +191,36 @@ background-size: contain;
   color: rgb(123, 123, 123);
   opacity: 1; 
 }
+
+/* Add this CSS to your styles */
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pill {
+  margin: 5px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.pill:hover {
+  background-color: #333;
+}
+
 
 

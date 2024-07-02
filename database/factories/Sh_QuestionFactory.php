@@ -17,7 +17,7 @@ class Sh_QuestionFactory extends Factory
      */
     public function definition(): array
     {
-        $qnature=['IQ','GK','MATH','OTHER'];
+        $qnature=['IQ','Math','Politics','Economics','Demographic','Other'];
         $reference = DB::table('reference')->pluck('R_id');
         $pp_reference = DB::table('pastpaper')->pluck('P_id');
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('creator_ranks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('creator_id');
-            $table->integer('rank')->default(1);
+            $table->integer('rank')->default(0);
             $table->integer('no_of_questions');
             $table->foreign("creator_id")->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
