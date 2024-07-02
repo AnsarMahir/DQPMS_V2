@@ -56,7 +56,7 @@
 <div class="container mt-4">
     <div class="profile-card">
         <h3 class="text-center mb-3">Edit your Profile</h3>
-        @include('partials.errors')
+      
         <div class="row">
             <div class="col-md-3 text-center">
                 <img src="https://via.placeholder.com/80" class="profile-photo" alt="Profile Photo">
