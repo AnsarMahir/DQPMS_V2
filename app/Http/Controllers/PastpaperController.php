@@ -42,7 +42,7 @@ class PastpaperController extends Controller
 
     public function showForm()
 {
-    $examname = Pastpaper::select('name')->distinct()->get()->pluck('name');
+    $examname = Pastpaper::select('name')->where('ModeratorState','Published')->distinct()->get()->pluck('name');
     $natures = Mcq_Question::select('nature')->distinct()->get()->pluck('nature');
     $languages = Pastpaper::select('language')->distinct()->get()->pluck('language');
     return view('StudentHomepage', compact('examname','natures','languages'));

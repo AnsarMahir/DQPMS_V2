@@ -153,8 +153,17 @@ $answerindex = 0;
                 <div class="col-12">
                     <div class="mb-4 shadow-lg rounded border border-3 bgbody">
                         <div class="py-3 px-4">
-                        <h4>Question {{$loop->iteration}}
-                        </h4>
+                        <div class="d-flex justify-content-between">
+                        <h4>Question {{$loop->iteration}} </h4>
+                         <h4 >    @if($question->nature == 'GK')
+                             @foreach ($ppyear as $p)
+                             @if ($question->pastpaper_reference == $p->P_id)
+                             {{$p->year}}
+                            @endif
+                            @endforeach
+                            @endif
+                         </h4>
+                        </div>
                         <p> {{ $question->description }}</p>
                         @foreach($qreference as $q)
                         @if($question->referenceid == $q['R_id'])

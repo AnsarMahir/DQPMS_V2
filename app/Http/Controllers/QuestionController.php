@@ -119,6 +119,10 @@ class QuestionController extends Controller
             $questions = Mcq_Question::whereIn('mcq_questions_id', $finalizedmcqid)
             ->get();
 
+            //getting gk ID
+            $gkquestions=$questions->where('nature','GK')->pluck('pastpaper_reference')->toArray();
+            $ppyear=Pastpaper::whereIn('P_id',$gkquestions)->get();
+
             $questionsCount = $questions->count();
 
             if ($questionsCount < $numberOfQuestions){
@@ -176,7 +180,7 @@ class QuestionController extends Controller
                     }
                 }
 
-                return view('Question', compact('questions', 'answers', 'selectedValues', 'finalizedmcqid','time','qreference','answerreference'));
+                return view('Question', compact('questions', 'answers', 'selectedValues', 'finalizedmcqid','time','qreference','answerreference','ppyear'));
         }
         else
         {
@@ -191,6 +195,10 @@ class QuestionController extends Controller
 
             $questions = Sh_Question::whereIn('sh_questions_id', $finalid)
             ->get();
+
+            //getting gk ID
+            $gkquestions=$questions->where('nature','GK')->pluck('pastpaper_reference')->toArray();
+            $ppyear=Pastpaper::whereIn('P_id',$gkquestions)->get();
 
             $questionsCount = $questions->count();
 
@@ -223,7 +231,7 @@ class QuestionController extends Controller
                 }
             }
 
-            return view('shortanswer', compact('questions', 'selectedValues', 'finalid','qreference','time'));   
+            return view('shortanswer', compact('questions', 'selectedValues', 'finalid','qreference','time','ppyear'));   
         }
 
         
@@ -237,6 +245,7 @@ class QuestionController extends Controller
         
         $pid = Pastpaper::where('name', $n)
             ->where('language', $n1)
+            ->where('ModeratorState','Published')
             ->pluck('P_id')
             ->toArray();
 
