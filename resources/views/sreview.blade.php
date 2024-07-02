@@ -20,7 +20,7 @@ $counter=1;
 
         function myfunction() {
         // Redirect to the desired location
-        window.location.replace("http://127.0.0.1:8000/Student");
+        window.location.replace("https://dqpms.azurewebsites.net/Student");
         // Return false to prevent the form from submitting via default behavior
         return false;
     }
@@ -66,8 +66,8 @@ $counter=1;
             @endforeach
         
         </form>
-        <div class="d-flex justify-content-center pb-3">
-            <button class="btn btn-dark" type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
+        <div class="d-flex flex-row-reverse pb-3 pr-4">
+            <button class="btn btncolor" type="button" onclick="myfunction()" id="submit-btn">Finish Review</button>
         </div>
             
             
