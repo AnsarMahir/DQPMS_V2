@@ -90,8 +90,6 @@
                     <p class=" mb-1 fw600">Username : {{$user->name}} </p>
                     <p class=" mb-1 fw400">UserID : {{$user->id}}  </p>
                     <p class=" mb-1 fw400">Email : {{$user->email}}  </p>
-                    <!-- password needs to be encrypted when storing -->
-                    <p class=" mb-1 fw400">Password : {{$user->password}}  </p>
                     <p class=" mb-1 fw400">Contact Number : {{$user->phone}}  </p>
                     <p class=" mb-1 fw400">Type of User : {{$user->type}} </p>
                     
