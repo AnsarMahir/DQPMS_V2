@@ -13,6 +13,13 @@ class Paper_Title extends Model
 
     protected $fillable = 
     [
-        'Paper_Title'
+        'Paper_Title',
+        'Question_Types'
     ];
+
+    public function types()
+    {
+        return $this->belongsToMany(PaperTitleType::class,'paper_title_pivot','paper_title_id','title_types_id');
+    }
+
 }

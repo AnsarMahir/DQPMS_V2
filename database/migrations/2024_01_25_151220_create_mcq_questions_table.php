@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mcq_questions', function (Blueprint $table) {
             $table->id('mcq_questions_id');
             $table->text('description')->nullable();;
-            $table->enum('nature',['IQ','GK','MATH','OTHER']);
+            $table->enum('nature',['IQ','Math','Politics','Economics','Demographic','Other']);
             $table->unsignedBigInteger('referenceid')->nullable();
             $table->unsignedBigInteger('correct_answer')->nullable();;
             $table->unsignedBigInteger('pastpaper_reference');

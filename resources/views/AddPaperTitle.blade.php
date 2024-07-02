@@ -7,7 +7,7 @@
     <section class="pt-sm-5 bgbody">
         <div class="container pt-5" >
             <div class="p-5 text-center ">
-                <h4 class=" textsub">Add Paper Titles</h4>
+                <h4 class="textsub">Add Paper Titles</h4>
             </div>
             
             <div class="px-5 justify-content-center">
@@ -18,18 +18,50 @@
 
                     <div class="col-12 m-0">
                         <div class="form-group">
-                            <input type="text" placeholder="Enter Paper Title" class="form-control" name="paperInput">
+                            <input type="text" placeholder="Enter Paper Title" class="form-control" name="paperInput" value="{{old('paperInput')}}">
                         </div>
                         @error('paperInput')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                         @enderror
                     </div>
-                    
+
+                    <div class="col-12">
+                        <p><b>Select Question Nature(s)</b></p>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Politics" name="questionNatures[]">
+                            <label class="form-check-label" for="inlineCheckbox1">Politics</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Economics" name="questionNatures[]">
+                            <label class="form-check-label" for="inlineCheckbox2">Economics</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Demographic" name="questionNatures[]">
+                            <label class="form-check-label" for="inlineCheckbox2">Demographic</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="IQ" name="questionNatures[]">
+                            <label class="form-check-label" for="inlineCheckbox2">IQ</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="Math" name="questionNatures[]">
+                            <label class="form-check-label" for="inlineCheckbox2">Math</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="Math" name="questionNatures[]">
+                            <label class="form-check-label" for="inlineCheckbox2">Other</label>
+                        </div>
+                        @error('questionNatures')
+                            <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
+                        @enderror
+                    </div>
+
                     <button type="submit" class="btn btn-lg btncolor col-xs mx-auto mt-4 mb-5 w-50">
                         <h4>Add Paper</h4>
                     </button>
                       
                 </form>
+                
 
                 <div class="row mx-auto" style="width: 50%;"> <!-- Adjust the width as needed -->
                     
@@ -62,6 +94,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+
         $(document).ready(function() {
 
             var getURL = 'http://127.0.0.1:8000/getPaperTitle';
@@ -77,6 +110,8 @@
 
                     var tableBody = $('#papersTableBody');
                     tableBody.empty(); // Clear the table body
+
+                    console.log(data);
 
                     if(data.length === 0){
 

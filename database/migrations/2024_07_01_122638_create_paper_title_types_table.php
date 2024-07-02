@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paper_titles', function (Blueprint $table) {
+        Schema::create('paper_title_types', function (Blueprint $table) {
             $table->id();
-            $table->string('Paper_Title');
-            $table->string('Question_Types')->nullable(); // New column for question types
+            $table->string('Question_types');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paper_titles');
+        Schema::dropIfExists('paper_title_types');
     }
 };

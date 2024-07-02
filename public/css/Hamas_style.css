@@ -1,3 +1,9 @@
+.bodyClass::before{
+    display: block;
+    content: "";
+    height: 60px;
+}
+
 .deleteButton{
   color: white;
   background-color: #a181ff;

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\error;
 use vendor\jorenvanhocht\src\Share;
 use App\Http\Controllers\Controller;
+use App\Models\PaperTitleType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -66,8 +67,24 @@ public function showqnature(){
 
         ]);
 
+        $types = $this->getQuestionTypes($request['examName']);
+
+
+
         return view('QuestionCreation',[
-            'pastpaper' => $formFields]);
+            'pastpaper' => $formFields,
+            'qNatures' => $types
+        ]);
+
+    }
+
+    function getQuestionTypes($title){
+
+        $paperTitle = Paper_Title::where('Paper_Title',$title)->with('types')->first();
+        
+        $types = $paperTitle->types->pluck('Question_types');
+
+        return $types;
 
     }
 
@@ -627,27 +644,40 @@ public function showqnature(){
     
     public function addPaperTitle(Request $request){
 
-        $paperTitle = $request->validate([
-            'paperInput' => ['required', new TitleCase]
+        $validatedData = $request->validate([
+            'paperInput' => ['required', new TitleCase],
+            'questionNatures' =>['required', 'array', 'min:1']
         ],
         [
-            'paperInput.required' => 'Please enter a valid title'
+            'paperInput.required' => 'Please enter a valid title',
+            'questionNatures.required' => 'Please select at least one nature'
         ]);
 
-         //dd($paperTitle);
-
-        Paper_Title::create([
-            'Paper_Title' => $paperTitle['paperInput']
+        $paperTitle = Paper_Title::create([
+            'Paper_Title' => $validatedData['paperInput'],
         ]);
+
+
+        //$questionNatures = $validatedData['$questionNatures'];
+        
+        foreach ($validatedData['questionNatures'] as $nature) {
+
+            $questionType = PaperTitleType::where('Question_types', $nature)->first();
+
+
+            if ($questionType) {
+                $paperTitle->types()->attach($questionType->id);
+            }
+        }
+        
 
         return redirect()->back()->with('message','Paper Added Successfully');
-
 
     }
 
     public function getPaperTitle(){
         
-        $papers = Paper_Title::all();
+        $papers = Paper_Title::with('types')->get();
 
         return response()->json($papers);
     }
