@@ -156,11 +156,11 @@ $answerindex = 0;
                         <h4>Question {{$loop->iteration}}
                         </h4>
                         <p> {{ $question->description }}</p>
-                        {{-- @foreach($qreference as $q)
+                        @foreach($qreference as $q)
                         @if($question->referenceid == $q['R_id'])
                             {!!$q['reference_HTML']!!}
                         @endif
-                        @endforeach   --}}
+                        @endforeach  
                         </div>
                         <div class="px-4">
                                 @csrf
@@ -171,11 +171,11 @@ $answerindex = 0;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="1">
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                    {{-- @foreach($answerreference as $a)
+                                                    @foreach($answerreference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach  --}}
+                                                    @endforeach 
                                                     {{ $answers[$answerindex]->description }}
                                                 </label>
                                               </div>
@@ -186,11 +186,11 @@ $answerindex = 0;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="2">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    {{-- @foreach($areference as $a)
+                                                    @foreach($answerreference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach --}}
+                                                    @endforeach
                                                     {{ $answers[$answerindex + 1]->description }}
                                                 </label>
                                               </div>
@@ -204,11 +204,11 @@ $answerindex = 0;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault1" value="3">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                     {{-- @foreach($areference as $a)
+                                                     @foreach($answerreference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach  --}}
+                                                    @endforeach 
                                                     {{ $answers[$answerindex + 2]->description }}
                                                 </label>
                                               </div>
@@ -219,11 +219,11 @@ $answerindex = 0;
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="flexRadioDefault2" value="4">
                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                     {{-- @foreach($areference as $a)
+                                                     @foreach($answerreference as $a)
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach  --}}
+                                                    @endforeach 
                                                     {{ $answers[$answerindex + 3]->description }}
                                                 </label>
                                             </div>
