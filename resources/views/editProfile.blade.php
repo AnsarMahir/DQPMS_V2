@@ -63,25 +63,24 @@
                 <button class="btn btncolor change-photo-btn">Change Photo</button>
             </div>
             <div class="col-md-9">
-                <form action="{{route('users.editProfile')}}" method="POST">
+                <form action="" method="POST">
                     @csrf
-                    @method('PUT')
+                   
                     <div class="mb-2">
                         <label for="name" class="form-label">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}">
+                        <input type="text" class="form-control" id="name" name="name" >
                     </div>
                     <div class="mb-2">
                         <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{$user->email}}">
+                        <input type="email" class="form-control" id="email" name="email">
                     </div>
                     <div class="mb-2">
                         <label for="phone" class="form-label">Contact:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{$user->phone}}">
+                        <input type="text" class="form-control" id="phone" name="phone" >
                     </div>
                     <div class="mb-2">
                         <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" value="{{$user->password}}" >
-                    </div>
+                        <input type="password" class="form-control" id="password" name="password" >
                     <div class="mb-2">
                         <label for="confirmpassword" class="form-label">Confirm Password:</label>
                         <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">

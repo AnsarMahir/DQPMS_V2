@@ -64,7 +64,7 @@ Route::get('/editProfile', function () {
     return view('editProfile');
 });
 
-Route::put('users/editProfile','userController@update')->name('users.editProfile');
+
 
 //route to save data into the database (paper creators)
 Route::post('datasend',function(){
