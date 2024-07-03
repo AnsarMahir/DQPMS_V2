@@ -2,6 +2,7 @@
 
 $i=0;
 
+
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +41,10 @@ $i=0;
                 <input type="hidden" value="{{$pastpaper[0]['P_id']}}" name="pastpaperData[]">
                 <input type="hidden" value="{{$pastpaper[0]['no_of_questions']}}" name="pastpaperData[]">
                 <input type="hidden" value="{{$pastpaper[0]['question_type']}}" name="pastpaperData[]">
+                <input type="hidden" value="{{$pastpaper[0]['name']}}" name="pastpaperData[]">
+                <input type="hidden" value="{{$pastpaper[0]['no_of_questions']}}" name="pastpaperData[]">
+
+                
 
                     
                 {{-- @endforeach --}}

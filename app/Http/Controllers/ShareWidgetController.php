@@ -34,14 +34,18 @@ class ShareWidgetController extends Controller
 
         $IqQuestionsCount = $this->getQuestionTypeCount($creatorId,'IQ');
 
-        $MathQuestionsCount = $this->getQuestionTypeCount($creatorId,'MATH');
+        $MathQuestionsCount = $this->getQuestionTypeCount($creatorId,'Math');
 
-        $LogicQuestionsCount = $this->getQuestionTypeCount($creatorId,'LOGIC');
+        $PolQuestionsCount = $this->getQuestionTypeCount($creatorId,'Politics');
 
-        $OtherQuestionsCount = $this->getQuestionTypeCount($creatorId,'OTHER');        
+        $EcoQuestionsCount = $this->getQuestionTypeCount($creatorId,'Economics');
+
+        $DemoQuestionsCount = $this->getQuestionTypeCount($creatorId,'Demographic');
+
+        $OtherQuestionsCount = $this->getQuestionTypeCount($creatorId,'Other');        
 
         
-        return view('Profile', compact('rank','creatorName','mcqQuestionsCount','shQuestionsCount','gkQuestionsCount','IqQuestionsCount','MathQuestionsCount','LogicQuestionsCount','OtherQuestionsCount','rankStat'));
+        return view('Profile', compact('rank','creatorName','mcqQuestionsCount','shQuestionsCount','gkQuestionsCount','IqQuestionsCount','MathQuestionsCount','PolQuestionsCount','EcoQuestionsCount','DemoQuestionsCount','OtherQuestionsCount','rankStat'));
 
         
     }

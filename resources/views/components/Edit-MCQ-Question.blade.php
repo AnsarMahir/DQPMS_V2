@@ -1,4 +1,4 @@
-
+@props(['i','data'])
 <input type="hidden" value="{{$data[$i]['mcq_questions_id']}}" name="{{'questionID'.$i}}">
 
 <div class="row justify-content-center pb-4">
@@ -15,7 +15,9 @@
                                     <option value='IQ' {{$data[$i]['nature'] == 'IQ' ? 'selected' : ''}}>IQ</option>
                                     <option value='GK' {{$data[$i]['nature'] == 'GK' ? 'selected' : ''}}>GK</option>
                                     <option value='Math' {{$data[$i]['nature'] == 'Math' ? 'selected' : ''}}>Math</option>
-                                    <option value='Logic' {{$data[$i]['nature'] == 'Logic' ? 'selected' : ''}}>Logic</option>
+                                    <option value='Politics' {{$data[$i]['nature'] == 'Politics' ? 'selected' : ''}}>Politics</option>
+                                    <option value='Economics' {{$data[$i]['nature'] == 'Economics' ? 'selected' : ''}}>Economics</option>
+                                    <option value='Demographic' {{$data[$i]['nature'] == 'Demographic' ? 'selected' : ''}}>Demographic</option>
                                 </select>
                             </div>
                             
@@ -32,6 +34,9 @@
                    
                 </div>
                 @error('question'.$i)
+                    <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
+                @enderror 
+                @error($i.'Q_Reference')
                     <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                 @enderror 
                 

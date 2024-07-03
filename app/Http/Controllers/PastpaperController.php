@@ -646,7 +646,7 @@ class PastpaperController extends Controller
         }
         
 
-        return redirect()->back()->with('message','Paper Added Successfully');
+        return redirect()->back()->with('message','Paper Title Added Successfully');
 
     }
 

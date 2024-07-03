@@ -32,6 +32,12 @@
                         </div>                      
                     </div>
 
+                    <div class="d-flex mt-0 flex-row-reverse">
+                        <a href="paperTitlePage" style="text-decoration: none">
+                            <p class="ps-1 mb-0">+ Add New Paper Title</p>
+                        </a>
+                    </div>
+
                    
             
                 

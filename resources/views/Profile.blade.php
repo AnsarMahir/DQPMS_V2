@@ -57,6 +57,16 @@
 
                         </div>
 
+                        <div class="row mt-5" style="display: contents">                            
+                            <h5>For next Level</h5>
+                            <div class="progress p-0 ms-2">
+                                <div class="progress-bar bgprimary" role="progressbar" style="width: {{($rankStat/40)*100}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex flex-row-reverse p-0">
+                                <span>{{$rankStat}}/40</span>
+                            </div>
+                        </div> 
+
                         
                                                
                         
@@ -64,19 +74,10 @@
                     </div> 
                 </div>
                 <div class="col-6">
-                    
-                    <canvas id="myChart" style="width:100%;max-width:600px;"></canvas>
 
-
-                    <div class="row mt-5">                            
-                        <h5>For next Level</h5>
-                        <div class="progress p-0 ms-2">
-                            <div class="progress-bar bgprimary" role="progressbar" style="width: {{($rankStat/40)*100}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="d-flex flex-row-reverse p-0">
-                            <span>{{$rankStat}}/40</span>
-                        </div>
-                    </div>                       
+                    <canvas id="newChart" style="width:100%;max-width:600px;"></canvas>                    
+                    <canvas id="myChart" style="width:100%;max-width:600px; margin-top:2rem"></canvas>
+                                          
 
                 </div>
                 
@@ -89,9 +90,48 @@
     </section>
 
     <script>
-        var xValues = ["MCQ", "ShortAnswer", "GK", "IQ", "Math", "Logic", "Other"];
-        var yValues = [{{$mcqQuestionsCount}}, {{$shQuestionsCount}}, {{$gkQuestionsCount}}, {{$IqQuestionsCount}}, {{$MathQuestionsCount}},{{$LogicQuestionsCount}},{{$OtherQuestionsCount}}];
+        var mcqShortAnswerXValues = ["MCQ", "ShortAnswer"];
+        var mcqShortAnswerYValues = [{{$mcqQuestionsCount}}, {{$shQuestionsCount}}];
+
+        var xValues = ["GK", "IQ", "Math", "Politics", "Economics", "Demographic", "Other"];
+        var yValues = [{{$gkQuestionsCount}}, {{$IqQuestionsCount}}, {{$MathQuestionsCount}},{{$PolQuestionsCount}},{{$EcoQuestionsCount}},{{$DemoQuestionsCount}},{{$OtherQuestionsCount}}];
         var barColors = "#875EFF";
+
+    
+
+        var maxValue = Math.max(mcqShortAnswerYValues[0],mcqShortAnswerYValues[1]);
+       
+
+        new Chart("newChart", {
+        type: "bar",
+        data: {
+            labels: mcqShortAnswerXValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: mcqShortAnswerYValues,
+                barPercentage: 0.5,
+                categoryPercentage: 0.5
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+                display: true,
+                text: "Number of Questions Created - Question Type",
+                fontSize: 20,
+                fontStyle: 'bold',
+                fontColor: '#000000'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+        });
 
         new Chart("myChart", {
         type: "bar",
@@ -106,14 +146,16 @@
             legend: {display: false},
             title: {
                 display: true,
-                text: "Questions Created",
-                fontSize: 25,
+                text: "Number of Questions Created - Question Nature",
+                fontSize: 20,
                 fontStyle: 'bold',
                 fontColor: '#000000'
             },  
             scales: {
                 yAxes: [{
                     ticks: {
+                        min: 0,
+                        max: maxValue,
                         precision: 0
                     }
                 }]
