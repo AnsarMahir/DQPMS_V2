@@ -31,22 +31,60 @@
                         <span class="h3 fw-bolder family seccolor" 
                           > {{$selectedValues["exam"]}} <br /></span
                         ><span class="h6 pricolor family" 
-                          > {{$selectedValues["language"]}} | {{$selectedValues["questiontype"]}}<br /><br /><br /></span
-                        ><span
-                          class="fs-5 pricolor family "
-                          > |{{$selectedValues["noofq"]}} MCQ | 12 Mins<br /><br /><br /></span
+                          > {{$selectedValues["language"]}} | {{$selectedValues["noofq"]}}  {{$selectedValues["questiontype"]}}<br /><br /><br /></span
                         ><span class=" pb-4 seccolor fs-3 fw-bolder text-decoration-underline family"
-                          
                           >Instructions<br /></span
                         ><span class="seccolor fs-4 family fw-normal "
                           ><br /></span
-                        ><span class="seccolor family fw-normal"
+                        >
+                  
+
+                        @if($selectedValues["questiontype"] =="MCQ")
+                          <p class="seccolor family fw-normal"
                           style="
                             font-size: 21px;
                           "
                           >Answer all questions.<br />In each of the questions, pick one of
-                          the alternatives from (1), (2), (3), (4), (5) which is correct or
-                          most appropriate.</span
+                          the alternatives from (1), (2), (3), (4) which is correct or
+                          most appropriate.</p
+                        >
+                        <p class="seccolor family fw-normal"
+                          style="
+                            font-size: 21px;
+                            padding-top:5px;
+                          "
+                          >The rankings will be affected by attempting the question</p
+                        >
+                        @else
+                        <p class="seccolor family fw-normal"
+                          style="
+                            font-size: 21px;
+                          "
+                          >Answer all questions.<br />for each question, Provide the Answer
+                          in the given box </p
+                        >
+                        <p class="seccolor family fw-normal"
+                          style="
+                            font-size: 21px;
+                            padding-top:5px;
+                          "
+                          >The rankings will not be affected by attempting the question</p
+                        >
+                        @endif
+                        <p class="seccolor family fw-normal"
+                          style="
+                            font-size: 21px;
+                            padding-top:5px;
+                          "
+                          >Do not go away from exam view.</p
+                        >
+
+                        <p class="seccolor family fw-normal"
+                          style="
+                            font-size: 21px;
+                            padding-top:5px;
+                          "
+                          >Please turn off all the notifications in your device</p
                         >
                       </div>
                       <form action="/Question" method="POST">
