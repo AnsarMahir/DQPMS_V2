@@ -45,18 +45,25 @@ class PastpaperController extends Controller
 {
     $exam = $request->input('exam');
     $language = $request->input('language');
+    $questionType = $request->input('questionType');
 
     // Fetch data from the pastpaper table based on exam and language
     $questionid = DB::table('pastpaper')
                         ->where('name', $exam)
                         ->where('language', $language)
                         ->pluck('P_id');
-    $questionNatures=DB::table('mcq_questions')
+
+     if($questionType=='ShortAnswer'){
+    $questionNatures=DB::table('sh_questions')
                         ->whereIn('pastpaper_reference',$questionid)
                         ->distinct()
                         ->pluck('nature');
-
-
+     }else{
+        $questionNatures=DB::table('mcq_questions')
+        ->whereIn('pastpaper_reference',$questionid)
+        ->distinct()
+        ->pluck('nature');
+     }                 
     return response()->json($questionNatures);
 }
 

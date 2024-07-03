@@ -14,69 +14,81 @@ unset($_SESSION['review_completed']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script type="text/javascript">
     localStorage.clear();
-    var selectedLanguage = null;
+    // var selectedLanguage = null;
 
-$(document).ready(function() {
-  selectedLanguage = $('#selectedLanguage').val(); // Assuming a hidden field
+    $(document).ready(function() {
+    var selectedLanguage = $('#selectedLanguage').val(); // Assuming a hidden field
 
-  $('#exam').change(function() {
-    var exam = $(this).val();
+    $('#exam').change(function() {
+        var exam = $(this).val();
 
-    $.ajax({
-      url: "{{ route('get.languages') }}",
-      method: 'GET',
-      data: {
-        exam: exam
-      },
-      success: function(data) {
-        var $languageDropdown = $('#language');
-        $languageDropdown.empty();
+        $.ajax({
+            url: "{{ route('get.languages') }}",
+            method: 'GET',
+            data: {
+                exam: exam
+            },
+            success: function(data) {
+                var $languageDropdown = $('#language');
+                $languageDropdown.empty();
 
-        if (data.length) {
-          $.each(data, function(key, value) {
-            $languageDropdown.append('<option value="' + value + '">' + value + '</option>');
-          });
-        } else {
-          $languageDropdown.append('<option value="">No languages found</option>');
-        }
+                // Always add the default "Choose your Language" option
+                $languageDropdown.append('<option selected disabled>Choose your Language</option>');
 
-        // Pre-select language if available
-        if (selectedLanguage) {
-          $('#language').val(selectedLanguage);
-        }
-      }
+                if (data.length) {
+                    $.each(data, function(key, value) {
+                        $languageDropdown.append('<option value="' + value + '">' + value + '</option>');
+                    });
+                }
+
+                // Pre-select language if available
+                if (selectedLanguage) {
+                    $languageDropdown.val(selectedLanguage);
+                }
+            }
+        });
     });
-  });
 });
 
-    </script>    
-<script>
-    $(document).ready(function() {
-    $('#exam, #language').change(function() {
+
+    </script>
+<script>    
+$(document).ready(function() {
+    function updateQuestionNature() {
         var exam = $('#exam').val();
         var language = $('#language').val();
+        var questionType = $('#questionType').val();
 
-        if (exam && language) {
+        if (exam && language && questionType) {
             $.ajax({
                 url: '/get-question-nature', // Endpoint to get question nature
                 type: 'GET',
                 data: {
                     exam: exam,
-                    language: language
+                    language: language,
+                    questionType: questionType // Include question type in the request
                 },
                 success: function(data) {
                     var questionNature = $('#questionNature');
                     questionNature.empty(); // Clear previous options
                     questionNature.append('<option selected disabled>Choose your question nature</option>');
-                    $.each(data, function(key, value) {
-                        questionNature.append('<option value="' + value + '">' + value + '</option>');
-                    });
-                    questionNature.append('<option value="All">ALL</option>');
+                    if (data.length > 0) {
+                        $.each(data, function(key, value) {
+                            questionNature.append('<option value="' + value + '">' + value + '</option>');
+                        });
+                        questionNature.append('<option value="All">ALL</option>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error); // Error handling
                 }
             });
         }
-    });
+    }
+
+    $('#exam, #language, #questionType').change(updateQuestionNature);
 });
+
 </script>
 </head>
 
