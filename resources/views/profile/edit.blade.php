@@ -68,11 +68,7 @@
             </div>
         @endif
 
-        @if (session('status') === 'password-updated')
-            <div class="alert alert-success" role="alert">
-                {{ __('Password updated successfully.') }}
-            </div>
-        @endif
+       
 
         <div class="row">
             <div class="col-md-3 text-center">
@@ -124,25 +120,36 @@
                         <button type="button" class="btn btncolor">Cancel</button>
                         <button type="submit" class="btn btncolor">Save</button>
                     </div>
+                    <br><br>
                 </form>
-
+                @if (session('status') === 'password-updated')
+                   <div class="alert alert-success" role="alert">
+                     {{ __('Password updated successfully.') }}
+                   </div>
+                 @endif
                 <form method="post" action="{{ route('password.update') }}">
                     @csrf
                     @method('put')
                     <div class="mb-2">
-                        <label for="current_password" class="form-label">Current Password:</label>
-                        <input type="password" class="form-control" id="current_password" name="current_password" autocomplete="current-password">
-                        <x-input-error :messages="$errors->get('current_password')" />
+                    <label for="current_password" class="form-label">Current Password:</label>
+                    <input type="password" class="form-control @error('current_password', 'updatePassword') is-invalid @enderror" id="current_password" name="current_password" autocomplete="current-password">
+                     @error('current_password', 'updatePassword')
+                     <div class="invalid-feedback">{{ $message }}</div>
+                     @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="password" class="form-label">New Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" autocomplete="new-password">
-                        <x-input-error :messages="$errors->get('password')" />
+                    <label for="password" class="form-label">New Password:</label>
+                    <input type="password" class="form-control @error('password', 'updatePassword') is-invalid @enderror" id="password" name="password" autocomplete="new-password">
+                    @error('password', 'updatePassword')
+                       <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="password_confirmation" class="form-label">Confirm New Password:</label>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" autocomplete="new-password">
-                        <x-input-error :messages="$errors->get('password_confirmation')" />
+                    <label for="password_confirmation" class="form-label">Confirm New Password:</label>
+                      <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" autocomplete="new-password">
+                        @error('password_confirmation', 'updatePassword')
+                       <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="d-flex justify-content-end gap-2">
                         <button type="button" class="btn btncolor">Cancel</button>
