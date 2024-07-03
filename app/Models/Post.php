@@ -11,5 +11,7 @@ class Post extends Model
 {
     use HasFactory;
     use Commentable;
+    protected $fillable = ['title', 'description'];
+
 
 }

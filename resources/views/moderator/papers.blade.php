@@ -1,162 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css\StudentHomepage_style.css ') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Submit Papers for Moderation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0ebfa;
+            color: white;
+        }
+
+        #bannerimage {
+            width: 100%;
+            height: 405px;
+            background-color: rgba(203, 136, 248, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .centered {
+            font-size: 100px;
+            margin: 0;
+        }
+
+        .second {
+            font-size: 40px;
+        }
+
+        .card {
+            border: 2px solid #d3b8ff;
+            color: #a997f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            background-color: #ffffff;
+        }
+
+        .card-title,
+        .card-subtitle {
+            color: #14073d;
+            margin: 10px;
+        }
+
+        .btn {
+            background-color: #7b5cf7;
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .col-md-4 {
+            flex: 0 0 calc(33.3333% - 20px);
+            max-width: calc(33.3333% - 20px);
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg text-light py-3 fixed-top bgprimary" >
-        <div class="container">
-            <a href="#" class="navbar-brand flex-fill align-items-center">DQPMS</a>
+    <div id="bannerimage">
+        <div class="centered">Papers for Moderation</div>
+        <div class="second">Ensuring Quality and Integrity...</div>
+    </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-center align-items-center" id="navmenu">
-                <ul class="navbar-nav text-light" style="column-gap: 2REM;">
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Contents</a></li>
-                    <li class="nav-item "><a href="#" class="nav-link nav-hover">Question Papers</a></li>
-
-                </ul>
-            </div>
-
-            <div class="collapse navbar-collapse flex-lg-fill justify-content-lg-end align-items-center" id="navmenu">
-                <ul class="navbar-nav text-light ">
-                    <li class="nav-item">
-                        <a href="" class="nav-link ps-lg-3">Profile</a>
-                    </li>
-                    <li class="badge nav-item">
-                        <img src="" alt="" class="rounded-circle">
-                    </li>
-                </ul>
-
-            </div>
-
-        </div>
-    </nav>
-
-    <section class="p-5">
-        <div class="container">
-
-            <div class="row pb-4 justify-content-center">
-                <div class="col-lg-8 p-4 border shadow">
-                    <h3>{{$paperdata}}
-                    </h3>
-                    <p>English | MCQ | 5 Questions | 15 Mins</p>
+    <div class="container">
+        <div class="row">
+            @foreach ($submittedPapers as $paper)
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ asset('Assets/images/modicon.jpg') }}" width="75px" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $paper->name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Question Type: {{ $paper->question_type }}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Year: {{ $paper->year }}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">No. of Questions: {{ $paper->no_of_questions }}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Created by: {{ $paper->paperCreator->name }}</h6>
+                        <a href="{{ route('moderator.wholepaper', ['id' => $paper->P_id, 'paperType' => $paper->question_type]) }}" class="btn btn-rounded">Moderate Now</a>
+                    </div>
                 </div>
             </div>
-
-            <div class="row justify-content-center pb-4">
-                    <div class="col-lg-8 p-4 border shadow">
-                            <form action="">
-
-                                <div class="d-flex justify-content-between align-items-center" style="column-gap: 1rem;">
-                                    <div class="d-flex flex-fill">
-                                        <input type="text" class="form-control rounded-0" placeholder="Enter the Question Here.." id="name">
-                                    </div>
-                                    <div class="d-flex align-items-center" style="column-gap: 1rem;">
-                                        <div class="form-group" style="width: 6rem;">
-                                            <select class="form-select" id="questionNature">
-                                              <option>IQ</option>
-                                              <option>GK</option>
-                                              <option>Math</option>
-                                              <option>Logic</option>
-                                            </select>
-                                          </div>
-                                          <button class="btn pb-3"><i class="bi-image fs-3"></i></button>
-
-                                    </div>
-                                </div>
-
-                                <div class="row" style="column-gap: 2rem;">
-                                    <div class="col-lg-5 mt-3">
-                                        <div class="form-check d-flex align-items-center" style="column-gap: 1rem;">
-                                            <input class="form-check-input shadow border border-dark" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" disabled>
-                                            <input type="text" class="form-control rounded-0" placeholder="Option 1" id="name">
-                                            <button class="btn pb-3"><i class="bi-image fs-4"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-5 mt-3">
-                                        <div class="form-check d-flex align-items-center" style="column-gap: 1rem;">
-                                            <input class="form-check-input shadow border border-dark" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" disabled>
-                                            <input type="text" class="form-control rounded-0" placeholder="Option 2" id="name">
-                                            <button class="btn pb-3"><i class="bi-image fs-4"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row " style="column-gap: 2rem;">
-                                    <div class="col-lg-5 mt-3">
-                                        <div class="form-check d-flex align-items-center" style="column-gap: 1rem;">
-                                            <input class="form-check-input shadow border border-dark" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" disabled>
-                                            <input type="text" class="form-control rounded-0" placeholder="Option 3" id="name">
-                                            <button class="btn pb-3"><i class="bi-image fs-4"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-5 mt-3">
-                                        <div class="form-check d-flex align-items-center" style="column-gap: 1rem;">
-                                            <input class="form-check-input shadow border border-dark" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" disabled>
-                                            <input type="text" class="form-control rounded-0" placeholder="Option 4" id="name">
-                                            <button class="btn pb-3"><i class="bi-image fs-4"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-                                <!-- <div class="d-flex align-items-center" style="column-gap: 1rem; width: fit-content;">
-                                    <input class="form-check-input shadow border border-dark" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" disabled>
-                                    <button class="btn btn-sm btn-link">Add Option</button>
-                                </div> -->
-
-                                <div class="d-flex mt-3 align-items-center">
-                                    <button class="btn btn-sm pt-0"><i class="bi bi-clipboard-check fs-3"></i> Set Answer</button>
-                                </div>
-
-
-                            </form>
-
-
-                    </div>
-
-
-            </div>
-
-
-            <div class="row justify-content-center">
-                <div class="col-lg-8 px-0">
-                    <div class="d-flex flex-row-reverse">
-                        <button class="btn btncolor ms-2  text-dark" type="button">Submit</button>
-                        <button class="btn  ms-0  text-dark" type="button">Save as Draft</button>
-                    </div>
-
-                </div>
-            </div>
-
-            @dd($paperdata)
+            @endforeach
         </div>
-    </section>
-
-
-
-    <!-- <footer class="p-4 bg-dark text-white text-center position-relative">
-        <div class="container">
-            <p class="lead m-0">Copyright &copy; 2024 DQPMS</p>
-
-        </div>
-    </footer>   -->
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </div>
 </body>
+
 </html>
