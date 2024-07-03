@@ -42,7 +42,7 @@ $i=0;
                         
                     @else
 
-                        <x-Edit-SH-Question :i="$i" :data="$paperData"/>
+                        <x-View-SH-Question :i="$i" :data="$paperData"/>
                         
                     @endif
 

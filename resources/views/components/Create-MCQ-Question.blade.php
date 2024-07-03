@@ -1,6 +1,5 @@
 @props(['i', 'qNatures'])
 
-
 <div class="row justify-content-center pb-4">
     <div class="col-lg-8 p-4 border shadow">
             
@@ -31,6 +30,9 @@
                    
                 </div>
                 @error('question'.$i)
+                    <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
+                @enderror 
+                @error($i.'Q_Reference')
                     <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                 @enderror 
                 

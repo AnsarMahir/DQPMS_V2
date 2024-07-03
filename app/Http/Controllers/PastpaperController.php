@@ -697,8 +697,17 @@ public function showqnature(){
         }
         
 
-        return redirect()->back()->with('message','Paper Added Successfully');
+        return redirect()->back()->with('message','Paper Title Added Successfully');
 
+    }
+
+    public function showPaperTitlePage(){
+        $paperTypes = PaperTitleType::all()->pluck('Question_types');
+
+        
+        return view('AddPaperTitle',[
+            'questionTypes' => $paperTypes
+        ]);
     }
 
     public function getPaperTitle(){

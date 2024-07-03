@@ -34,7 +34,7 @@
                     <div class="col" style="border-radius: 5px; background-color:#7e53ff">
 
                         <div class="d-flex flex-column">
-                            <a href="/CreatorPublished/{{$paper->P_id}}/{{$paper->question_type}}" style="text-decoration: none">
+                            <a href="/PublishedPapers/{{$paper->P_id}}/{{$paper->question_type}}" style="text-decoration: none">
                             <div class="d-flex flex-column p-4 text-light paperCard">
                                 <h5 >{{$paper->name}}</h4>
                                 <p> {{$paper->year}} | {{$paper->language}} | {{$paper->question_type}} | {{$paper->no_of_questions}} Questions</p>

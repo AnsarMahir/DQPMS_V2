@@ -38,7 +38,7 @@ class Pastpaper extends Model
 
     public function paperCreator(): BelongsTo
     {
-        return $this->belongsTo(User::class,'CreatorID','P_id');
+        return $this->belongsTo(User::class,'CreatorID','id');
     }
 
     public function paperModerator(): BelongsTo

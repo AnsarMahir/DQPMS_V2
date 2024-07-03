@@ -27,30 +27,15 @@
 
                     <div class="col-12">
                         <p><b>Select Question Nature(s)</b></p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Politics" name="questionNatures[]">
-                            <label class="form-check-label" for="inlineCheckbox1">Politics</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Economics" name="questionNatures[]">
-                            <label class="form-check-label" for="inlineCheckbox2">Economics</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Demographic" name="questionNatures[]">
-                            <label class="form-check-label" for="inlineCheckbox2">Demographic</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="IQ" name="questionNatures[]">
-                            <label class="form-check-label" for="inlineCheckbox2">IQ</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="Math" name="questionNatures[]">
-                            <label class="form-check-label" for="inlineCheckbox2">Math</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="Math" name="questionNatures[]">
-                            <label class="form-check-label" for="inlineCheckbox2">Other</label>
-                        </div>
+                        
+                        @foreach($questionTypes as $nature)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{$nature}}" name="questionNatures[]">
+                                <label class="form-check-label" for="inlineCheckbox1">{{$nature}}</label>
+                            </div>
+                        @endforeach
+                        
+                        
                         @error('questionNatures')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                         @enderror
