@@ -58,7 +58,7 @@ Route::get('/userDetails', function () {
  //route to the published papers
 Route::get('/publishedPapers', function () {
     $pastpapers=DB::table('pastpaper')->get();
-    return view('publishedPapers', ['pastpapers'=>$pastpapers]);
+    return view('AdminPublishedPaper', ['pastpapers'=>$pastpapers]);
 });
 
 Route::get('/CreatorPublished',[PastpaperController::class,'retrievePublished']);
