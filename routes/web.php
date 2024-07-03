@@ -148,7 +148,7 @@ Route::get('/CreatorPublished/{id}/{paperType}',[PastpaperController::class,'vie
  
  
  
- 
+Route::get('/ai',[ReviewController::class,'getEmbedding']);
 
 Route::get('/CreatorHomepage', [PastpaperController::class, 'getCreatorHomepage']);
 

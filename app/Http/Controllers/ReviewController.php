@@ -148,5 +148,42 @@ class ReviewController extends Controller
         ], 500);
     }
 }
+public static function getEmbedding()
+{
+    // Replace these with your actual values
+    
+    
+    $apiVersion = '2024-05-01-preview';  // Replace with the desired API version
+    $apiKey = config('services.my_service.api_key');
+    
+    // Construct the endpoint URL
+    $endpoint = "https://ansak.openai.azure.com/openai/deployments/embeding/embeddings?api-version={$apiVersion}";
+
+    // Prepare headers
+    $headers = [
+        'Content-Type' => 'application/json',
+        'api-key' => $apiKey,
+    ];
+    
+    // Prepare payload
+    $payload = [
+        "input" => "Sri lanka"
+    ];
+
+    // Make the POST request
+    $response = Http::withHeaders($headers)->post($endpoint, $payload)->json();
+
+    // Log the response for debugging purposes
+    Log::info('API Response: ' . json_encode($response));
+
+    // Extract the embedding from the response
+    if (isset($response['data'][0]['embedding'])) {
+        $embedding = $response['data'][0]['embedding'];
+    } else {
+        $embedding = [];
+    }
+    dd($embedding);
+    return $embedding;
+}
 
 }
