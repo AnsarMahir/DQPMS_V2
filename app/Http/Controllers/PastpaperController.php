@@ -650,6 +650,15 @@ class PastpaperController extends Controller
 
     }
 
+    public function showPaperTitlePage(){
+        $paperTypes = PaperTitleType::all()->pluck('Question_types');
+
+        
+        return view('AddPaperTitle',[
+            'questionTypes' => $paperTypes
+        ]);
+    }
+
     public function getPaperTitle(){
         
         $papers = Paper_Title::with('types')->get();

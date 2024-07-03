@@ -73,7 +73,7 @@ Route::get('/creatorRank', [ShareWidgetController::class,'getProfilePage']);
 
 Route::get('/shareBadge/{appName}',[ShareWidgetController::class,'shareBadge']);
 
-Route::view('/paperTitlePage','AddPaperTitle');
+Route::get('/paperTitlePage',[PastpaperController::class,'showPaperTitlePage']);
 
 Route::post('/addPaperTitle',[PastpaperController::class,'addPaperTitle']);
 
