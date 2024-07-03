@@ -42,6 +42,11 @@ $counter=1;
                         <div class="py-3 px-4">
                         <h4>Question {{$counter}} </h4>
                         <p>{{$question->description}}</p>
+                        @foreach($qreference as $q)
+                        @if($question->q_referenceid == $q['R_id'])
+                        <img src="{{$q['reference_HTML']}}" alt="" class="img-fluid">
+                        @endif
+                        @endforeach
                         </div>
 
                         <div class="px-4">

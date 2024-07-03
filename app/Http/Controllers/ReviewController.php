@@ -66,10 +66,14 @@ class ReviewController extends Controller
         $questions = Sh_Question::whereIn('sh_questions_id', $finalids)
             ->get();
         
+            $qreferenceid= Sh_Question::whereIn('sh_questions_id', $finalids)
+            ->get('q_referenceid');
 
+            $qreference= Reference::whereIn('R_id',$qreferenceid)
+            ->get()->toArray();
         //return $questions; // Return selected questions
         $request->session()->put('review_completed', true);
-        return view('sreview', compact('questions'));
+        return view('sreview', compact('questions','qreference'));
     }
 
     public function showit(Request $request): View

@@ -163,6 +163,11 @@
                         </h4>
                     </div>
                         <p>{{$question->description}}</p>
+                        @foreach($qreference as $q)
+                        @if($question->q_referenceid == $q['R_id'])
+                        <img src="{{$q['reference_HTML']}}" alt="" class="img-fluid">
+                        @endif
+                        @endforeach
                         </div>
                         <div class="px-4">
                                 <div class="mb-3">

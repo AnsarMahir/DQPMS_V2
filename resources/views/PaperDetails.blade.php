@@ -31,7 +31,7 @@
                         <span class="h3 fw-bolder family seccolor" 
                           > {{$selectedValues["exam"]}} <br /></span
                         ><span class="h6 pricolor family" 
-                          > {{$selectedValues["language"]}} | {{$selectedValues["noofq"]}}  {{$selectedValues["questiontype"]}}<br /><br /><br /></span
+                          > {{$selectedValues["language"]}} | {{$selectedValues["noofq"]}}  {{$selectedValues["questiontype"]}} | {{$selectedValues["qnature"]}} <br /><br /><br /></span
                         ><span class=" pb-4 seccolor fs-3 fw-bolder text-decoration-underline family"
                           >Instructions<br /></span
                         ><span class="seccolor fs-4 family fw-normal "
