@@ -188,7 +188,9 @@ $answerindex = 0;
                                                     {{ $answers[$answerindex]->description }} 
                                                 </label>
                                               </div>
-    
+                                              @php 
+                                                $answerindex ++; 
+                                                @endphp
                                         </div>
                                         <div class="col-lg-6">
     
@@ -200,10 +202,12 @@ $answerindex = 0;
                                                    <img src="{{$a['reference_HTML']}}" alt="" class="img-fluid">
                                                     @endif
                                                     @endforeach
-                                                    {{ $answers[$answerindex + 1]->description }}
+                                                    {{ $answers[$answerindex]->description }}
                                                 </label>
                                               </div>
-    
+                                              @php 
+                                              $answerindex ++; 
+                                              @endphp
                                         </div>
                                     </div>
                                     <div class="row">
@@ -218,10 +222,12 @@ $answerindex = 0;
                                                    <img src="{{$a['reference_HTML']}}" alt="" class="img-fluid">
                                                     @endif
                                                     @endforeach
-                                                    {{ $answers[$answerindex + 2]->description }}
+                                                    {{ $answers[$answerindex]->description }}
                                                 </label>
                                               </div>
-    
+                                              @php 
+                                              $answerindex ++; 
+                                              @endphp
                                         </div>
                                         <div class="col-lg-6">
     
@@ -233,7 +239,7 @@ $answerindex = 0;
                                                    <img src="{{$a['reference_HTML']}}" alt="" class="img-fluid">
                                                     @endif
                                                     @endforeach
-                                                    {{ $answers[$answerindex + 3]->description }}
+                                                    {{ $answers[$answerindex]->description }}
                                                 </label>
                                             </div>
                                         </div>
@@ -246,7 +252,7 @@ $answerindex = 0;
                 </div>
                 </div>
                 @php 
-                $answerindex += 4; 
+                $answerindex ++; 
                 @endphp
             </div>
             @endforeach

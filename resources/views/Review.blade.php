@@ -116,6 +116,11 @@
                   @endforeach
                          </h4>
                         <p> {{ $question->description }}</p>
+                        @foreach($qreference as $q)
+                        @if($question->referenceid == $q['R_id'])
+                        <img src="{{$q['reference_HTML']}}" alt="" class="img-fluid">
+                        @endif
+                        @endforeach 
                         </div>
 
                         <div class="px-4">
@@ -126,6 +131,11 @@
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val1[{{ $question->mcq_questions_id }}]" value="1" {{ old("answers.$question->mcq_questions_id") == '1' ? 'checked' : '' }}>
                                                 <label class="form-check-label" id ="val1label[{{$question->mcq_questions_id}}]" for="val11">
+                                                    @foreach($answerreference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                   <img src="{{$a['reference_HTML']}}" alt="" class="img-fluid">
+                                                    @endif
+                                                    @endforeach
                                                     {{ $answers[$answerindex]->description }}
                                                     <script>
                                                        var answer= document.getElementById("val1[{!! $question->mcq_questions_id !!}]");
@@ -142,14 +152,20 @@
                                                     </script>   
                                                 </label>
                                               </div>
-    
+                                              @php $answerindex ++; 
+                                              @endphp
                                         </div>
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val2[{{ $question->mcq_questions_id }}]" value="2" {{ old("answers.$question->mcq_questions_id") == '2' ? 'checked' : '' }}>
                                                 <label class="form-check-label" id ="val2label[{{$question->mcq_questions_id}}]" for="val2">
-                                                    {{ $answers[$answerindex + 1]->description }}
+                                                    @foreach($answerreference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                   <img src="{{$a['reference_HTML']}}" alt="" class="img-fluid">
+                                                    @endif
+                                                    @endforeach
+                                                    {{ $answers[$answerindex]->description }}
                                                     <script>
                                                        var answer= document.getElementById("val2[{!! $question->mcq_questions_id !!}]");
                                                        var lable = document.getElementById("val2label[{!!$question->mcq_questions_id!!}]");
@@ -164,7 +180,8 @@
                                                     </script>
                                                 </label>
                                               </div>
-    
+                                              @php $answerindex ++; 
+                                                @endphp
                                         </div>
                                     </div>
                                     <div class="row">
@@ -174,7 +191,12 @@
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val3[{{ $question->mcq_questions_id }}]" value="3" {{ old("answers.$question->mcq_questions_id") == '3' ? 'checked' : '' }}>
                                                 <label class="form-check-label" id ="val3label[{{$question->mcq_questions_id}}]" for="val3">
-                                                    {{ $answers[$answerindex + 2]->description }}
+                                                    @foreach($answerreference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                   <img src="{{$a['reference_HTML']}}" alt="" class="img-fluid">
+                                                    @endif
+                                                    @endforeach
+                                                    {{ $answers[$answerindex]->description }}
                                                     <script>
                                                         var answer= document.getElementById("val3[{!! $question->mcq_questions_id !!}]");
                                                         var lable = document.getElementById("val3label[{!!$question->mcq_questions_id!!}]");
@@ -189,14 +211,20 @@
                                                         </script>
                                                 </label>
                                               </div>
-    
+                                              @php $answerindex ++; 
+                                                @endphp
                                         </div>
                                         <div class="col-lg-6">
     
                                             <div class="form-check">
                                                 <input class="form-check-input shadow" type="radio" name="answers[{{ $question->mcq_questions_id }}]" id="val4[{{ $question->mcq_questions_id }}]" value="4" {{ old("answers.$question->mcq_questions_id") == '4' ? 'checked' : '' }}>
                                                 <label class="form-check-label" id ="val4label[{{$question->mcq_questions_id}}]" for="val4">
-                                                    {{ $answers[$answerindex + 3]->description }}
+                                                    @foreach($answerreference as $a)
+                                                    @if($answers[$answerindex]->reference == $a['R_id'])
+                                                   <img src="{{$a['reference_HTML']}}" alt="" class="img-fluid">
+                                                    @endif
+                                                    @endforeach
+                                                    {{ $answers[$answerindex]->description }}
                                                     <script>
                                                         var answer= document.getElementById("val4[{!! $question->mcq_questions_id !!}]");
                                                         var lable = document.getElementById("val4label[{!!$question->mcq_questions_id!!}]");
@@ -223,7 +251,7 @@
                 </div>
             </div>
                 @php
-                 $answerindex += 4;
+                 $answerindex ++;
                 @endphp
             @endforeach
         

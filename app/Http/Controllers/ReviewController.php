@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reference;
 use App\Models\Sh_Answer;
 use Illuminate\View\View;
 use App\Models\Sh_Question;
@@ -26,15 +27,34 @@ class ReviewController extends Controller
         $questions = Mcq_Question::whereIn('mcq_questions_id', $finalids)
             ->get();
 
+         //taking the reference ID's of mcq questions
+         $qreferenceid=  Mcq_Question::whereIn('mcq_questions_id', $finalids)
+         ->get('referenceid');
+
+         //taking the reference for matching reference ID's
+         $qreference= Reference::whereIn('R_id',$qreferenceid)
+         ->get()->toArray();
+
+         $referenceArray = [];
+
         $answers = DB::table('mcq_answers')
             ->join('mcq_questions', 'question_id', '=', 'mcq_questions_id')
-            ->select("mcq_answers.description")
+            ->select("mcq_answers.description","reference")
             ->whereIn('mcq_answers.question_id', $finalids)
             ->get();
 
+         //getting answer reference ID's
+         foreach ($answers as $answer) {
+            $reference = $answer->reference;
+            $referenceArray[] = $reference;
+        }
+        //querying answer reference objects as an array
+        $answerreference= Reference::whereIn('R_id',$referenceArray)
+        ->get()->toArray();
+
         //return $questions; // Return selected questions
         $request->session()->put('review_completed', true);
-        return view('Review', compact('questions', 'answers', 'useranswers'));
+        return view('Review', compact('questions', 'answers', 'useranswers','qreference','answerreference'));
     }
     
 
