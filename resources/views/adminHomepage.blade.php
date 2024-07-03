@@ -136,7 +136,7 @@
         <div class="col-md-6 col-sm-12 mb-4">
           <div class="card card-custom">
             <div class="card-body card-body-custom">
-              <a href="{{url('addCreator')}}" class="card-text-custom">Add Paper Creator</a>
+              <a href="{{url('addMod')}}" class="card-text-custom">Add Paper Creator</a>
             </div>
           </div>
         </div>
