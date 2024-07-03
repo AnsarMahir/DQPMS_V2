@@ -1,24 +1,24 @@
 <?php
+use App\Models\User;
 use App\Livewire\Gptanswer;
+use App\Http\Controllers\Exam;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RankController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Exam;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ModeratorController;
+use App\Http\Controllers\PieChartController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ModeratorController;
 use App\Http\Controllers\PastpaperController;
 use Intervention\Image\Laravel\Facades\Image;
+use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ShareWidgetController;
 use Symfony\Component\Console\Question\Question;
-use App\Http\Controllers\ChartController;
-use App\Http\Controllers\PieChartController;
-use App\Http\Controllers\LeaderboardController;
-use App\Models\User; //add the model for the users
 use App\Models\Moderator; //add the model for the moderators
 use Illuminate\Support\Facades\Validator; //add the validator
 use App\Models\Paper_creator; //add the model for the paper creators
