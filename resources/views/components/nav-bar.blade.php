@@ -47,7 +47,7 @@
                     </ul>
                 </div>
                 @endif
-                @if(Auth::user()->isCreator())
+                @if(Auth::user()->isModerator())
                 <div class="d-flex justify-content-center flex-grow-1" style="margin-left: -35px;">
                     <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
                         <li class="nav-item"><a href="/moderator/home" class="nav-link nav-hover fs-6">Home</a></li>
