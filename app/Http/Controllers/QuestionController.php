@@ -223,6 +223,8 @@ class QuestionController extends Controller
                     }
                     elseif($question->nature=='OTHER'){
                         $time+=2.5;
+                    }else{
+                        $time+=2.5;
                     }
                 }
             }
