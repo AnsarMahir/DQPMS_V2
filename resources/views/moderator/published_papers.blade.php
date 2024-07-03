@@ -111,7 +111,7 @@
     <div class="container">
         <div class="row">
             @foreach ($publishedPapers as $paper)
-            <div class="col-md-4">
+            <div class="col">
                 <div class="card">
                     <img src="{{ asset('Assets/images/published.png') }}" class="card-img-top" alt="...">
                     <div class="card-body">

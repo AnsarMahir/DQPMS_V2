@@ -185,9 +185,9 @@ class ModeratorController extends Controller
         }
 
 
-        public function validateAndStoreQuestions(Request $request){
+        public function validateAndStoreQuestionsMod(Request $request){
 
-           // dd($request);
+           //dd($request);
 
             $i=0;
             $no_of_questions = $request['pastpaperData'][1];

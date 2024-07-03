@@ -13,11 +13,11 @@ class Upcomingexam extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
-            if (is_null($model->start)) {
-                $model->start = date('Y-m-d');
-            }
-        });
+        // static::creating(function ($model) {
+        //     if (is_null($model->start)) {
+        //         $model->start = date('Y-m-d');
+        //     }
+        // });
     }
 }
 

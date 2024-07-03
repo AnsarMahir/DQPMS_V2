@@ -204,7 +204,7 @@ color: white;
 
            {{--@dd($paperData)--}}
 
-            <form action="/QuestionStore" method="POST" enctype="multipart/form-data">
+            <form action="/QuestionStoreMod" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 {{-- Get Pastpaper Data into controller --}}

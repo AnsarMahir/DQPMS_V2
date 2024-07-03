@@ -128,11 +128,11 @@ Route::get('/moderate/{id}/{type}', [ModeratorController::class, 'viewPaper'])->
 
 
 
-Route::post('/resavedraftMod',[ModeratorController::class,'resavedraft'])->name('resavedraftMod');
+// Route::post('/resavedraftMod',[ModeratorController::class,'resavedraft'])->name('resavedraftMod');
 //validate and store
 Route::post('/QuestionStoreMod',[ModeratorController::class,'validateAndStoreQuestionsMod']);
 
-//published papers
+//published papers  
 Route::get('/moderator/publishedpapers',[ModeratorController::class, 'getPublishedPapers'])->name('published.papers');
 
 
