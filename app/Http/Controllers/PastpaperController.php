@@ -343,7 +343,7 @@ public function showqnature(){
 
         $pastpaperData = Pastpaper::whereIn('P_id', $pastpaperID)->get();
 
-        return view('PublishedPapers',
+        return view('CreatorPublished',
         ['PastpaperData' => $pastpaperData]
         );
 

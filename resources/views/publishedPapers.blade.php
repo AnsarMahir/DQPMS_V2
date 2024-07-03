@@ -1,57 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{{ asset('css\Hamas_style.css ') }}">
-    <script src="//unpkg.com/alpinejs" defer></script>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      /background-image: url("full.png");/
+      background-repeat: no-repeat;
+      background-position: center 2%;
+      background-size: cover;
+      height: 100%;
+      width: 100%;
+    }
+    li a {
+      color: white;
+    }
+    
+    /* Custom style for the navbar-toggler-icon */
+    .navbar-toggle .icon-bar {
+      background-color: white;
+    }
+    .navbar-header {
+      margin-left: -10%;
+    }
+    /* Adjusted style for the "View All" button */
+    .btn-view-all {
+      background-color:blueviolet;
+      color: white;
+    }
+    
+  </style>
 </head>
 
-<body>
-    <x-nav-bar/>
+<body class="body">
 
-    
+  <nav class="navbar navbar-light" style="background-color: blueviolet;">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="color:white;">DQPMS</a>
+      </div>
+     
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url('adminHomepage')}}"><strong>&emsp; Home&emsp;&emsp;</strong></a></li>
+          <li><a href="{{url('publishedPapers')}}"><strong>&emsp; Papers&emsp;&emsp;</strong></a></li>
+          <li><a href="{{url('userDetails')}}"><strong>&emsp; User Details&emsp;&emsp;</strong></a></li>
+          <li><a href="#"><strong>&emsp; FAQ&emsp;&emsp;</strong></a></li>
+          <li><a href="#"><strong>&emsp; Upcoming Exams&emsp;&emsp;&emsp;&emsp;</strong></a></li>
+         
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <section class="p-5 pt-lg-5">
-        <div class="container pt-5">
-            <div class="row">
+  <br>
+  <br>
+  
+  <div class="container">
+    <div class="justify-content-center mt-5">
+      <div class="row m-3">
+        <div class="col-12">
+          <h2 style="color:rgb(21, 14, 102); font-weight: bold;">Published Papers</h2>
+          <br>
+          <div class="card mt-5">
+            <div class="card-body">
+              <table class="table table-hover justify-content-center table-PRIMARY table-borderless table-striped">
+                <thead>
+                  <tr class="table-dark">
+                    <th scope="col">Paper</th>
+                    <th scope="col">Published Date</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Language</th>
+                    <th scope="col">No. of questions</th>
+                    <th scope="col">Creator ID</th>
+                    <th scope="col">Moderator ID</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-                @if ($PastpaperData->isEmpty())
+                  @foreach($pastpapers as $pastpaper)
+                  <tr>
+                    <td >{{$pastpaper->name}}</td>
+                    <td>{{$pastpaper->created_at}}</td>
+                    <td>{{$pastpaper->question_type}}</td>
+                    <td>{{$pastpaper->language}}</td>
+                    <td>{{$pastpaper->no_of_questions}}</td>
+                    <td>{{$pastpaper->CreatorID}}</td>
+                    <td>{{$pastpaper->ModeratorID}}</td>
+                  </tr>
+                 @endforeach
 
-                    <p>No Published Papers Found</p>
-                    
-                @endif
-
-
-                @foreach ($PastpaperData as $paper)
-                
-                <div class="col-lg-4 mb-3 ">
-
-                    <div class="col" style="border-radius: 5px; background-color:#7e53ff">
-
-                        <div class="d-flex flex-column">
-                            <a href="/PublishedPapers/{{$paper->P_id}}/{{$paper->question_type}}" style="text-decoration: none">
-                            <div class="d-flex flex-column p-4 text-light paperCard">
-                                <h5 >{{$paper->name}}</h4>
-                                <p> {{$paper->year}} | {{$paper->language}} | {{$paper->question_type}} | {{$paper->no_of_questions}} Questions</p>
-                                <p><b>Status:</b> {{$paper->CreatorState}}</p>                          
-                            </div>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>  
-                    
-                @endforeach
-            </div>        
-            
-            
-
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- "View All" button at the bottom right -->
+  <div class="container text-right" style="position: fixed; bottom: 20px; right: 20px;" data-toggle="modal" data-target="#myModal">
+    <button class="btn btn-view-all">View All</button>
+  </div>
+   
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm"> 
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>All published papers displayed.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
+
 </html>

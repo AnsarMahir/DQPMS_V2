@@ -21,6 +21,15 @@
                     </ul>
                 </div>
                 @endif
+                <!-- links for student-->
+                @if(Auth::user()->isAdmin())
+                <div class="d-flex justify-content-center flex-grow-1" style="margin-left: -35px;">
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
+                        <li class="nav-item"><a href="/adminHomepage" class="nav-link nav-hover fs-6">Home</a></li>
+                        <li class="nav-item"><a href="/pubishedPaper" class="nav-link nav-hover fs-6">Published Paper</a></li>
+                    </ul>
+                </div>
+                @endif
 
                 <!-- links for creator-->
                 @if(Auth::user()->isCreator())
@@ -28,7 +37,7 @@
                     <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
                         <li class="nav-item"><a href="/CreatorHomepage" class="nav-link nav-hover fs-6">Home</a></li>
                         <li class="nav-item "><a href="/Draftpapers" class="nav-link nav-hover">Drafted Papers</a></li>
-                        <li class="nav-item "><a href="/PublishedPapers" class="nav-link nav-hover">Published Papers</a></li>
+                        <li class="nav-item "><a href="/CreatorPublished" class="nav-link nav-hover">Published Papers</a></li>
                         <li class="nav-item"><a href="/creatorRank" class="nav-link nav-hover fs-6">Rank</a></li>
                     </ul>
                 </div>

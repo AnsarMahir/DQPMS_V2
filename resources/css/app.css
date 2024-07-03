@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.rounded-custom {
+    border-radius: 12px; /* Adjust the pixel value as needed */
+  }

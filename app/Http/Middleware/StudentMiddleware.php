@@ -16,7 +16,7 @@ class StudentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && (Auth::user()->type === 'TUTOR' || Auth::user()->type === 'ADMIN')) 
+        if (Auth::check() && (Auth::user()->type === 'STUDENT' || Auth::user()->type === 'ADMIN')) 
         {
           return $next($request);
         }

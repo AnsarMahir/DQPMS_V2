@@ -1,21 +1,22 @@
 <?php
 use App\Livewire\Gptanswer;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\QuestionController;
 
-use App\Models\Moderator; //add the model for the moderators
-use App\Models\Paper_creator; //add the model for the paper creators
-use Illuminate\Support\Facades\Validator; //add the validator
-use App\Models\User; //add the model for the users
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PastpaperController;
 use Intervention\Image\Laravel\Facades\Image;
-use Symfony\Component\Console\Question\Question;
 use App\Http\Controllers\ShareWidgetController;
+use Symfony\Component\Console\Question\Question;
+use App\Models\User; //add the model for the users
+use App\Models\Moderator; //add the model for the moderators
+use Illuminate\Support\Facades\Validator; //add the validator
+use App\Models\Paper_creator; //add the model for the paper creators
 
 //use App\Http\Controllers\ModeratorsController; //add the controller for the moderators, alt method
 
@@ -55,10 +56,16 @@ Route::get('/userDetails', function () {
  });
  
  //route to the published papers
- Route::get('/publishedPapers', function () {
-     $published_papers=DB::table('published_papers')->get();
-     return view('publishedPapers', ['published_papers'=>$published_papers]);
- });
+Route::get('/publishedPapers', function () {
+    $pastpapers=DB::table('pastpaper')->get();
+    return view('publishedPapers', ['pastpapers'=>$pastpapers]);
+});
+
+Route::get('/CreatorPublished',[PastpaperController::class,'retrievePublished']);
+
+Route::get('/CreatorPublished/{id}/{paperType}',[PastpaperController::class,'viewPublishedPaper']);
+
+
  
  //route to the admin homepage
  Route::get('/adminHomepage', function () {
@@ -133,7 +140,7 @@ Route::get('/userDetails', function () {
          'password' => $validate_data['password'],
          'workplace' => $validate_data['workplace'],
          'position' => $validate_data['position'],
-         'type' => $validate_data['type']
+         'type' => $validate_data['type'],
      ]);
      return redirect('/addMod');
      
@@ -196,9 +203,6 @@ Route::get('/getPaperTitle',[PastpaperController::class,'getPaperTitle'])->name(
 
 Route::post('/deletePaperTitle/{id}',[PastpaperController::class,'deletePaperTitle'])->name('deletePaperTitle');
 
-Route::get('/PublishedPapers',[PastpaperController::class,'retrievePublished']);
-
-Route::get('/PublishedPapers/{id}/{paperType}',[PastpaperController::class,'viewPublishedPaper']);
 
 Route::post('/process-form', [ProfileController::class, 'processForm']);
 Route::post('/attempt-paper', [QuestionController::class, 'attemptPaper']);
