@@ -86,21 +86,17 @@ class QuestionController extends Controller
         }
         
         //Creating time based logic if user request a specific category of question
+        if($questionNature!='All'){
         $time=1;
             if ($questionNature=='GK'){
                 $time=1*$numberOfQuestions;
             }
             elseif($questionNature=='IQ'){
                 $time=1.5*$numberOfQuestions;
-            }
-            elseif($questionNature=='MATH'){
+            }else{
                 $time=2.5*$numberOfQuestions;
             }
-            elseif($questionNature=='OTHER'){
-                $time=2.5*$numberOfQuestions;
-            }
-
-
+        }
         if ($questionType === 'MCQ') {
             //getting the mcq questions in accordance with category or anytype of question
             if ($questionNature==='All'){

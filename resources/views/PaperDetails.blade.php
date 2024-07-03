@@ -93,7 +93,7 @@
                         @foreach($selectedValues as $key => $value)
                         <input type="hidden" name="selectedValues[{{ $key }}]" value="{{ $value }}">
                         @endforeach
-                          <button class="btn btncolor text-light" type="submit"><h4>Attempt Paper</h4></button>
+                          <button class="btn btncolor" type="submit"><h4>Attempt Paper</h4></button>
                           </div>
                         </form>
                 </div>
