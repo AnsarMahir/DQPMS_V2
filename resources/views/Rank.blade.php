@@ -76,8 +76,8 @@
         </div>
     </section>
     <script>
-        var xValues = ["GK", "IQ", "Math", "Logic", "Other"];
-        var yValues = [{{$gkQuestionsCount}}, {{$IqQuestionsCount}}, {{$MathQuestionsCount}},{{$LogicQuestionsCount}},{{$OtherQuestionsCount}}];
+        var xValues = ["GK", "IQ", "Math", "Econ","Demo","Other"];
+        var yValues = [{{$gkQuestionsCount}}, {{$IqQuestionsCount}}, {{$MathQuestionsCount}},{{$EconQuestionsCount}},{{$DemoQuestionsCount}},{{$OtherQuestionsCount}}];
         var barColors = "#875EFF";
 
         new Chart("myChart", {

@@ -30,11 +30,15 @@ class RankController extends Controller
 
         $IqQuestionsCount = $mcqquestion->where('nature','IQ')->count();
 
-        $MathQuestionsCount = $mcqquestion->where('nature','MATH')->count();
+        $MathQuestionsCount = $mcqquestion->where('nature','Math')->count();
 
-        $LogicQuestionsCount = $mcqquestion->where('nature','LOGIC')->count();
+        $LogicQuestionsCount = $mcqquestion->where('nature','Politics')->count();
 
-        $OtherQuestionsCount = $mcqquestion->where('nature','OTHER')->count();;        
+        $EconQuestionsCount = $mcqquestion->where('nature','Economics')->count();  
+             
+        $DemoQuestionsCount = $mcqquestion->where('nature','Demographic')->count();
+
+        $OtherQuestionsCount = $mcqquestion->where('nature','Other')->count();
 
         $rightcount = UserQuestion::where('user_id', Auth::user()->id)
                                   ->where('final_answer_status', 1)
@@ -118,7 +122,8 @@ class RankController extends Controller
         'rightcount' => $rightcount,'userName' => $userName,'questionsToNextLevel' => $questionsToNextLevel,'gkQuestionsCount' => $gkQuestionsCount,
         'IqQuestionsCount' => $IqQuestionsCount,
         'MathQuestionsCount' => $MathQuestionsCount,
-        'LogicQuestionsCount' => $LogicQuestionsCount,
-        'OtherQuestionsCount' => $OtherQuestionsCount]);
+        'OtherQuestionsCount' => $OtherQuestionsCount,
+        'EconQuestionsCount'=>$EconQuestionsCount,
+        'DemoQuestionsCount'=>$DemoQuestionsCount]);
     }
 }

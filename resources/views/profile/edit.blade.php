@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <style>
         .profile-card {
             background-color: #f8f9fa;
@@ -55,10 +56,27 @@
             background-color: #d1e7dd;
             border-color: #badbcc;
         }
+        .bgprimary{
+  background-color: #875EFF;
+}
+.bgbody {
+    background-color: #efe9ff;
+}
+.nav-link{
+  color: white; 
+  border-radius: 10px;
+}
+.nav-hover:hover{
+  border-radius: 10px;
+  color:  #0b036b !important;
+  background-color: #efe9ff;;
+
+}
     </style>
 </head>
-<body>
-<div class="container mt-4">
+<body class="bgbody">
+<x-nav-bar/>
+<div class="container" style="margin-top: 7rem !important;">
     <div class="profile-card">
         <h3 class="text-center mb-3">Edit your Profile</h3>
 
@@ -160,8 +178,9 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script>
     document.getElementById('change-photo-btn').addEventListener('click', function() {
         document.getElementById('photo').click();

@@ -35,6 +35,16 @@ class AuthenticatedSessionController extends Controller
         if ($user->type === 'STUDENT') {
             return redirect()->intended(RouteServiceProvider::STUDENT_HOME);
         }
+        if ($user->type === 'ADMIN') {
+            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        }
+        if ($user->type === 'CREATOR') {
+            return redirect()->intended(RouteServiceProvider::CREATOR_HOME);
+        }
+        if ($user->type ==='MODERATOR'){
+            return redirect()->intended(RouteServiceProvider::MODERATOR_HOME);
+        }
+
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

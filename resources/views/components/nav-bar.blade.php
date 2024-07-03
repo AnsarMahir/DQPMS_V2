@@ -18,6 +18,7 @@
                     <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
                         <li class="nav-item"><a href="Student" class="nav-link nav-hover fs-6">Home</a></li>
                         <li class="nav-item"><a href="/Rank" class="nav-link nav-hover fs-6">Rank</a></li>
+                        <li class="nav-item"><a href="/admin/dashboard" class="nav-link nav-hover fs-6"> Upcoming Exams</a></li>
                     </ul>
                 </div>
                 @endif
@@ -26,7 +27,11 @@
                 <div class="d-flex justify-content-center flex-grow-1" style="margin-left: -35px;">
                     <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
                         <li class="nav-item"><a href="/adminHomepage" class="nav-link nav-hover fs-6">Home</a></li>
-                        <li class="nav-item"><a href="/pubishedPaper" class="nav-link nav-hover fs-6">Published Paper</a></li>
+<li class="nav-item"><a href="/userDetails" class="nav-link nav-hover fs-6">User Details</a></li>
+ <li class="nav-item"><a href="/pubishedPapers" class="nav-link nav-hover fs-6">Published Paper</a></li>
+<li class="nav-item"><a href="/" class="nav-link nav-hover fs-6"> FAQ</a></li>
+<li class="nav-item"><a href="/admin/dashboard" class="nav-link nav-hover fs-6"> Upcoming Exams</a></li>
+
                     </ul>
                 </div>
                 @endif
@@ -39,6 +44,17 @@
                         <li class="nav-item "><a href="/Draftpapers" class="nav-link nav-hover">Drafted Papers</a></li>
                         <li class="nav-item "><a href="/CreatorPublished" class="nav-link nav-hover">Published Papers</a></li>
                         <li class="nav-item"><a href="/creatorRank" class="nav-link nav-hover fs-6">Rank</a></li>
+                    </ul>
+                </div>
+                @endif
+                @if(Auth::user()->isCreator())
+                <div class="d-flex justify-content-center flex-grow-1" style="margin-left: -35px;">
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
+                        <li class="nav-item"><a href="/moderator/home" class="nav-link nav-hover fs-6">Home</a></li>
+                        <li class="nav-item "><a href="moderator/moderatepapers" class="nav-link nav-hover">Moderate Papers</a></li>
+                        <li class="nav-item "><a href="moderator/publishedpapers" class="nav-link nav-hover">Published Papers</a></li>
+                        <li class="nav-item"><a href="moderator/dashboard" class="nav-link nav-hover fs-6">Dashboard</a></li>
+                        <li class="nav-item"><a href="/chatify" class="nav-link nav-hover fs-6">Chat</a></li>
                     </ul>
                 </div>
                 @endif
