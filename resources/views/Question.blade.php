@@ -167,7 +167,7 @@ $answerindex = 0;
                         <p> {{ $question->description }}</p>
                         @foreach($qreference as $q)
                         @if($question->referenceid == $q['R_id'])
-                        <img src="{{ asset($reference->reference_HTML) }}" alt="" class="img-fluid">
+                        <img src="{{ asset($q->reference_HTML) }}" alt="" class="img-fluid">
                         @endif
                         @endforeach  
                         </div>
