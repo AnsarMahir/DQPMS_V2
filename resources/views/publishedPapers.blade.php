@@ -90,42 +90,19 @@
                   </tr>
                 </thead>
                 <tbody>
+
+                  @foreach($published_papers as $published_paper)
                   <tr>
-                    <td class="">SLDLE</td>
-                    <td>02/06</td>
-                    <td>MCQ</td>
-                    <td>Sinhala</td>
-                    <td>20</td>
-                    <td>Mark</td>
-                    <td>Jacob</td>
+                    <td >{{$published_paper->paper_title}}</td>
+                    <td>{{$published_paper->created_at}}</td>
+                    <td>{{$published_paper->type}}</td>
+                    <td>{{$published_paper->language}}</td>
+                    <td>{{$published_paper->no_of_questions}}</td>
+                    <td>{{$published_paper->creator}}</td>
+                    <td>{{$published_paper->moderator}}</td>
                   </tr>
-                  <tr>
-                    <td class="">SLDLE</td>
-                    <td>02/03</td>
-                    <td>MCQ</td>
-                    <td>English</td>
-                    <td>20</td>
-                    <td>Mark</td>
-                    <td>Jacob</td>
-                  </tr>
-                  <tr>
-                    <td class="">SLLCE</td>
-                    <td>02/04</td>
-                    <td>MCQ</td>
-                    <td>Sinhala</td>
-                    <td>20</td>
-                    <td>Jess</td>
-                    <td>Henry</td>
-                  </tr>
-                  <tr>
-                    <td class="">SLLCE</td>
-                    <td>02/01</td>
-                    <td>MCQ</td>
-                    <td>English</td>
-                    <td>20</td>
-                    <td>Jess</td>
-                    <td>Henry</td>
-                  </tr>
+                 @endforeach
+
                 </tbody>
               </table>
             </div>

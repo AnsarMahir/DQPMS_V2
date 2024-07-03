@@ -45,15 +45,18 @@ Route::get('/userDetails', function () {
    return view('userDetails', ['users'=>$users]);
 });
 
+//route to the published papers
+Route::get('/publishedPapers', function () {
+    $published_papers=DB::table('published_papers')->get();
+    return view('publishedPapers', ['published_papers'=>$published_papers]);
+});
+
 //route to the admin homepage
 Route::get('/adminHomepage', function () {
     return view('adminHomepage');
 });
 
-//route to the published papers
-Route::get('/publishedPapers', function () {
-    return view('publishedPapers');
-});
+
 
 
 //route to adding paper creators
