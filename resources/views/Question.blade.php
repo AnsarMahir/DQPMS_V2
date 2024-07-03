@@ -165,11 +165,11 @@ $answerindex = 0;
                          </h4>
                         </div>
                         <p> {{ $question->description }}</p>
-                        {{-- @foreach($qreference as $q)
+                        @foreach($qreference as $q)
                         @if($question->referenceid == $q['R_id'])
-                            {!!$q['reference_HTML']!!}
+                        <img src="{{ asset($reference->reference_HTML) }}" alt="" class="img-fluid">
                         @endif
-                        @endforeach   --}}
+                        @endforeach  
                         </div>
                         <div class="px-4">
                                 @csrf
@@ -184,8 +184,8 @@ $answerindex = 0;
                                                     @if($answers[$answerindex]->reference == $a['R_id'])
                                                     {!!$a['reference_HTML']!!}
                                                     @endif
-                                                    @endforeach  --}}
-                                                    {{ $answers[$answerindex]->description }}
+                                                    @endforeach 
+                                                    {{ $answers[$answerindex]->description }} --}}
                                                 </label>
                                               </div>
     
