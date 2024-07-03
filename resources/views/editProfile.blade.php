@@ -63,40 +63,64 @@
                 <button class="btn btncolor change-photo-btn">Change Photo</button>
             </div>
             <div class="col-md-9">
-                <form action="" method="POST">
+            <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+             @csrf
+            </form>
+                <form method="post" action="{{ route('profile.update') }}">
                     @csrf
-                   
+                    @method('patch')
                     <div class="mb-2">
-                        <label for="name" class="form-label">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" >
+                        <label for="name" class="form-label" :value="__('Name')" >Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" :value="old('name', $user->name)" required autofocus autocomplete="name" >
+                        <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
                     <div class="mb-2">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <label for="email" class="form-label" :value="__('Email')">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" :value="old('email', $user->email)" required autocomplete="username">
+                        <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     </div>
+                    
                     <div class="mb-2">
                         <label for="phone" class="form-label">Contact:</label>
                         <input type="text" class="form-control" id="phone" name="phone" >
-                    </div>
-                    <div class="mb-2">
-                        <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" >
-                    </div>
-                    <div class="mb-2">
-                        <label for="confirmpassword" class="form-label">Confirm Password:</label>
-                        <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">
                     </div>
                     <div class="mb-2">
                         <label for="position" class="form-label">Position:</label>
                         <input type="text" class="form-control" id="position" name="position" >
                     </div>
                     <div class="mb-2">
-                        <label for="workplace" class="form-label">Position:</label>
-                        <input type="text" class="form-control" id="position" name="position" >
+                        <label for="workplace" class="form-label">Workplace:</label>
+                        <input type="text" class="form-control" id="workplace" name="workplace" >
                     </div>
+                </form>
+                <form method="post" action="{{ route('password.update') }}">
+                    @csrf
+                    @method('put')
+                    <div class="mb-2">
+                 
+                        <label for="password" class="form-label" :value="__('Current Password')">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" >
+                        <x-input-error :messages="$errors->updatePassword->get('current_password')" />
+                    </div>
+                   
+                    <div class="mb-2">
+                        <label for="confirmpassword" class="form-label" :value="__('Confirm Password')">Confirm Password:</label>
+                        <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" autocomplete="new-password">
+                        <x-input-error :messages="$errors->updatePassword->get('password_confirmation')"  />
+                    </div>
+                    
                     <div class="d-flex justify-content-end gap-2">
-                        <button type="button" class="btn btncolor">Cancel</button>
-                        <button type="submit" class="btn btncolor">Save</button>
+                        <button type="button" class="btn btncolor" >Cancel</button>
+                        <button type="submit" class="btn btncolor" >Save</button>
+                        @if (session('status') === 'profile-updated')
+                           <p
+                              x-data="{ show: true }"
+                              x-show="show"
+                              x-transition
+                              x-init="setTimeout(() => show = false, 2000)"
+                              class="text-sm text-gray-600 dark:text-gray-400"
+                              >{{ __('Saved.') }}</p>
+                        @endif
                     </div>
                 </form>
             </div>
