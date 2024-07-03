@@ -14,12 +14,12 @@ class CheckTutor
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && (Auth::user()->type === 'TUTOR' || Auth::user()->type === 'ADMIN')) {
+        if (Auth::check() && (Auth::user()->type === 'TUTOR' || Auth::user()->type === 'ADMIN')) 
+        {
             return $next($request);
         }
-        
         return redirect()->route('dashboard')->with('error', 'You do not have access to this page.');
     }
 }

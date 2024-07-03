@@ -9,23 +9,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'password',
-        'type'
-    ];
+    protected $guarded = [ ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -91,5 +86,27 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Pastpaper::class,'ModeratorID','id');
     }
+    public function isAdmin()
+    {
+        return $this->type === 'ADMIN';
+    }
+    public function isCreator()
+    {
+        return $this->type === 'CREATOR';
+    }
+    public function isModerator()
+    {
+        return $this->type === 'MODERATOR';
+    }
+    public function isTutor()
+    {
+        return $this->type === 'TUTOR';
+    }
+    public function isStudent()
+    {
+        return $this->type === 'STUDENT';
+    }
+    
+    
 }   
 

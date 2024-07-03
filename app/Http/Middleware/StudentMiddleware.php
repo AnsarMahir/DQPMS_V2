@@ -12,18 +12,14 @@ class StudentMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        // Check if the user is authenticated and has the 'STUDENT' role
-        if (Auth::check() && (Auth::user()->type === 'STUDENT' || Auth::user()->type === 'ADMIN')) {
-            return $next($request);
+        if (Auth::check() && (Auth::user()->type === 'TUTOR' || Auth::user()->type === 'ADMIN')) 
+        {
+          return $next($request);
         }
-
-        // Redirect to the dashboard with a flash message
         return redirect()->route('dashboard')->with('error', 'You do not have access to this page.');
     }
 }

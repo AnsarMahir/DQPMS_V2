@@ -7,10 +7,17 @@ use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
+
+use App\Models\Moderator; //add the model for the moderators
+use App\Models\Paper_creator; //add the model for the paper creators
+use Illuminate\Support\Facades\Validator; //add the validator
+use App\Models\User; //add the model for the users
 use App\Http\Controllers\PastpaperController;
 use Intervention\Image\Laravel\Facades\Image;
 use Symfony\Component\Console\Question\Question;
 use App\Http\Controllers\ShareWidgetController;
+
+//use App\Http\Controllers\ModeratorsController; //add the controller for the moderators, alt method
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +45,103 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
 });
+
+Route::get('/userDetails', function () {
+    $users=DB::table('users')->get();
+    
+    return view('userDetails', ['users'=>$users]);
+ });
+ 
+ //route to the published papers
+ Route::get('/publishedPapers', function () {
+     $published_papers=DB::table('published_papers')->get();
+     return view('publishedPapers', ['published_papers'=>$published_papers]);
+ });
+ 
+ //route to the admin homepage
+ Route::get('/adminHomepage', function () {
+     return view('adminHomepage');
+ });
+ 
+ 
+ 
+ 
+ //route to adding paper creators
+ Route::get('/addCreator', function () {
+     return view('addCreator');
+ });
+ 
+ //route to editing profile
+ Route::get('/editProfile', function () {
+     return view('editProfile');
+ });
+ 
+ 
+ 
+ //route to save data into the database (paper creators)
+ Route::post('datasend',function(){
+     $validate_data = Validator::make(request()->all(), [
+         'first_name' => 'required|string|max:20',
+         'last_name' => 'required|string|max:20',
+         'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
+         'password' => 'required',
+         'workplace' => 'required',
+         'position' => 'required'
+     ])->validated();
+ 
+     Paper_creator::create([
+         'first_name' => $validate_data['first_name'],
+         'last_name' => $validate_data['last_name'],
+         'email' => $validate_data['email'],
+         'password' => $validate_data['password'],
+         'workplace' => $validate_data['workplace'],
+         'position' => $validate_data['position']
+         
+     ]);
+     return redirect('/addCreator');
+     
+ });
+ 
+ 
+ 
+ //route to adding moderators
+ Route::get('/addMod', function () {
+     return view('addMod');
+ });
+ 
+ 
+ 
+ //route to validate and save data into the database (moderators--user)
+ Route::post('datasubmit',function(){
+     $validate_data = Validator::make(request()->all(), [
+         'name' => 'required|string|max:30',
+         'phone' => 'required|numeric|digits:10',
+         'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i',
+         'password' => 'required',
+         'workplace' => 'required',
+         'position' => 'required',
+         'type' => 'required'
+         
+     ])->validated();
+ 
+     User::create([
+         'name' => $validate_data['name'],
+         'phone' => $validate_data['phone'],
+         'email' => $validate_data['email'],
+         'password' => $validate_data['password'],
+         'workplace' => $validate_data['workplace'],
+         'position' => $validate_data['position'],
+         'type' => $validate_data['type']
+     ]);
+     return redirect('/addMod');
+     
+ });
+ 
+ 
+ 
+ 
 
 Route::get('/CreatorHomepage', [PastpaperController::class, 'getCreatorHomepage']);
 
