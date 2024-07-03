@@ -100,16 +100,25 @@
                         <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     </div>
                     <div class="mb-2">
-                        <label for="phone" class="form-label">Contact:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
+                    <label for="phone" class="form-label">Contact:</label>
+                         <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
+                         @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                         @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="position" class="form-label">Position:</label>
-                        <input type="text" class="form-control" id="position" name="position" value="{{ old('position', $user->position) }}">
+                    <label for="position" class="form-label">Position:</label>
+                       <input type="text" class="form-control @error('position') is-invalid @enderror" id="position" name="position" value="{{ old('position', $user->position) }}">
+                           @error('position')
+                           <div class="invalid-feedback">{{ $message }}</div>
+                           @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="workplace" class="form-label">Workplace:</label>
-                        <input type="text" class="form-control" id="workplace" name="workplace" value="{{ old('workplace', $user->workplace) }}">
+                    <label for="workplace" class="form-label">Workplace:</label>
+                      <input type="text" class="form-control @error('workplace') is-invalid @enderror" id="workplace" name="workplace" value="{{ old('workplace', $user->workplace) }}">
+                        @error('workplace')
+                       <div class="invalid-feedback">{{ $message }}</div>
+                       @enderror
                     </div>
                     <div class="d-flex justify-content-end gap-2">
                         <button type="button" class="btn btncolor">Cancel</button>
