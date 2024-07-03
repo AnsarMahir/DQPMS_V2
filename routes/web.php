@@ -106,6 +106,7 @@ Route::POST('/shortanswer',[QuestionController::class,'fetch'])->name('shortansw
 
 Route::get('get-languages', [PastpaperController::class, 'getLanguages'])->name('get.languages');
 Route::get('/gptanswer', Gptanswer::class);
+Route::get('/get-question-nature', [PastpaperController::class, 'getQuestionNature']);
 
 
 Route::post('/get-correct-answer', 'ReviewController@getCorrectAnswer');

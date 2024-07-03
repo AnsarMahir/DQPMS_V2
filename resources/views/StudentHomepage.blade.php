@@ -50,6 +50,34 @@ $(document).ready(function() {
 });
 
     </script>    
+<script>
+    $(document).ready(function() {
+    $('#exam, #language').change(function() {
+        var exam = $('#exam').val();
+        var language = $('#language').val();
+
+        if (exam && language) {
+            $.ajax({
+                url: '/get-question-nature', // Endpoint to get question nature
+                type: 'GET',
+                data: {
+                    exam: exam,
+                    language: language
+                },
+                success: function(data) {
+                    var questionNature = $('#questionNature');
+                    questionNature.empty(); // Clear previous options
+                    questionNature.append('<option selected disabled>Choose your question nature</option>');
+                    $.each(data, function(key, value) {
+                        questionNature.append('<option value="' + value + '">' + value + '</option>');
+                    });
+                    questionNature.append('<option value="All">ALL</option>');
+                }
+            });
+        }
+    });
+});
+</script>
 </head>
 
 <body class="position-relative">
@@ -115,7 +143,7 @@ $(document).ready(function() {
                                 <option selected disabled>Choose your question nature</option>
                                 @foreach($natures as $nature)
                                 <option value="{{ $nature }}">{{ $nature }}</option>
-                                @endforeach
+                                @endforeach 
                                 <option value="All">ALL</option>
                             </select>
                           </div>
@@ -129,7 +157,7 @@ $(document).ready(function() {
                             <select class="form-select" id="language" name="language" value="{{ old('language') }}">
                                 <option selected disabled>Choose your Language</option>
                                 
-                                <option value="English">English</option>
+                                 <option value="English">English</option> 
                                 
                             </select>
                           </div>
@@ -140,7 +168,7 @@ $(document).ready(function() {
                             @error('noofq')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>
                             @enderror
-                            <select class="form-select" id="language" name="noofq">
+                            <select class="form-select" id="noofq" name="noofq">
                                 <option selected disabled>Choose number of Questions</option>
                                 <option value="5">5</option>
                                 <option value="10">10</option>

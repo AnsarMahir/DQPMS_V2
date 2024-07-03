@@ -41,6 +41,25 @@ class PastpaperController extends Controller
         return view('QuestionCreation');
     }
 
+    public function getQuestionNature(Request $request)
+{
+    $exam = $request->input('exam');
+    $language = $request->input('language');
+
+    // Fetch data from the pastpaper table based on exam and language
+    $questionid = DB::table('pastpaper')
+                        ->where('name', $exam)
+                        ->where('language', $language)
+                        ->pluck('P_id');
+    $questionNatures=DB::table('mcq_questions')
+                        ->whereIn('pastpaper_reference',$questionid)
+                        ->distinct()
+                        ->pluck('nature');
+
+
+    return response()->json($questionNatures);
+}
+
     public function showForm()
 {
     $examname = Pastpaper::select('name')->where('ModeratorState','Published')->distinct()->get()->pluck('name');
