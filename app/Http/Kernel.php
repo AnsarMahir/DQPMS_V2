@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'student' => \App\Http\Middleware\StudentMiddleware::class,
         'creator' => \App\Http\Middleware\CheckCreator::class,
         'moderator' => \App\Http\Middleware\CheckModerator::class,
+        'admin' => \App\Http\Middleware\admin::class,
         'tutor' => \App\Http\Middleware\CheckTutor::class,
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
