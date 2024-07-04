@@ -50,7 +50,7 @@ $qnatures = $qNatures;
                         
                     @else
 
-                        <x-Create-SH-Question :i="$i"/>
+                        <x-Create-SH-Question :i="$i" :q-natures="$qNatures"/>
                         
                     @endif
 

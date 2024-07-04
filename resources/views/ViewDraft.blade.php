@@ -32,7 +32,7 @@ $i=0;
             {{-- @dd($paperData) --}}
             
 
-            <form action="/QuestionStore" method="POST" enctype="multipart/form-data">
+            <form action="/StoreDraft" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 {{-- Get Pastpaper Data into controller --}}
@@ -69,7 +69,9 @@ $i=0;
                         $i++
                     @endphp
                     
-                @endwhile           
+                @endwhile       
+                
+                {{-- {{dd(session()->all())}} --}}
                 
 
                 <div class="row justify-content-center">

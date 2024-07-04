@@ -1,6 +1,8 @@
 @props(['i','data'])
 <input type="hidden" value="{{$data[$i]['mcq_questions_id']}}" name="{{'questionID'.$i}}">
 
+
+
 <div class="row justify-content-center pb-4">
     <div class="col-lg-8 p-4 border shadow">
             
@@ -39,8 +41,15 @@
                 @error($i.'Q_Reference')
                     <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                 @enderror 
+
+                
                 
                 @if($data[$i]['reference'])
+                <div class="row">
+                    <div class="d-flex flex-row-reverse" > 
+                        <button class="btn" type="button" id="QuestionClearBtn{{$i}}" onClick="clearImage({{$i}},'Q')" style="display:none"><i class="bi bi-x"></button></i>
+                    </div>                  
+                </div>
                 <div class="row">
                     <img src="{{$data[$i]['reference']['reference_HTML']}}" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
                 </div>
@@ -73,7 +82,7 @@
                             
 
                         </div>
-                        @error($i.'answer1')
+                        @error($i.'answer0')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                         @enderror
                     </div> 
@@ -91,7 +100,7 @@
                             </button> 
 
                         </div>
-                        @error($i.'answer2')
+                        @error($i.'answer1')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                         @enderror
                     </div>
@@ -137,7 +146,7 @@
 
                         </div>
                         
-                        @error($i.'answer3')
+                        @error($i.'answer2')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                         @enderror
 
@@ -155,7 +164,7 @@
                             </button>   
 
                         </div>
-                        @error($i.'answer4')
+                        @error($i.'answer3')
                             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
                         @enderror
                     </div> 
@@ -243,7 +252,13 @@
         
         const imgTag = document.getElementById(previewImageTag); // get img tag Element Object
 
+        let clearButtonId = 'QuestionClearBtn' + questionId;
+
+        const clearButton = document.getElementById(clearButtonId);
+
         createBlob(imgTag,uploadImgElement);
+
+        clearButton.style.display = "block";
         
     }    
     
@@ -275,6 +290,31 @@
         imgTag.src = blobURL;//Pass BLOB URL to image Tag
 
 
+    }
+
+    function clearImage(questionId , type , answerIndex = null) {
+
+        let previewImageTagId, inputFileId, clearButtonId;
+
+        if (type === 'Q') {
+            previewImageTagId = questionId + 'questionPreviewImageTag';
+            inputFileId = questionId + 'Q_Reference';
+            clearButtonId = 'QuestionClearBtn' + questionId;
+        } else {
+            previewImageTagId = questionId + 'answerPreviewImageTag' + answerIndex;
+            inputFileId = questionId + 'A_Reference' + answerIndex;
+            clearButtonId = 'AnswerClearBtn' + questionId + answerIndex;
+        }
+
+        let imgTag = document.getElementById(previewImageTagId);
+        let inputFile = document.getElementById(inputFileId);
+        let clearButton = document.getElementById(clearButtonId);
+
+
+        imgTag.style.display = "none";
+        imgTag.src = "";
+        inputFile.value = "";
+        clearButton.style.display = "none";
     }
 
 </script>

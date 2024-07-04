@@ -24,9 +24,15 @@
             
         </div>
 
+        @if($data[$i]['reference'])
+        <div class="row">
+            <img src="{{$data[$i]['reference']['reference_HTML']}}" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
+        </div>
+        @else
         <div class="row">
             <img src="" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
         </div>
+        @endif
         
         <div class="py-3">
             <div class="d-flex flex-fill">    
