@@ -18,7 +18,7 @@
                     <ul class="navbar-nav mb-2 mb-lg-0" style="column-gap: 1REM;">
                         <li class="nav-item"><a href="Student" class="nav-link nav-hover fs-6">Home</a></li>
                         <li class="nav-item"><a href="/Rank" class="nav-link nav-hover fs-6">Rank</a></li>
-                        <li class="nav-item"><a href="/admin/dashboard" class="nav-link nav-hover fs-6"> Upcoming Exams</a></li>
+                        <li class="nav-item"><a href="/exam/dashboard" class="nav-link nav-hover fs-6"> Upcoming Exams</a></li>
                     </ul>
                 </div>
                 @endif
@@ -55,6 +55,8 @@
                         <li class="nav-item "><a href="moderator/publishedpapers" class="nav-link nav-hover">Published Papers</a></li>
                         <li class="nav-item"><a href="moderator/dashboard" class="nav-link nav-hover fs-6">Dashboard</a></li>
                         <li class="nav-item"><a href="/chatify" class="nav-link nav-hover fs-6">Chat</a></li>
+                        <li class="nav-item"><a href="/exam/dashboard" class="nav-link nav-hover fs-6"> Upcoming Exams</a></li>
+                        <li class="nav-item"><a href="/admin/dashboard" class="nav-link nav-hover fs-6"> Upload Exams</a></li>
                     </ul>
                 </div>
                 @endif

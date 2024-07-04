@@ -354,7 +354,7 @@ class ModeratorController extends Controller
                 }
             }else{
 
-                dd($request);
+                //dd($request);
 
             };
 
@@ -564,7 +564,7 @@ class ModeratorController extends Controller
                     }
                 }else{
 
-                    dd($request);
+                    //dd($request);
 
                 };
 

@@ -167,10 +167,12 @@ class QuestionController extends Controller
                         elseif($question->nature=='IQ'){
                             $time+=1.5;
                         }
-                        elseif($question->nature=='MATH'){
+                        elseif($question->nature=='Math'){
                             $time+=2.5;
                         }
-                        elseif($question->nature=='OTHER'){
+                        elseif($question->nature=='Economics'){
+                            $time+=2.5;
+                        }else{
                             $time+=2.5;
                         }
                     }
@@ -218,10 +220,10 @@ class QuestionController extends Controller
                     elseif($question->nature=='IQ'){
                         $time+=1.5;
                     }
-                    elseif($question->nature=='MATH'){
+                    elseif($question->nature=='Math'){
                         $time+=2.5;
                     }
-                    elseif($question->nature=='OTHER'){
+                    elseif($question->nature=='Economics'){
                         $time+=2.5;
                     }else{
                         $time+=2.5;
