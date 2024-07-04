@@ -134,7 +134,7 @@ public function showqnature(){
                                     ->orderBy('pastpapers_count', 'asc')
                                     ->first();
         
-        dd($moderatorQuery);
+        //dd($moderatorQuery);
 
         if($moderatorQuery){
 
