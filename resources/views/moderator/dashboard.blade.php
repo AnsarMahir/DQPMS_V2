@@ -96,7 +96,7 @@
                     const mcqCtx = document.getElementById('mcqChart').getContext('2d');
 
                     // Define all possible MCQ categories
-                    const mcqCategories = ['IQ', 'GK', 'MATH', 'OTHER'];
+                    const mcqCategories = ['IQ', 'Math', 'Politics', 'Economics', 'Demographic', 'Other'];
 
                     // Create a data structure ensuring all categories are present
                     const mcqData = mcqCategories.map(category => {
@@ -118,7 +118,9 @@
                                     'rgba(255, 99, 132, 0.6)',
                                     'rgba(54, 162, 235, 0.6)',
                                     'rgba(255, 206, 86, 0.6)',
-                                    'rgba(75, 192, 192, 0.6)'
+                                    'rgba(75, 192, 192, 0.6)',
+                                    'rgba(153, 102, 255, 0.6)',
+                                    'rgba(255, 159, 64, 0.6)'
                                 ],
                                 borderWidth: 1
                             }]
@@ -155,7 +157,7 @@
                     const shCtx = document.getElementById('shortAnswerChart').getContext('2d');
 
                     // Define all possible Short Answer categories
-                    const shCategories = ['IQ', 'GK', 'MATH', 'OTHER', 'LOGIC'];
+                    const shCategories = ['IQ', 'Math', 'Politics', 'Economics', 'Demographic', 'Other'];
 
                     // Create a data structure ensuring all categories are present
                     const shData = shCategories.map(category => {
@@ -178,7 +180,8 @@
                                     'rgba(54, 162, 235, 0.6)',
                                     'rgba(255, 206, 86, 0.6)',
                                     'rgba(75, 192, 192, 0.6)',
-                                    'rgba(153, 102, 255, 0.6)'
+                                    'rgba(153, 102, 255, 0.6)',
+                                    'rgba(255, 159, 64, 0.6)'
                                 ],
                                 borderWidth: 1
                             }]

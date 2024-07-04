@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moderator Home Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -101,9 +102,20 @@
             margin: 0; /* Align buttons in a horizontal line */
             width: 200px; /* Full width for the buttons */
         }
+        .bgprimary{
+            background-color: #7e53ff
+        }
+        .nav-hover:hover{
+            border-radius: 10px;
+            color:  #0b036b !important;
+            background-color: #efe9ff;;
+
+        }
     </style>
 </head>
 <body>
+    <x-nav-bar/>
+
     <div class="content-wrapper">
         <div class="welcome-section">
             <div class="welcome-text">
