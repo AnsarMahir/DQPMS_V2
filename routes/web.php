@@ -58,13 +58,13 @@ Route::get('/userDetails', function () {
     $users=DB::table('users')->get();
     
     return view('userDetails', ['users'=>$users]);
- });
+ })->middleware('admin');
  
  //route to the published papers
 Route::get('/publishedPapers', function () {
     $pastpapers=DB::table('pastpaper')->get();
     return view('AdminPublishedPaper', ['pastpapers'=>$pastpapers]);
-});
+})->middleware('admin');
 
 Route::get('/CreatorPublished',[PastpaperController::class,'retrievePublished']);
 
@@ -75,7 +75,7 @@ Route::get('/CreatorPublished/{id}/{paperType}',[PastpaperController::class,'vie
  //route to the admin homepage
  Route::get('/adminHomepage', function () {
      return view('adminHomepage');
- });
+ })->middleware('admin');
  
  
  
@@ -83,7 +83,7 @@ Route::get('/CreatorPublished/{id}/{paperType}',[PastpaperController::class,'vie
  //route to adding paper creators
  Route::get('/addCreator', function () {
      return view('addCreator');
- });
+ })->middleware('admin');
  
  //route to editing profile
  Route::get('/editProfile', function () {
@@ -155,7 +155,7 @@ Route::get('/CreatorPublished/{id}/{paperType}',[PastpaperController::class,'vie
  
 Route::get('/ai',[ReviewController::class,'getEmbedding']);
 
-Route::get('/CreatorHomepage', [PastpaperController::class, 'getCreatorHomepage']);
+Route::get('/CreatorHomepage', [PastpaperController::class, 'getCreatorHomepage'])->middleware('creator');
 
 Route::get('/Rank', [RankController::class,'generateBadge']);
 
@@ -163,9 +163,9 @@ Route::get('/questioncheck',function(){
     return view('questioncheck');
 });
 
-Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest']);
+Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequest'])->middleware('creator');
 
-Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuestions']);
+Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuestions'])->middleware('creator');
 
 //Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 
@@ -182,11 +182,11 @@ Route::get('/PaperDetails',function(){
 })
  ->middleware(['auth','verified']);
 
-Route::get('/Draftpapers',[PastpaperController::class,'retrieveDraft']);
+Route::get('/Draftpapers',[PastpaperController::class,'retrieveDraft'])->middleware('creator');
 
-Route::post('/savedraft',[PastpaperController::class,'savedraft'])->name('savedraft');
+Route::post('/savedraft',[PastpaperController::class,'savedraft'])->name('savedraft')->middleware('creator');
 
-Route::post('/resavedraft',[PastpaperController::class,'resavedraft'])->name('resavedraft');
+Route::post('/resavedraft',[PastpaperController::class,'resavedraft'])->name('resavedraft')->middleware('creator');
 
 Route::get('/paper/{id}/{paperType}',[PastpaperController::class,'viewPaper']);
 
@@ -202,7 +202,7 @@ Route::get('/shareBadge/{appName}',[ShareWidgetController::class,'shareBadge']);
 
 Route::get('/paperTitlePage',[PastpaperController::class,'showPaperTitlePage']);
 
-Route::post('/addPaperTitle',[PastpaperController::class,'addPaperTitle']);
+Route::post('/addPaperTitle',[PastpaperController::class,'addPaperTitle'])->middleware('creator');
 
 Route::get('/getPaperTitle',[PastpaperController::class,'getPaperTitle'])->name('getPaperTitle');
 
@@ -245,11 +245,11 @@ Route::post('/discussion/store', [PostController::class, 'store'])->name('discus
 Route::get('/forum', [PostController::class, 'index'])->name('forum');
 
 //moderator role
-Route::get('/moderator/home', [ModeratorController::class, 'home'])->name('moderator.home');
-Route::get('moderator/moderatepapers',[ModeratorController::class, 'getSubmittedPapers'])->name('moderator.papers');
+Route::get('/moderator/home', [ModeratorController::class, 'home'])->name('moderator.home')->middleware('moderator');
+Route::get('moderator/moderatepapers',[ModeratorController::class, 'getSubmittedPapers'])->name('moderator.papers')->middleware('moderator');
 
-Route::get('/view-paper/{id}/{paperType}', [ModeratorController::class, 'viewpaper'])->name('moderator.wholepaper');
-Route::get('/moderate/{id}/{type}', [ModeratorController::class, 'viewPaper'])->name('moderate.paper1');
+Route::get('/view-paper/{id}/{paperType}', [ModeratorController::class, 'viewpaper'])->name('moderator.wholepaper')->middleware('moderator');
+Route::get('/moderate/{id}/{type}', [ModeratorController::class, 'viewPaper'])->name('moderate.paper1')->middleware('moderator');
 
 
 

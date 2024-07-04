@@ -56,7 +56,7 @@ $counter=1;
                                  <p> <b> {{ old("answer$counter")}} </b></p>
                                  <label for="answer" class="form-label">Guided Answer:</label>
                                  <p> <b> {{$question->correct_answer}} </b></p> 
-                            
+                                 @livewire('similarity-calculator', ['studentAnswer' => old("answer$loop->index"), 'correctAnswer' => $question->correct_answer])   
                                 </div>
 
                         </div>

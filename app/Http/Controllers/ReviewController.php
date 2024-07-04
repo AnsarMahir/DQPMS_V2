@@ -148,7 +148,7 @@ class ReviewController extends Controller
         ], 500);
     }
 }
-public static function getEmbedding()
+public static function getEmbedding($parameter)
 {
     // Replace these with your actual values
     
@@ -167,7 +167,7 @@ public static function getEmbedding()
     
     // Prepare payload
     $payload = [
-        "input" => "Sri lanka"
+        "input" => $parameter
     ];
 
     // Make the POST request
@@ -182,8 +182,48 @@ public static function getEmbedding()
     } else {
         $embedding = [];
     }
-    dd($embedding);
+    
     return $embedding;
 }
 
+public static function getAnswerSimilarity($studentAnswer, $correctAnswer)
+{
+    // Get embeddings for both answers
+    $studentEmbedding = self::getEmbedding($studentAnswer);
+    $correctEmbedding = self::getEmbedding($correctAnswer);
+
+    // Ensure embeddings are not empty
+    if (empty($studentEmbedding) || empty($correctEmbedding)) {
+        Log::error('One or both embeddings are empty.');
+        return 0;
+    }
+
+    // Calculate similarity
+    $similarity = self::calculateSimilarity($studentEmbedding, $correctEmbedding);
+
+    return $similarity * 100; // Return similarity as a percentage
+}
+
+public static function calculateSimilarity($embedding1, $embedding2)
+{
+    $dotProduct = array_sum(array_map(function ($a, $b) {
+        return $a * $b;
+    }, $embedding1, $embedding2));
+
+    $magnitude1 = sqrt(array_sum(array_map(function ($a) {
+        return $a * $a;
+    }, $embedding1)));
+
+    $magnitude2 = sqrt(array_sum(array_map(function ($a) {
+        return $a * $a;
+    }, $embedding2)));
+
+    if ($magnitude1 * $magnitude2 == 0) {
+        return 0;
+    } else {
+        return $dotProduct / ($magnitude1 * $magnitude2);
+    }
+
+
+}
 }
