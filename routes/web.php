@@ -49,6 +49,8 @@ Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequ
 
 Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuestions']);
 
+Route::post('/StoreDraft',[PastpaperController::class,'storeFromDraft']);
+
 //Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 
 Route::get('/StudentHomepage',function(){
