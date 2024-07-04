@@ -37,7 +37,7 @@ class PieChartController extends Controller
             ->get();
 
         // Define all possible categories
-        $allCategories = ['IQ', 'GK', 'MATH', 'OTHER'];
+        $allCategories = ['IQ', 'Math', 'Politics', 'Economics', 'Demographic', 'Other'];
 
         // Convert the data to an associative array
         $mcqData = $mcqData->pluck('count', 'nature')->toArray();
@@ -72,7 +72,7 @@ class PieChartController extends Controller
             ->get();
 
         // Define all possible categories
-        $allCategories = ['IQ', 'GK', 'MATH', 'OTHER', 'LOGIC'];
+        $allCategories = ['IQ', 'Math', 'Politics', 'Economics', 'Demographic', 'Other'];
 
         // Convert the data to an associative array
         $shData = $shData->pluck('count', 'nature')->toArray();

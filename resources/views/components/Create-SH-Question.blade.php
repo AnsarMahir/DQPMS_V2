@@ -1,3 +1,4 @@
+@props(['i', 'qNatures'])
 
 <div class="row justify-content-center pb-4">
     <div class="col-lg-8 p-4 border shadow">
@@ -10,10 +11,9 @@
             <div class="d-flex align-items-center" style="column-gap: 1rem;">
                     <div class="form-group" style="width:6rem;">
                         <select class="form-select" id="questionNature" name="{{'questionNature'.$i}}">    
-                            <option>IQ</option>
-                            <option>GK</option>
-                            <option>Math</option>
-                            <option>Logic</option>
+                            @foreach($qNatures as $nature)
+                                <option value="{{ $nature }}">{{ $nature }}</option>
+                            @endforeach
                         </select>
                     </div>
                     

@@ -1,3 +1,4 @@
+@props(['i','data'])
 
 <input type="hidden" value="{{$data[$i]['sh_questions_id']}}" name="{{'sh_questions_id'.$i}}">
 
@@ -16,7 +17,9 @@
                             <option value='IQ' {{$data[$i]['nature'] == 'IQ' ? 'selected' : ''}}>IQ</option>
                             <option value='GK' {{$data[$i]['nature'] == 'GK' ? 'selected' : ''}}>GK</option>
                             <option value='Math' {{$data[$i]['nature'] == 'Math' ? 'selected' : ''}}>Math</option>
-                            <option value='Logic' {{$data[$i]['nature'] == 'Logic' ? 'selected' : ''}}>Logic</option>
+                            <option value='Politics' {{$data[$i]['nature'] == 'Politics' ? 'selected' : ''}}>Politics</option>
+                            <option value='Economics' {{$data[$i]['nature'] == 'Economics' ? 'selected' : ''}}>Economics</option>
+                            <option value='Demographic' {{$data[$i]['nature'] == 'Demographic' ? 'selected' : ''}}>Demographic</option>
                         </select>
                     </div>
                     
@@ -36,10 +39,26 @@
         @error('question'.$i)
             <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p>                                
         @enderror
-        
-        <div class="row">
-            <img src="" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
+
+        <div class="d-flex flex-row-reverse" > 
+            <button class="btn" type="button" id="QuestionClearBtn{{$i}}" onClick="clearImage({{$i}},'Q')" style="display:none"><i class="bi bi-x"></button></i>
         </div>
+
+        @if($data[$i]['reference'])
+            <div class="row">
+                <img src="{{$data[$i]['reference']['reference_HTML']}}" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
+            </div>
+            @else
+            <div class="row">  
+                <img src="" alt="" id="{{$i.'questionPreviewImageTag'}}" class="img-fluid">
+            </div>
+        @endif
+        
+        @error($i.'Q_Reference')
+
+        <p class="text-danger fs-6 ms-1 mb-1">{{$message}}</p> 
+
+        @enderror
         
         <div class="pb-3">
             <div class="d-flex flex-fill">    
@@ -87,6 +106,31 @@
         imgTag.src = blobURL;//Pass BLOB URL to image Tag
 
 
+    }
+
+    function clearImage(questionId , type , answerIndex = null) {
+
+        let previewImageTagId, inputFileId, clearButtonId;
+
+        if (type === 'Q') {
+            previewImageTagId = questionId + 'questionPreviewImageTag';
+            inputFileId = questionId + 'Q_Reference';
+            clearButtonId = 'QuestionClearBtn' + questionId;
+        } else {
+            previewImageTagId = questionId + 'answerPreviewImageTag' + answerIndex;
+            inputFileId = questionId + 'A_Reference' + answerIndex;
+            clearButtonId = 'AnswerClearBtn' + questionId + answerIndex;
+        }
+
+        let imgTag = document.getElementById(previewImageTagId);
+        let inputFile = document.getElementById(inputFileId);
+        let clearButton = document.getElementById(clearButtonId);
+
+
+        imgTag.style.display = "none";
+        imgTag.src = "";
+        inputFile.value = "";
+        clearButton.style.display = "none";
     }
 
 </script>

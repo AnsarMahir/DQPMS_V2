@@ -133,6 +133,8 @@ public function showqnature(){
                                     ->groupBy('moderatorid')
                                     ->orderBy('pastpapers_count', 'asc')
                                     ->first();
+        
+        dd($moderatorQuery);
 
         if($moderatorQuery){
 
@@ -253,7 +255,21 @@ public function showqnature(){
         }
         }
         elseif($request['pastpaperData'][2]=='Short Answer'){
+
+            //dd($request);
+
             while($j<(int)$no_of_questions){
+
+                if($request->hasFile($j.'Q_Reference')){
+                    
+                    $questionReference = $this->storeQuestionReference($request,$j);
+        
+                    //dd($questionReference);
+                    
+                
+                }else{
+                    $questionReference = null;
+                }
 
                 $question = Sh_Question::where('sh_questions_id',$request['sh_questions_id'.$j]);
 
@@ -262,6 +278,12 @@ public function showqnature(){
                     'nature' => $request['questionNature'.$j],
                     'correct_answer' => $request[$j.'answer']
                 ]);
+
+                if($questionReference){
+                    $question->update([
+                        'q_referenceid' => $questionReference->R_id
+                    ]);
+                }
 
 
                 $j++;
@@ -358,10 +380,10 @@ public function showqnature(){
             $paperData = Mcq_Question::with(['answers','answers.reference','reference'])->where('pastpaper_reference',$id)->get()->toArray(); 
          
         }else{
-            $paperData = Sh_Question::where('pastpaper_reference',$id)->get();   
+            $paperData = Sh_Question::with('reference')->where('pastpaper_reference',$id)->get();   
         }
 
-        //dd($pastpaperData);
+        // dd($paperData);
 
         return view('ViewDraft',[
             'pastpaper' => $pastpaperData,
@@ -406,6 +428,218 @@ public function showqnature(){
         session()->flash('message', 'Draft deleted successfully');
 
         return response()->json(['message' => 'Paper deleted successfully']);
+    }
+
+    public function storeFromDraft(Request $request){
+
+        // dd($request);
+
+        $no_of_questions = $request['pastpaperData'][1];
+
+        $j = 0;
+
+        if($request['pastpaperData'][2]=='MCQ'){
+            while($j<(int)$no_of_questions){
+
+                if($request->hasFile($j.'Q_Reference')){
+                    
+                    $questionReference = $this->storeQuestionReference($request,$j);
+        
+                    // dd($questionReference);
+                    
+                
+                }else{
+                    $questionReference = null;
+                }
+        
+
+                $question = Mcq_Question::where('mcq_questions_id',$request['questionID'.$j]);
+
+                $question->update([
+                    'description' => $request['question'.$j],
+                    'nature' => $request['questionNature'.$j],
+                    'correct_answer' => $request[$j . 'answerRadio']
+                ]);
+
+                if($questionReference){
+                    $question->update([
+                        'referenceid' => $questionReference->R_id
+                    ]);
+                }
+
+                $questionID = (int)$request['questionID'.$j];
+
+                $answers = Mcq_Answer::where('question_id',$questionID)->get();
+
+                //dd($answers);
+                //dd($request);
+
+                $i = 0;
+                $a = 1;
+
+                foreach($answers as $answer){
+
+                    //dd($answer);
+
+                    if($request->hasFile($j.'A_Reference'.$a)){
+                
+                        $filename = time() . '-' . $j . 'Answer_Reference' . $a . '.' . $request->file($j.'A_Reference'.$a)->extension();
+                        $request->file($j.'A_Reference'.$a)->move(public_path('References'), $filename);
+        
+                        $answerReference = Reference::create([
+                            'reference_HTML'=>"/References/" . $filename
+                        ]);
+        
+                    }else{
+        
+                        $answerReference = null;
+        
+                    }
+                    
+                    $answer->update([
+                        'description' => $request[$j . 'answer' . $i],
+                    ]);
+
+                    if($answerReference){
+                        $answer->update([
+                            'reference' => $answerReference->R_id 
+                        ]);
+                    }
+
+                    $a++;
+                    $i++;
+                }
+
+
+                $j++;
+        }
+        }
+        elseif($request['pastpaperData'][2]=='Short Answer'){
+            while($j<(int)$no_of_questions){
+
+                if($request->hasFile($j.'Q_Reference')){
+                    
+                    $questionReference = $this->storeQuestionReference($request,$j);
+        
+                    // dd($questionReference);
+                    
+                
+                }else{
+                    $questionReference = null;
+                }
+
+                $question = Sh_Question::where('sh_questions_id',$request['sh_questions_id'.$j]);
+
+                $question->update([
+                    'description' => $request['question'.$j],
+                    'nature' => $request['questionNature'.$j],
+                    'correct_answer' => $request[$j.'answer']
+                ]);
+
+                if($questionReference){
+                    $question->update([
+                        'q_referenceid' => $questionReference->R_id
+                    ]);
+                }
+
+
+                $j++;
+            }
+        }else{
+
+            dd($request);
+
+        };
+
+        $i=0;
+        $no_of_questions = $request['pastpaperData'][1];
+        $errors = [];
+        $request->flash();
+
+        if($request['pastpaperData'][2]=='MCQ'){
+            
+            while($i<(int)$no_of_questions){
+
+                $validator = Validator::make($request->all(), [
+                    'question' . $i => 'required',
+                    'questionNature' . $i => 'required',
+                    $i . 'answer0' => 'required',
+                    $i . 'answer1' => 'required',
+                    $i . 'answer2' => 'required',
+                    $i . 'answer3' => 'required',
+                    $i . 'answerRadio'=> 'required',
+                ],
+                [
+                    $i.'answerRadio.required'=>'Please provide a correct answer.',
+                    $i.'answer.required'=>'Please provide a correct answer'
+    
+                ],
+                [
+                    'question'.$i=>'Question',
+                    $i.'answer0'=>'Answer',
+                    $i.'answer1'=>'Answer',
+                    $i.'answer2'=>'Answer',
+                    $i.'answer3'=>'Answer',
+                ]);
+
+                if ($validator->fails()) {
+                    $errors = array_merge($errors, $validator->errors()->toArray());
+                }
+
+                $i++;
+
+            }
+        }
+        else{
+            
+            while($i<(int)$no_of_questions){
+
+                $validator = Validator::make($request->all(), [
+                    'question' . $i => 'required',
+                    'questionNature' . $i => 'required',
+                    $i.'answer'=>'required'
+                ],
+                [
+                    $i.'answer.required'=>'Please provide a correct answer'
+                ],
+                [
+                    'question'.$i=>'Question'
+                ]
+                
+                );
+
+                if ($validator->fails()) {
+                    $errors = array_merge($errors, $validator->errors()->toArray());
+                }
+
+                $i++;
+            }
+
+        }
+
+        if (!empty($errors)) {
+            return redirect()->back()->withErrors($errors);
+        }
+
+        
+
+        $ModeratorID = $this->getModeratorId();
+
+        $pastpaperID = $request['pastpaperData'][0];
+
+        $pastPaper = Pastpaper::where('P_id',$pastpaperID);
+
+        $pastPaper->update([
+            'CreatorState' => 'Submitted',
+            'ModeratorState' => 'Review',
+            'ModeratorID' => $ModeratorID
+        ]);
+
+        return redirect('CreatorHomepage')->with('message','Paper uploaded for review successfully');
+             
+
+
+
     }
 
 
@@ -629,6 +863,8 @@ public function showqnature(){
     }
 
     public function storeShQuestions($request,$j,$pastpaper){
+
+        // dd($request);
 
         if($request->hasFile($j.'Q_Reference')){
                     

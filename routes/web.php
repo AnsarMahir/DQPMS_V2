@@ -167,6 +167,8 @@ Route::get('/QuestionCreation',[PastpaperController::class,'validateHomepageRequ
 
 Route::post('/QuestionStore',[PastpaperController::class,'validateAndStoreQuestions'])->middleware('creator');
 
+Route::post('/StoreDraft',[PastpaperController::class,'storeFromDraft']);
+
 //Route::post('/QuestionCreation',[PastpaperController::class,'store']);
 
 Route::get('/Student',[PastpaperController::class,'showForm']
